@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} flex h-screen flex-col`}>
         <Header />
         <main className="flex-1">{children}</main>
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );
