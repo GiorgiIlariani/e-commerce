@@ -8,7 +8,7 @@ export default function RootLayout({
   return (
     <main className="flex flex-col">
       {children}
-      {/* <Bottombar /> */}
+      <Bottombar />
     </main>
   );
 }

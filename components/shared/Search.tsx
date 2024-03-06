@@ -49,7 +49,7 @@ const SearchComponent = () => {
           className="text-white bg-[#fec900] min-w-[180px] rounded-2xl px-[14px] py-6 flex items-center gap-3 text-base"
           onClick={handleClick}>
           <IoSearch />
-          Search
+          <span className="text-white">Search</span>
         </Button>
       </div>
     </section>
