@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SignInFormSchema, SignUpFormSchema } from "@/lib/validator";
+import { SignInFormSchema } from "@/lib/validator";
 import { useState } from "react";
 
 const LogInForm = ({ type }: LoginFormProps) => {
@@ -27,14 +27,14 @@ const LogInForm = ({ type }: LoginFormProps) => {
         }
       : { email: "", password: "", username: "" };
 
-  const formSchema = type === "SignIn" ? SignInFormSchema : SignUpFormSchema;
+  // const formSchema = type === "SignIn" ? SignInFormSchema : SignUpFormSchema;
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof SignInFormSchema>>({
+    resolver: zodResolver(SignInFormSchema),
     defaultValues: formDefaultValues,
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof SignInFormSchema>) {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
