@@ -2,6 +2,11 @@
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiOutlineMessage } from "react-icons/ai";
 import { MdAddShoppingCart } from "react-icons/md";
+import { TiHome } from "react-icons/ti";
+import { BiCategory } from "react-icons/bi";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { CiHeart } from "react-icons/ci";
+import { IoMdPerson } from "react-icons/io";
 
 export const headerIcons = [
   {
@@ -41,5 +46,33 @@ export const NavLinks = [
   {
     label: "Rate us",
     href: "/rate-us",
+  },
+];
+
+export const sidebarLinks = [
+  {
+    icon: <TiHome />,
+    route: "/",
+    label: "Home",
+  },
+  {
+    icon: <BiCategory />,
+    route: "/categories",
+    label: "Categories",
+  },
+  {
+    icon: <IoIosAddCircleOutline />,
+    route: "/add-item",
+    label: "Add",
+  },
+  {
+    icon: <CiHeart />,
+    route: "/favorites",
+    label: "Favorites",
+  },
+  {
+    icon: <IoMdPerson />,
+    route: "/sign-in",
+    label: "LogIn",
   },
 ];

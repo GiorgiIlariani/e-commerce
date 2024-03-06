@@ -9,6 +9,10 @@
   scroll-behavior: smooth;
 }
 
+.shadow-top {
+  box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
 /* ========================================== TAILWIND STYLES */
 @layer utilities {
   .wrapper {
@@ -32,5 +36,17 @@
 
   .ring-none {
     @apply focus:ring-0 ring-offset-0 !important;
+  }
+
+  .bottombar {
+    @apply fixed bottom-0 z-10 w-full rounded-t-3xl p-5 md:hidden sm:px-7 border;
+  }
+
+  .bottombar_container {
+    @apply flex items-center justify-between gap-3;
+  }
+
+  .bottombar_link {
+    @apply relative flex flex-col items-center gap-2 rounded-lg p-2 sm:flex-1 sm:px-2 sm:py-2.5 text-base md:text-lg font-medium;
   }
 }
