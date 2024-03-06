@@ -7,7 +7,7 @@ const SignInPage = () => {
     <div className="flex flex-col">
       <h2 className="text-[28px] font-medium">Authorization</h2>
       <div className="max-w-xl py-6 w-full">
-        <LogInForm type="SignIn" />
+        <LogInForm type="Sign In" />
       </div>
       <div className="max-w-xl mt-6 text-center">
         <p className="text-lg text-gray-400">

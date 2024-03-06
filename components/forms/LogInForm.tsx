@@ -20,14 +20,12 @@ const LogInForm = ({ type }: LoginFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const formDefaultValues =
-    type === "SignIn"
+    type === "Sign In"
       ? {
           email: "",
           password: "",
         }
       : { email: "", password: "", username: "" };
-
-  // const formSchema = type === "SignIn" ? SignInFormSchema : SignUpFormSchema;
 
   const form = useForm<z.infer<typeof SignInFormSchema>>({
     resolver: zodResolver(SignInFormSchema),
@@ -45,7 +43,9 @@ const LogInForm = ({ type }: LoginFormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="sm:space-y-14 space-y-16">
         <FormField
           control={form.control}
           name="email"
@@ -75,7 +75,7 @@ const LogInForm = ({ type }: LoginFormProps) => {
             </FormItem>
           )}
         />
-        {type === "SignUp" && (
+        {type === "Sign Up" && (
           <FormField
             control={form.control}
             name="username"
