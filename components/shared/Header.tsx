@@ -37,17 +37,19 @@ const Header = () => {
               </Link>
             ))}
           </ul>
-          <Button className="flex items-center gap-2 rounded-xl px-2 border border-[#E5E5E5]">
-            <Image
-              src="/assets/images/person.svg"
-              alt="person"
-              width={20}
-              height={20}
-            />
-            <span className="text-xs font-medium">შესვლა</span>
-          </Button>
+          <Link href="/sign-in">
+            <Button className="flex items-center gap-2 rounded-xl px-2 border border-[#E5E5E5]">
+              <Image
+                src="/assets/images/person.svg"
+                alt="person"
+                width={20}
+                height={20}
+              />
+              <span className="text-xs font-medium">შესვლა</span>
+            </Button>
+          </Link>
         </div>
-
+        {/* mobile navigation */}
         <MobileNav />
       </div>
     </header>

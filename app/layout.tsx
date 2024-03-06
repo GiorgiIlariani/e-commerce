@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import Header from "@/components/shared/Header";
+import Footer from "@/components/shared/Footer";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -11,9 +13,6 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "E-commerce",
   description: "E-commerce platform",
-  // icons: {
-  //   icon: "/assets/images/logo.svg",
-  // },
 };
 
 export default function RootLayout({
@@ -23,7 +22,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppins.variable}>{children}</body>
+      <body className={`${poppins.variable} flex h-screen flex-col`}>
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

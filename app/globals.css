@@ -25,4 +25,8 @@
   .icon-overlay {
     @apply flex-center h-[34px] w-[34px] cursor-pointer text-xl duration-300 ease-out hover:rounded-full hover:bg-[#f1f3f6];
   }
+
+  .input-field {
+    @apply rounded-lg border border-[#DBDBDB] text-[16px] font-medium leading-[24px] px-4 py-[22px] outline-none !important;
+  }
 }
