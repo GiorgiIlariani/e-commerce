@@ -2,7 +2,7 @@
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiOutlineMessage } from "react-icons/ai";
 import { MdAddShoppingCart } from "react-icons/md";
-import { TiHome } from "react-icons/ti";
+import { GoHome } from "react-icons/go";
 import { BiCategory } from "react-icons/bi";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
@@ -51,7 +51,7 @@ export const NavLinks = [
 
 export const sidebarLinks = [
   {
-    icon: <TiHome />,
+    icon: <GoHome />,
     route: "/",
     label: "Home",
   },

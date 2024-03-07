@@ -12,9 +12,7 @@ const Bottombar = () => {
     <section className="bottombar shadow-top">
       <div className="bottombar_container">
         {sidebarLinks.map((link) => {
-          const isActive =
-            (pathname.includes(link.route) && link.route.length > 0) ||
-            pathname === link.route;
+          const isActive = pathname === link.route;
 
           return (
             <Link
