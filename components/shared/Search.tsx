@@ -55,7 +55,7 @@ const SearchComponent = () => {
           className="h-[50px] text-white bg-[#fec900] min-w-[180px] rounded-2xl px-[14px] items-center gap-3 text-base  hidden md:flex"
           // onClick={handleClick}
         >
-          <IoSearch />
+          {/* <IoSearch /> */}
           Search
         </Button>
       </div>
