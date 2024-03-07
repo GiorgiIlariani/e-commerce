@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { IoSearch } from "react-icons/io5";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery, removeKeysFromQuery } from "@/utils";
+import { VscSettings } from "react-icons/vsc";
 
 const SearchComponent = () => {
   const [query, setQuery] = useState("");
@@ -37,19 +38,24 @@ const SearchComponent = () => {
 
   return (
     <section className="wrapper">
-      <h2 className="font-medium text-2xl">Everything you're looking for</h2>
-      <div className="flex items-center gap-5 pt-6">
+      <h2 className="font-medium text-xl xs:text-2xl">
+        Everything you're looking for
+      </h2>
+      <div className="flex items-center gap-4 pt-6">
         <Input
           placeholder="iphone 14"
           value={query}
           onChange={changeHandler}
-          className="py-6 px-4 outline-none rounded-2xl border border-[#fec900] ring-none"
+          className="h-[50px] px-4 outline-none rounded-2xl border border-[#fec900] ring-none"
         />
+        <div className="min-w-[68px] h-[50px] rounded-2xl bg-[#f1f3f6] hidden md:flex items-center justify-center cursor-pointer">
+          <VscSettings />
+        </div>
         <Button
-          className="text-white bg-[#fec900] min-w-[180px] rounded-2xl px-[14px] py-6 flex items-center gap-3 text-base"
+          className="h-[50px] text-white bg-[#fec900] min-w-[180px] rounded-2xl px-[14px] items-center gap-3 text-base  hidden md:flex"
           onClick={handleClick}>
           <IoSearch />
-          <span className="text-white">Search</span>
+          Search
         </Button>
       </div>
     </section>

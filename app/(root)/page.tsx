@@ -2,9 +2,8 @@ import SearchComponent from "@/components/shared/Search";
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col mt-8">
-      {/* <SearchComponent /> */}
-      Home
+    <div className="min-h-[200vh] flex flex-col mt-8">
+      <SearchComponent />
     </div>
   );
 };
