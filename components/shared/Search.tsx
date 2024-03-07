@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-// import { Input } from "../ui/input";
-// import { Button } from "../ui/button";
-// import { IoSearch } from "react-icons/io5";
-// import { useRouter, useSearchParams } from "next/navigation";
-// import { formUrlQuery, removeKeysFromQuery } from "@/utils";
-// import { VscSettings } from "react-icons/vsc";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { IoSearch } from "react-icons/io5";
+import { useRouter, useSearchParams } from "next/navigation";
+import { formUrlQuery, removeKeysFromQuery } from "@/utils";
+import { VscSettings } from "react-icons/vsc";
 
 const SearchComponent = () => {
   // const [query, setQuery] = useState("");
