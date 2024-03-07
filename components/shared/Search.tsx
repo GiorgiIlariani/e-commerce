@@ -9,13 +9,13 @@ import { formUrlQuery, removeKeysFromQuery } from "@/utils";
 import { VscSettings } from "react-icons/vsc";
 
 const SearchComponent = () => {
-  const [query, setQuery] = useState("");
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  // const [query, setQuery] = useState("");
+  // const searchParams = useSearchParams();
+  // const router = useRouter();
 
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
+  // const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setQuery(e.target.value);
+  // };
 
   // const handleClick = () => {
   //   let newUrl = "";
@@ -41,7 +41,7 @@ const SearchComponent = () => {
       <h2 className="font-medium text-xl xs:text-2xl">
         Everything you're looking for
       </h2>
-      <div className="flex items-center gap-4 pt-6">
+      {/* <div className="flex items-center gap-4 pt-6">
         <Input
           placeholder="iphone 14"
           value={query}
@@ -58,7 +58,7 @@ const SearchComponent = () => {
           <IoSearch />
           Search
         </Button>
-      </div>
+      </div> */}
     </section>
   );
 };
