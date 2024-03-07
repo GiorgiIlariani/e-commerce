@@ -17,24 +17,24 @@ const SearchComponent = () => {
     setQuery(e.target.value);
   };
 
-  const handleClick = () => {
-    let newUrl = "";
+  // const handleClick = () => {
+  //   let newUrl = "";
 
-    if (query) {
-      newUrl = formUrlQuery({
-        params: searchParams.toString(),
-        key: "query",
-        value: query,
-      });
-    } else {
-      newUrl = removeKeysFromQuery({
-        params: searchParams.toString(),
-        keysToRemove: ["query"],
-      });
-    }
+  //   if (query) {
+  //     newUrl = formUrlQuery({
+  //       params: searchParams.toString(),
+  //       key: "query",
+  //       value: query,
+  //     });
+  //   } else {
+  //     newUrl = removeKeysFromQuery({
+  //       params: searchParams.toString(),
+  //       keysToRemove: ["query"],
+  //     });
+  //   }
 
-    router.push(newUrl, { scroll: false });
-  };
+  //   router.push(newUrl, { scroll: false });
+  // };
 
   return (
     <section className="wrapper">
@@ -53,7 +53,8 @@ const SearchComponent = () => {
         </div>
         <Button
           className="h-[50px] text-white bg-[#fec900] min-w-[180px] rounded-2xl px-[14px] items-center gap-3 text-base  hidden md:flex"
-          onClick={handleClick}>
+          // onClick={handleClick}
+        >
           <IoSearch />
           Search
         </Button>
