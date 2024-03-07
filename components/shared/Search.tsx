@@ -9,7 +9,7 @@ import { formUrlQuery, removeKeysFromQuery } from "@/utils";
 import { VscSettings } from "react-icons/vsc";
 
 const SearchComponent = () => {
-  // const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("");
   // const searchParams = useSearchParams();
   // const router = useRouter();
 
