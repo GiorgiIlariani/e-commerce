@@ -10,8 +10,8 @@ import { VscSettings } from "react-icons/vsc";
 
 const SearchComponent = () => {
   const [query, setQuery] = useState("");
-  // const searchParams = useSearchParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
