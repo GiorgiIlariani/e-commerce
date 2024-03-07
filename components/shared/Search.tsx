@@ -13,9 +13,9 @@ const SearchComponent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
+  // const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setQuery(e.target.value);
+  // };
 
   // const handleClick = () => {
   //   let newUrl = "";
