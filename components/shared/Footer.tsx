@@ -68,7 +68,6 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <hr className="my-4 w-full" />
       <div className="h-[90px] w-full">
         <div className="mx-auto flex h-full max-w-[1272px] px-[20px] items-center justify-between text-[12px] text-[#8996ae] gap-x-4">
           <strong>
