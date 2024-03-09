@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="georgia" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-2{fill:#ff3b30}
+        </style>
+    </defs>
+    <circle id="Ellipse_582" cx="12" cy="12" r="12" fill="#fff"/>
+    <g id="Group_3778">
+        <path id="Path_2838" d="M23.9 10.435H13.565V.1a12.11 12.11 0 0 0-3.13 0v10.335H.1a12.11 12.11 0 0 0 0 3.13h10.335V23.9a12.11 12.11 0 0 0 3.13 0V13.565H23.9a12.11 12.11 0 0 0 0-3.13z" class="cls-2"/>
+        <path id="Path_2839" d="M92.173 90.608v-1.565h-1.565v1.565h-1.565v1.565h1.565v1.565h1.565v-1.565h1.565v-1.565z" class="cls-2" transform="translate(-84.869 -84.869)"/>
+        <path id="Path_2840" d="M325.913 90.608v-1.565h-1.565v1.565h-1.565v1.565h1.565v1.565h1.565v-1.565h1.565v-1.565z" class="cls-2" transform="translate(-307.653 -84.869)"/>
+        <path id="Path_2841" d="M92.173 324.348v-1.565h-1.565v1.565h-1.565v1.565h1.565v1.565h1.565v-1.565h1.565v-1.565z" class="cls-2" transform="translate(-84.869 -307.653)"/>
+        <path id="Path_2842" d="M325.913 324.348v-1.565h-1.565v1.565h-1.565v1.565h1.565v1.565h1.565v-1.565h1.565v-1.565z" class="cls-2" transform="translate(-307.653 -307.653)"/>
+    </g>
+</svg>

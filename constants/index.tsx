@@ -8,6 +8,18 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
 import { IoMdPerson } from "react-icons/io";
 
+// footer images
+import GeorgiaFlag from "@/public/assets/images/geo-flag.svg";
+import EnglishFlag from "@/public/assets/images/english-flag.svg";
+import RussianFlag from "@/public/assets/images/russian-flag.svg";
+
+import GooglePlay from "@/public/assets/images/google-play.svg";
+import AppStore from "@/public/assets/images/app-store.svg";
+
+import Facebook from "@/public/assets/images/facebook.svg";
+import Instagram from "@/public/assets/images/instagram.svg";
+import LinkedIn from "@/public/assets/images/linkedIn.svg";
+
 export const headerIcons = [
   {
     id: 1,
@@ -74,5 +86,74 @@ export const sidebarLinks = [
     icon: <IoMdPerson />,
     route: "/sign-in",
     label: "LogIn",
+  },
+];
+
+// footer
+export const topCategories = {
+  title: "ტოპ კატეგორიები",
+  links: [
+    "მომსახურება",
+    "გაქირავება",
+    "სახლი და ბაღი",
+    "საოჯახო ტექნიკა",
+    "ტექნიკა",
+    "ნადირობა და თევზაობა",
+    "მუსიკა",
+    "საბავშვო",
+    "სილამაზე და მოდა",
+    "მშენებლობა და რემონტი",
+    "სოფლის მეურნეობა",
+    "ცხოველები",
+    "სპორტი და დასვენება",
+    "ბიზნესი და დანადგარები",
+    "წიგნები და კანცელარია",
+    "ხელოვნება და საკოლექციო",
+  ],
+};
+
+export const menuAndMyPageCategories = [
+  {
+    id: 1,
+    title: "მენიუ",
+    links: [
+      "მთავარი",
+      "მაღაზიები",
+      "იყიდე ონლაინ",
+      "დახმარება",
+      "დაბრუნების პოლიტიკა",
+      "კონტაქტი",
+      "წესები და პირობები",
+      "კონფიდენციალობის პოლიტ",
+    ],
+  },
+  {
+    id: 2,
+    title: "ჩემი გვერდი",
+    links: [
+      "ჩემი განცხადებები",
+      "განცხადების დამატება",
+      "შეტყობინებები",
+      "ბალანსის შევსება",
+      "ანგარიშის რედაქტირება",
+    ],
+  },
+];
+
+export const additionalCategories = [
+  {
+    id: 1,
+    title: "სოც.ქსელები",
+    links: [Facebook, Instagram, LinkedIn],
+  },
+  {
+    id: 2,
+    title: "ენები",
+    links: [GeorgiaFlag, EnglishFlag, RussianFlag],
+  },
+  {
+    id: 3,
+    title: "გადმოწერე აპლიკაცია",
+    links: [AppStore, GooglePlay],
   },
 ];

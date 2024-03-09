@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="united-kingdom" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-2{fill:#4a6cfa}.cls-3{fill:#ff3b30}
+        </style>
+    </defs>
+    <circle id="Ellipse_583" cx="12" cy="12" r="12" fill="#fff"/>
+    <g id="Group_3779" transform="translate(.413 .413)">
+        <path id="Path_2843" d="M10.886 100.142a11.956 11.956 0 0 0-2.067 4.175h6.243z" class="cls-2" transform="translate(-8.819 -95.861)"/>
+        <path id="Path_2844" d="M376.248 104.318a11.957 11.957 0 0 0-2.067-4.175l-4.175 4.175z" class="cls-2" transform="translate(-353.074 -95.862)"/>
+        <path id="Path_2845" d="M8.819 322.784a11.957 11.957 0 0 0 2.067 4.175l4.175-4.175z" class="cls-2" transform="translate(-8.819 -308.067)"/>
+        <path id="Path_2846" d="M326.957 10.886a11.957 11.957 0 0 0-4.175-2.067v6.243z" class="cls-2" transform="translate(-308.065 -8.819)"/>
+        <path id="Path_2847" d="M100.142 374.18a11.957 11.957 0 0 0 4.175 2.067v-6.243z" class="cls-2" transform="translate(-95.861 -353.074)"/>
+        <path id="Path_2848" d="M104.317 8.819a11.957 11.957 0 0 0-4.175 2.067l4.175 4.175z" class="cls-2" transform="translate(-95.861 -8.819)"/>
+        <path id="Path_2849" d="M322.783 376.248a11.957 11.957 0 0 0 4.175-2.067l-4.175-4.175z" class="cls-2" transform="translate(-308.066 -353.074)"/>
+        <path id="Path_2850" d="M370.005 322.784l4.175 4.175a11.957 11.957 0 0 0 2.067-4.175z" class="cls-2" transform="translate(-353.074 -308.067)"/>
+    </g>
+    <g id="Group_3780">
+        <path id="Path_2851" d="M23.9 10.435H13.565V.1a12.11 12.11 0 0 0-3.13 0v10.335H.1a12.11 12.11 0 0 0 0 3.13h10.335V23.9a12.11 12.11 0 0 0 3.13 0V13.565H23.9a12.11 12.11 0 0 0 0-3.13z" class="cls-3"/>
+        <path id="Path_2852" d="M322.783 322.783l5.355 5.355q.369-.369.705-.77l-4.584-4.584h-1.476z" class="cls-3" transform="translate(-307.653 -307.653)"/>
+        <path id="Path_2853" d="M80.335 322.784l-5.355 5.355q.369.369.77.705l4.584-4.585z" class="cls-3" transform="translate(-71.465 -307.654)"/>
+        <path id="Path_2854" d="M65.993 80.335l-5.355-5.355q-.369.369-.705.77l4.585 4.585h1.476z" class="cls-3" transform="translate(-57.124 -71.465)"/>
+        <path id="Path_2855" d="M322.783 65.994l5.355-5.355q-.369-.369-.77-.705l-4.584 4.585z" class="cls-3" transform="translate(-307.653 -57.125)"/>
+    </g>
+</svg>
