@@ -3,5 +3,7 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <main className="wrapper flex h-screen flex-col">{children}</main>;
+  return (
+    <main className="wrapper flex min-h-screen flex-col py-6">{children}</main>
+  );
 }

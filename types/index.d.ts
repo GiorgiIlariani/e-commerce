@@ -12,3 +12,12 @@ declare type UrlQueryParams = {
   key: string
   value: string | null
 }
+
+
+declare type AuthenticateUserProps = {
+  username: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  password: string;
+}

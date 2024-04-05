@@ -20,6 +20,13 @@ import Facebook from "@/public/assets/images/facebook.svg";
 import Instagram from "@/public/assets/images/instagram.svg";
 import LinkedIn from "@/public/assets/images/linkedIn.svg";
 
+// contact page
+import ContactImg1 from "@/public/assets/images/contact-img1.svg";
+import ContactImg2 from "@/public/assets/images/contact-img2.svg";
+import ContactImg3 from "@/public/assets/images/contact-img3.svg";
+import ContactImg4 from "@/public/assets/images/contact-img4.svg";
+import ContactImg5 from "@/public//assets/images/contact-img5.svg";
+
 export const headerIcons = [
   {
     id: 1,
@@ -155,5 +162,33 @@ export const additionalCategories = [
     id: 3,
     title: "გადმოწერე აპლიკაცია",
     links: [AppStore, GooglePlay],
+  },
+];
+
+export const ContactPageConstants = [
+  {
+    id: 1,
+    text: "შპს თინეთი",
+    img: ContactImg1,
+  },
+  {
+    id: 2,
+    text: "info@mymarket.ge",
+    img: ContactImg2,
+  },
+  {
+    id: 3,
+    text: "საიდენთიფიკაციო კოდი 405581096",
+    img: ContactImg3,
+  },
+  {
+    id: 4,
+    text: "(032) 280 00 35",
+    img: ContactImg4,
+  },
+  {
+    id: 5,
+    text: "ქ. თბილისი, ვაკის რაიონი", // , შალვა ნუცუბიძის ქუჩა N129ა, სართული 3
+    img: ContactImg5,
   },
 ];

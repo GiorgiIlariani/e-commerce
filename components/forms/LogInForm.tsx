@@ -15,30 +15,67 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignInFormSchema } from "@/lib/validator";
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { SignInUser, authenticateUser } from "@/lib/actions/user-actions";
 
 const LogInForm = ({ type }: LoginFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const formDefaultValues =
     type === "Sign In"
       ? {
-          email: "",
+          username: "",
           password: "",
         }
-      : { email: "", password: "", username: "" };
+      : {
+          username: "",
+          email: "",
+          first_name: "",
+          last_name: "",
+          password: "",
+        };
 
   const form = useForm<z.infer<typeof SignInFormSchema>>({
     resolver: zodResolver(SignInFormSchema),
     defaultValues: formDefaultValues,
   });
 
-  function onSubmit(values: z.infer<typeof SignInFormSchema>) {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+  async function onSubmit(values: z.infer<typeof SignInFormSchema>) {
+    try {
+      setIsLoading(true);
+      let response;
 
-    console.log({ values });
+      if (type === "Sign In") {
+        response = await SignInUser({
+          username: values.username,
+          password: values.password,
+        });
+      } else {
+        response = await authenticateUser({
+          email: values.email || "test@example.com",
+          first_name: values.first_name || "test",
+          last_name: values.last_name || "test",
+          username: values.username,
+          password: values.password,
+        });
+      }
+
+      if (response.id) {
+        router.push(`${pathname}/sign-in`);
+      }
+
+      if (response.access) {
+        typeof window !== "undefined" &&
+          localStorage.setItem("access-token", response.access);
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -46,18 +83,79 @@ const LogInForm = ({ type }: LoginFormProps) => {
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="sm:space-y-14 space-y-16">
+        {/* username */}
         <FormField
           control={form.control}
-          name="email"
+          name="username"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Email" {...field} className="input-field" />
+                <Input
+                  placeholder="Username"
+                  {...field}
+                  className="input-field"
+                />
               </FormControl>
               <FormMessage className="text-red-600" />
             </FormItem>
           )}
         />
+        {type === "Sign Up" && (
+          <>
+            {/* email */}
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Email"
+                      {...field}
+                      className="input-field"
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-600" />
+                </FormItem>
+              )}
+            />
+            {/* first name */}
+            <FormField
+              control={form.control}
+              name="first_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="First Name"
+                      {...field}
+                      className="input-field"
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-600" />
+                </FormItem>
+              )}
+            />
+            {/* last name */}
+            <FormField
+              control={form.control}
+              name="last_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Last Name"
+                      {...field}
+                      className="input-field"
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-600" />
+                </FormItem>
+              )}
+            />
+          </>
+        )}
+        {/* password */}
         <FormField
           control={form.control}
           name="password"
@@ -75,24 +173,7 @@ const LogInForm = ({ type }: LoginFormProps) => {
             </FormItem>
           )}
         />
-        {type === "Sign Up" && (
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    placeholder="Username"
-                    {...field}
-                    className="input-field"
-                  />
-                </FormControl>
-                <FormMessage className="text-red-600" />
-              </FormItem>
-            )}
-          />
-        )}
+
         <Button
           type="submit"
           className="w-full bg-[#fec900] rounded-lg py-[22px] text-white text-center font-medium text-xl hover:bg-[#ffdb4d]"

@@ -1,11 +1,22 @@
 "use client";
 
-import { NavLinks, headerIcons } from "@/constants";
+import { NavLinks } from "@/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 const NavItems = () => {
   const pathname = usePathname();
+  const storedToken =
+    typeof window !== "undefined" && localStorage.getItem("access-token");
+  const initialUserLoggedIn = storedToken ? true : false;
+
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(initialUserLoggedIn);
+
+  const handleLogout = () => {
+    localStorage.setItem("access-token", "");
+    setIsUserLoggedIn(false);
+  };
   return (
     <ul className="flex items-start flex-col gap-10">
       {NavLinks.map(({ label, href }) => {
@@ -20,6 +31,13 @@ const NavItems = () => {
           </Link>
         );
       })}
+      {isUserLoggedIn && (
+        <div
+          className="text-xl font-normal cursor-pointer"
+          onClick={handleLogout}>
+          Logout
+        </div>
+      )}
     </ul>
   );
 };

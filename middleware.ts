@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 
-const protectedRoutes = ["/", ""];
+const protectedRoutes = ["/favorites", "mycartq2"];
 
 
 export default function middleware(req: NextRequest) {
