@@ -78,3 +78,25 @@ export const deleteUser = async (user: string, password: string) => {
     throw error;
   }
 };
+
+export const fetchCurrentUser = async (user: string) => {
+  try {
+    const response = await fetch(`${url}/users/me/`, {
+      method: 'GET',
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${user}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch current user');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching current user:', error);
+    throw error;
+  }
+};

@@ -26,7 +26,7 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
         <SelectValue placeholder="Category" />
       </SelectTrigger>
       <SelectContent>
-        {categories.length > 0 &&
+        {/* {categories.length > 0 &&
           categories.map((category, index) => (
             <SelectItem
               key={index}
@@ -34,7 +34,10 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
               className="select-item p-regular-14">
               name
             </SelectItem>
-          ))}
+          ))} */}
+        <SelectItem value="phone">phone</SelectItem>
+        <SelectItem value="computer">computer</SelectItem>
+        <SelectItem value="service">service</SelectItem>
       </SelectContent>
     </Select>
   );

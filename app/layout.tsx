@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import Header from "@/components/shared/Header";
-import Footer from "@/components/shared/Footer";
+import Header from "@/components/shared/layout/Header";
+import Footer from "@/components/shared/layout/Footer";
+
 import "./globals.css";
-import Bottombar from "@/components/shared/Bottombar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -12,8 +12,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "E-commerce",
-  description: "E-commerce platform",
+  title: "მეორადი და ახალი ნივთების გაყიდვის პლათფორმა...",
+  description: "მეორადი და ახალი ნივთების გაყიდვის პლათფორმა...",
 };
 
 export default function RootLayout({

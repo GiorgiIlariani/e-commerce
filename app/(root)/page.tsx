@@ -1,12 +1,24 @@
-import SearchComponent from "@/components/shared/Search";
-import { Suspense } from "react";
+import CircledCategories from "@/components/shared/home/CircledCategories";
+import HowToBuyOnline from "@/components/shared/home/HowToBuy";
+import Promoting from "@/components/shared/home/Promoting";
+import SavedCategories from "@/components/shared/home/SavedCategories";
+import SearchComponent from "@/components/shared/home/Search";
+import { fetchProducts } from "@/lib/actions/product-actions";
 
-const HomePage = () => {
+const HomePage = async () => {
+  const products = await fetchProducts();
+  console.log({ products });
+
   return (
-    <div className="min-h-[200vh] flex flex-col mt-8">
-      <Suspense fallback={<div>Loading...</div>}>
+    <div className="bg-[#f1f3f6]">
+      <div className="wrapper">
         <SearchComponent />
-      </Suspense>
+        <SavedCategories />
+        <Promoting />
+        <CircledCategories />
+      </div>
+
+      <HowToBuyOnline />
     </div>
   );
 };

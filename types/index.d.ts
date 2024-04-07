@@ -21,3 +21,15 @@ declare type AuthenticateUserProps = {
   last_name: string;
   password: string;
 }
+
+declare interface UserDetailsTypes {
+  id: number;
+  username: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  profile: {
+    image: string;
+    balance: number;
+  };
+}

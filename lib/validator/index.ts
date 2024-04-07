@@ -19,3 +19,16 @@ export const SignInFormSchema = z.object({
   }).optional(),
 });
 
+
+
+export const deactivateFormSchema = z.object({
+  password: z.string().min(4, {
+    message: "პაროლის სიგრძე უნდა აღემატებოდეს 4 სიმბოლოს",
+  }),
+});
+
+export const filtersFormSchema = z.object({
+  location: z.string().optional(),
+  max_price: z.string().optional(),
+  min_price: z.string().optional(),
+});
