@@ -4,6 +4,7 @@ import Promoting from "@/components/shared/home/Promoting";
 import SavedCategories from "@/components/shared/home/SavedCategories";
 import SearchComponent from "@/components/shared/home/Search";
 import { fetchProducts } from "@/lib/actions/product-actions";
+import { Suspense } from "react";
 
 const HomePage = async () => {
   const products = await fetchProducts();
@@ -12,10 +13,12 @@ const HomePage = async () => {
   return (
     <div className="bg-[#f1f3f6]">
       <div className="wrapper">
-        <SearchComponent />
-        <SavedCategories />
-        <Promoting />
-        <CircledCategories />
+        <Suspense fallback={<div>Loading...</div>}>
+          <SearchComponent />
+          <SavedCategories />
+          <Promoting />
+          <CircledCategories />
+        </Suspense>
       </div>
 
       <HowToBuyOnline />
