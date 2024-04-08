@@ -1,28 +1,53 @@
 "use client";
 
 import { CircledCategoriesConstants } from "@/constants";
-import useSmoothHorizontalScroll from "use-smooth-horizontal-scroll";
-// import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 
-const CircledCategories = () => {
-  const { scrollContainerRef, handleScroll } = useSmoothHorizontalScroll();
+// Import Swiper styles
+import "swiper/css";
 
+import { Navigation } from "swiper/modules";
+
+const CircledCategories = () => {
   return (
     <section className="w-full">
-      <div
-        className="w-full flex items-center overflow-auto no-scrollbar gap-x-7"
-        ref={scrollContainerRef as React.RefObject<HTMLDivElement>}
-        onScroll={handleScroll}>
+      <Swiper
+        mousewheel
+        direction="horizontal"
+        className="mySwiper"
+        pagination={false}
+        navigation={{
+          nextEl: ".image-swiper-button-next",
+          prevEl: ".image-swiper-button-prev",
+          disabledClass: "swiper-button-disabled",
+        }}
+        modules={[Navigation]}
+        breakpoints={{
+          1400: {
+            slidesPerView: 6,
+            spaceBetween: 20,
+          },
+          1200: {
+            slidesPerView: 5,
+            spaceBetween: 20,
+          },
+          1000: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+          },
+        }}>
         {CircledCategoriesConstants.map(({ img, title, id }) => (
-          <div className="flex flex-col items-center gap-y-[16px]" key={id}>
+          <SwiperSlide key={id} className="flex flex-col items-center">
             <div className="w-[183px] h-[180px] bg-white hover:bg-[#fec900] transition duration-300 ease-out rounded-full flex items-center justify-center cursor-pointer">
               <Image src={img} alt={title} width={100} height={100} />
             </div>
-            <div className="text-[13px] font-bold text-center">{title}</div>
-          </div>
+            <div className="text-[13px] font-bold mt-4 text-center">
+              {title}
+            </div>
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </section>
   );
 };

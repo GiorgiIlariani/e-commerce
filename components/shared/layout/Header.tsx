@@ -21,15 +21,17 @@ const Header = () => {
         </Link>
         {/* right side of the header */}
         <div className="hidden md:flex items-center gap-4">
-          <Button className="flex items-center gap-2 rounded-xl px-6 bg-[#FFF4CC] hover:bg-[#FFF4CC]">
-            <Image
-              src="/assets/images/add-sign.svg"
-              alt="add-sign"
-              width={20}
-              height={20}
-            />
-            <span className="text-xs font-medium">დამატება</span>
-          </Button>
+          <Link href="/product-form">
+            <Button className="flex items-center gap-2 rounded-xl px-6 bg-[#FFF4CC] hover:bg-[#FFF4CC]">
+              <Image
+                src="/assets/images/add-sign.svg"
+                alt="add-sign"
+                width={20}
+                height={20}
+              />
+              <span className="text-xs font-medium">დამატება</span>
+            </Button>
+          </Link>
           <ul className="flex items-center">
             {headerIcons.map(({ href, icon }) => (
               <Link href={href} className="icon-overlay" key={href}>

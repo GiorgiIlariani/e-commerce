@@ -22,6 +22,7 @@ const SearchComponent = () => {
 
     if (query) {
       const searchedCategoriesString =
+        typeof window !== "undefined" &&
         localStorage.getItem("searchedCategories");
       const searchedCategories = searchedCategoriesString
         ? JSON.parse(searchedCategoriesString)
@@ -29,10 +30,11 @@ const SearchComponent = () => {
 
       if (!searchedCategories.includes(query.toLowerCase())) {
         searchedCategories.push(query.toLowerCase());
-        localStorage.setItem(
-          "searchedCategories",
-          JSON.stringify(searchedCategories)
-        );
+        typeof window !== "undefined" &&
+          localStorage.setItem(
+            "searchedCategories",
+            JSON.stringify(searchedCategories)
+          );
       }
 
       newUrl = formUrlQuery({

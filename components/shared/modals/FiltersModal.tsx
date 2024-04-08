@@ -34,8 +34,11 @@ import { Button } from "../../ui/button";
 import { IoTrashBinSharp } from "react-icons/io5";
 import { Input } from "../../ui/input";
 import { filtersFormSchema } from "@/lib/validator";
+import { useRouter } from "next/navigation";
 
 export function Filters() {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof filtersFormSchema>>({
     resolver: zodResolver(filtersFormSchema),
     defaultValues: {
@@ -45,12 +48,26 @@ export function Filters() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof filtersFormSchema>) {
-    try {
-      console.log(values);
-    } catch (error) {
-      console.log(error);
+  function onSubmit(values: z.infer<typeof filtersFormSchema>) {
+    const min_price = values.min_price;
+    const max_price = values.max_price;
+    const location = values.location;
+
+    let queryString = "/search/?";
+
+    if (min_price !== "") {
+      queryString += `min_price=${min_price}&`;
     }
+
+    if (max_price !== "") {
+      queryString += `max_price=${max_price}&`;
+    }
+
+    if (location !== "") {
+      queryString += `location=${location}`;
+    }
+
+    router.push(queryString);
   }
 
   return (
@@ -138,11 +155,11 @@ export function Filters() {
                 />
               </div>
             </div>
-            {/* </div> */}
-
             <Separator className="border border-gray-100" />
             <div className="w-full flex justify-between items-center gap-2">
-              <div className="flex items-center gap-3 text-[#DF2935] text-lg cursor-pointer">
+              <div
+                className="flex  items-center gap-3 text-[#DF2935] text-lg cursor-pointer"
+                onClick={() => form.reset()}>
                 <IoTrashBinSharp />
                 <span>clean up</span>
               </div>
