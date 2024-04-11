@@ -33,3 +33,18 @@ declare interface UserDetailsTypes {
     balance: number;
   };
 }
+
+type Product = {
+  id: number;
+  name: string;
+  description: string;
+  category: number[];
+  price: number;
+  quantity: number;
+  created_at: string; // Assuming this is a string representation of datetime
+  location: string;
+  images: { id: number; image: string }[];
+  user: number;
+};
+
+type ProductList = Product[];

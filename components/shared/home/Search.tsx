@@ -42,14 +42,14 @@ const SearchComponent = () => {
         key: "query",
         value: query,
       });
-
-      router.push(`/search/${newUrl}`, { scroll: false });
     } else {
       newUrl = removeKeysFromQuery({
         params: searchParams.toString(),
         keysToRemove: ["query"],
       });
     }
+
+    router.push(`/search/${newUrl}`, { scroll: false });
   };
 
   return (

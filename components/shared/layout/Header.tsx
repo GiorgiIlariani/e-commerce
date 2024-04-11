@@ -1,8 +1,12 @@
+// "use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../../ui/button";
 import { headerIcons } from "@/constants";
 import MobileNav from "./MobileNav";
+import { useEffect } from "react";
+import HeaderSignInInfo from "../HeaderSignInInfo";
 
 const Header = () => {
   return (
@@ -39,17 +43,8 @@ const Header = () => {
               </Link>
             ))}
           </ul>
-          <Link href="/sign-in">
-            <Button className="flex items-center gap-2 rounded-xl px-2 border border-[#E5E5E5]">
-              <Image
-                src="/assets/images/person.svg"
-                alt="person"
-                width={20}
-                height={20}
-              />
-              <span className="text-xs font-medium">შესვლა</span>
-            </Button>
-          </Link>
+
+          <HeaderSignInInfo />
         </div>
         {/* mobile navigation */}
         <MobileNav />

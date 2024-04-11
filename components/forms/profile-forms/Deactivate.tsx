@@ -17,9 +17,11 @@ import { Input } from "@/components/ui/input";
 import { deactivateFormSchema } from "@/lib/validator";
 import { useState } from "react";
 import { deleteUser } from "@/lib/actions/user-actions";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const DeactivateForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const user =
     typeof window !== "undefined" && localStorage.getItem("access-token");
@@ -34,15 +36,21 @@ const DeactivateForm = () => {
     try {
       if (!user) return;
 
-      const isAccountDeactivated = await deleteUser(user, values.password);
-
-      console.log({ isAccountDeactivated });
-
-      setIsLoading(true);
+      const status = await deleteUser(user, values.password);
+      if (status === 204) {
+        toast.success(
+          "Account has beed deactivated, you will be redirected on home page soon!",
+          {
+            position: "top-center",
+            autoClose: 3000,
+          }
+        );
+        setTimeout(() => {
+          router.push("/");
+        }, 2000);
+      }
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   }
 

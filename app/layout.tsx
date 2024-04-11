@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Header from "@/components/shared/layout/Header";
 import Footer from "@/components/shared/layout/Footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./globals.css";
 
@@ -24,6 +26,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} flex h-screen flex-col`}>
+        <ToastContainer />
+
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

@@ -71,8 +71,8 @@ export const deleteUser = async (user: string, password: string) => {
       throw new Error('Failed to delete user');
     }
 
-    const data = await response.text();
-    return data;
+    
+    return response.status;
   } catch (error) {
     console.error('Error deleting user:', error);
     throw error;
@@ -100,3 +100,5 @@ export const fetchCurrentUser = async (user: string) => {
     throw error;
   }
 };
+
+

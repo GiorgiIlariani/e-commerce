@@ -1,11 +1,13 @@
 const url = 'http://16.16.253.75';
 
-export const fetchProducts = async (category?: string) => {
+// category?: string
+export const fetchProducts = async () => {
+    
     try {
         const response = await fetch(`${url}/products/`, {
             method: 'GET',
             headers: {
-                'accept': 'application/json'
+                'accept': 'application/json',
             }
         });
 
@@ -21,6 +23,27 @@ export const fetchProducts = async (category?: string) => {
     }
 };
 
+export const fetchSingleProduct = async (productId, user) => {
+    try {
+        const response = await fetch(`${url}/products/${productId}/`, {
+            method: 'GET',
+            headers: {
+                'accept': 'application/json',
+                'Authorization': `Bearer ${user}`,
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch single product');
+        }
+
+        const product = await response.json();
+        return product;
+    } catch (error) {
+        console.error('Error while fetching single product:', error);
+        throw error;
+    }
+};
 
 export const postProduct = async (productData: any, user: string) => {
     try {
