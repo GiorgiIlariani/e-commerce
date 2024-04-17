@@ -23,7 +23,7 @@ export const fetchProducts = async () => {
     }
 };
 
-export const fetchSingleProduct = async (productId, user) => {
+export const fetchSingleProduct = async (productId: string, user: string) => {
     try {
         const response = await fetch(`${url}/products/${productId}/`, {
             method: 'GET',
@@ -45,16 +45,16 @@ export const fetchSingleProduct = async (productId, user) => {
     }
 };
 
-export const postProduct = async (productData: any, user: string) => {
+export const postProduct = async (productData: PostProductValues, accessToken: string) => {
     try {
         const response = await fetch(`${url}/products/`, {
             method: 'POST',
             headers: {
                 'accept': 'application/json',
-                'Authorization': `Bearer ${user}`,
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ ...productData, quantity: 1 })
+            body: JSON.stringify({ ...productData, quantity: 1, category: [productData?.category] })
         });
 
         if (!response.ok) {
@@ -68,3 +68,34 @@ export const postProduct = async (productData: any, user: string) => {
         throw error;
     }
 };
+
+export const postImages = async (productId: string, accessToken: string, images: string[]) => {
+    try {
+        const formData = new FormData();
+        formData.append('productId', productId);
+
+        images.forEach((image, index) => {
+            formData.append(`image${index}`, image);
+        });
+
+        const response = await fetch(`${url}/products/image/`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            },
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to post images');
+        }
+
+        const responseData = await response.json();
+        return responseData;
+    } catch (error) {
+        console.error('Error while posting images:', error);
+        throw error;
+    }
+};
+
+

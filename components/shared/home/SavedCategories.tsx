@@ -28,7 +28,7 @@ const SavedCategories = () => {
   // get favorite categories from localstorage
   const initialFavoriteCategories =
     (typeof window !== "undefined" &&
-      JSON.parse(localStorage.getItem("favoritecategories")!)) ||
+      JSON.parse(localStorage.getItem("favoriteCategories")!)) ||
     [];
 
   const [favoriteCategories, setFavoriteCategories] = useState(

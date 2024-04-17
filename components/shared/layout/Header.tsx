@@ -1,14 +1,33 @@
-// "use client";
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../../ui/button";
 import { headerIcons } from "@/constants";
 import MobileNav from "./MobileNav";
-import { useEffect } from "react";
 import HeaderSignInInfo from "../HeaderSignInInfo";
+import { useAppSelector } from "@/redux/hooks";
+import { useEffect } from "react";
+import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
 
 const Header = () => {
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  const {
+    data: user,
+    isLoading,
+    isFetching,
+    refetch,
+  } = useRetrieveUserQuery(undefined, {
+    skip: !isAuthenticated,
+  });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      refetch();
+    }
+  }, [isAuthenticated]);
+
   return (
     <header className="w-full border-b border-[#e5e7eb]">
       <div className="wrapper flex-between">
@@ -44,7 +63,11 @@ const Header = () => {
             ))}
           </ul>
 
-          <HeaderSignInInfo />
+          <HeaderSignInInfo
+            user={user}
+            isLoading={isLoading}
+            isFetching={isFetching}
+          />
         </div>
         {/* mobile navigation */}
         <MobileNav />

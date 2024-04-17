@@ -22,8 +22,8 @@ export const SignInFormSchema = z.object({
 
 
 export const deactivateFormSchema = z.object({
-  password: z.string().min(4, {
-    message: "პაროლის სიგრძე უნდა აღემატებოდეს 4 სიმბოლოს",
+  username: z.string().min(2, {
+    message: "username must be at least 2 charachters",
   }),
 });
 
@@ -31,4 +31,13 @@ export const filtersFormSchema = z.object({
   location: z.string().optional(),
   max_price: z.string().optional(),
   min_price: z.string().optional(),
+});
+
+export const productFormSchema = z.object({
+  description: z.string().optional(),
+  name: z.string().min(1, { message: 'Please enter a name with at least 1 character.' }),
+  price: z.string().min(0.01, { message: 'Please enter a price.' }),
+  location: z.string().min(1, { message: 'Please select a location.' }),
+  images: z.array(z.string()).min(1).max(12, { message: 'Please upload at least 1 and at most 12 images.' }),
+  category: z.string().min(1, { message: 'Please select a category.' }),
 });

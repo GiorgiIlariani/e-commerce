@@ -12,8 +12,8 @@ const HomePage = () => {
         <Suspense fallback={<div>Loading...</div>}>
           <SearchComponent />
           <SavedCategories />
-          <Promoting />
-          <CircledCategories />
+          {/* <Promoting /> */}
+          {/* <CircledCategories /> */}
         </Suspense>
       </div>
 

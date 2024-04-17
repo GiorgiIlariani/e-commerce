@@ -4,6 +4,7 @@ import Header from "@/components/shared/layout/Header";
 import Footer from "@/components/shared/layout/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Provider from "@/redux/provider";
 
 import "./globals.css";
 
@@ -28,9 +29,11 @@ export default function RootLayout({
       <body className={`${poppins.variable} flex h-screen flex-col`}>
         <ToastContainer />
 
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <Provider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </Provider>
       </body>
     </html>
   );

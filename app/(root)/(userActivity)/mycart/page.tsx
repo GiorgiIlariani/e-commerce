@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { MdAddShoppingCart } from "react-icons/md";
-import { FaGreaterThan } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import UserActivityHeader from "@/components/shared/UserActivityHeader";
 
@@ -18,9 +17,11 @@ const MyCartPage = () => {
             Look at the ads of online stores and add the desired items to the
             cart
           </p>
-          <Button className="mt-8 text-white bg-[#fec900] rounded-2xl px-12 py-7">
-            Start Shopping
-          </Button>
+          <Link href="/search">
+            <Button className="mt-8 text-white bg-[#fec900] rounded-2xl px-12 py-7">
+              Start Shopping
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

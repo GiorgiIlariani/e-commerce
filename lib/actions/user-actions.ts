@@ -56,8 +56,7 @@ export const SignInUser = async ({ username, password }: { username: string, pas
   return data;
 }
 
-
-export const deleteUser = async (user: string, password: string) => {
+export const deleteUser = async (user: string) => {
   try {
     const response = await fetch(`${url}/users/me/`, {
       method: 'DELETE',

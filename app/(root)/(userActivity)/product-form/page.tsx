@@ -15,60 +15,91 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import AdditionalInformation from "@/components/shared/AdditionalInformation";
 import Dropdown from "@/components/shared/Dropdown";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { postProduct } from "@/lib/actions/product-actions";
-import { fetchCategoriesList } from "@/lib/actions/categories-actions";
+import { postImages, postProduct } from "@/lib/actions/product-actions";
 import UploadImageContainer from "@/components/forms/product-form/UploadImageContainer";
-
-const formSchema = z.object({
-  description: z.string().optional(),
-  name: z.string(),
-  price: z.string(),
-  location: z.string(),
-  // images: z.string().array().min(2).max(12),
-  category: z.string(),
-});
+import { productFormSchema } from "@/lib/validator";
+import UploadedImages from "@/components/forms/product-form/uploadedImages";
 
 const ProductFormPage = () => {
-  const user =
+  const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
-  const [images, setImages] = useState<File[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState<string[]>([]);
+
+  const form = useForm<z.infer<typeof productFormSchema>>({
+    resolver: zodResolver(productFormSchema),
     defaultValues: {
-      description: "", // არის
-      name: "", // არის
-      price: "", // არის
-      location: "", // არის
-      // images: [], // არააა ჯერ
-      category: "", // არის
+      description: "",
+      name: "",
+      price: "",
+      location: "",
+      images: [],
+      category: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof productFormSchema>) {
     try {
-      setIsLoading(true);
-      if (!user) return;
-      const product = await postProduct(values, user);
-
-      console.log(product);
+      setLoading(true);
+      if (!accessToken) return;
+      const product = await postProduct(values, accessToken);
+      const productId = product?.id;
+      // await postImages("3", accessToken, values.images);
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   }
+
+  const handleImagesChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    field: any // Pass field as an argumen
+  ) => {
+    e.preventDefault();
+
+    const fileReader = new FileReader();
+    const selectedFiles = e.target.files;
+
+    if (!selectedFiles || selectedFiles.length === 0) {
+      return;
+    }
+
+    const imagePromises: Promise<string>[] = [];
+
+    // Create a copy of the existing images array
+    const newImages = [...field.value];
+
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const file = selectedFiles[i];
+
+      if (file.type.includes("image")) {
+        const promise = new Promise<string>((resolve) => {
+          fileReader.onload = (event) => {
+            const imageDataUrl = event.target?.result?.toString() || "";
+            resolve(imageDataUrl);
+          };
+          fileReader.readAsDataURL(file);
+        });
+
+        imagePromises.push(promise);
+      }
+    }
+
+    Promise.all(imagePromises)
+      .then((imageDataUrls) => {
+        // Append new images to the existing array
+        field.onChange([...newImages, ...imageDataUrls]);
+        setImages([...newImages, ...imageDataUrls]);
+      })
+      .catch((error) => {
+        console.error("Error reading image files:", error);
+      });
+  };
 
   return (
     <Form {...form}>
@@ -94,8 +125,11 @@ const ProductFormPage = () => {
                   <Dropdown
                     onChangeHandler={field.onChange}
                     value={field.value}
+                    placeholder="Category"
+                    type="category"
                   />
                 </FormControl>
+                <FormMessage className="text-red-600" />
               </FormItem>
             )}
           />
@@ -104,36 +138,39 @@ const ProductFormPage = () => {
         {/* upload images */}
         <div className="w-full bg-white rounded-3xl p-10 mt-5 flex flex-col">
           <AdditionalInformation text="სწორად შერჩეული ფოტოებით მეტ ადამიანს მიიზიდავ" />
-          {images.length === 0 ? (
-            <UploadImageContainer
-            // setFieldValue={setFieldValue}
-            // handleImageChange={handleImageChange}
-            />
-          ) : (
-            <div className="w-full flex flex-wrap items-center gap-3 mb-5">
-              {/* // <UploadImageContainer
-              //   setFieldValue={setFieldValue}
-              //   handleImageChange={handleImageChange}
-              //   alreadyUploadedImage={true}
-              // />
-              // {images.map((image, index) => {
-              //   const src = URL.createObjectURL(image);
-              //   const isFirstImage = index === 0; // Check if it's the first image
 
-              //   return (
-              //     <UploadedImages
-              //       key={index}
-              //       src={src}
-              //       isFirstImage={isFirstImage}
-              //       image={image}
-              //       index={index}
-              //       handleImageRemove={handleImageRemove}
-              //       handleAddAsFirstImage={handleAddAsFirstImage}
-              //     />
-              //   );
-              // })} */}
-            </div>
-          )}
+          <div className="w-full flex flex-wrap items-center gap-3 mb-5">
+            <FormField
+              control={form.control}
+              name="images"
+              render={({ field }) => (
+                <FormItem className={`${images.length === 0 && "w-full"}`}>
+                  <FormControl>
+                    <UploadImageContainer
+                      handleImagesChange={handleImagesChange}
+                      field={field}
+                      isAtListOneImage={images.length > 0}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-600" />
+                </FormItem>
+              )}
+            />
+
+            {images.map((image, index) => {
+              const isFirstImage = index === 0; // Check if it's the first image
+              return (
+                <UploadedImages
+                  key={index}
+                  imageUrl={image}
+                  isFirstImage={isFirstImage}
+                  index={index}
+                  // handleImageRemove={handleImageRemove}
+                  // handleAddAsFirstImage={handleAddAsFirstImage}
+                />
+              );
+            })}
+          </div>
         </div>
 
         <div className="w-full flex flex-col bg-white rounded-3xl p-10 mt-5">
@@ -149,9 +186,11 @@ const ProductFormPage = () => {
                   <FormControl>
                     <Input {...field} className="input-field" />
                   </FormControl>
+                  <FormMessage className="text-red-600" />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="description"
@@ -184,7 +223,7 @@ const ProductFormPage = () => {
                     className="input-field"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-600" />
               </FormItem>
             )}
           />
@@ -198,28 +237,16 @@ const ProductFormPage = () => {
             control={form.control}
             name="location"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>აირჩიე მდებარეობა*</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger className="input-field">
-                      <SelectValue placeholder="აირჩიე მდებარეობა" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {/* {categories.map((category) => (
-                      <SelectItem value={category?.name} key={category.id}>
-                        {category?.name}
-                      </SelectItem>
-                    ))} */}
-
-                    <SelectItem value="Tbilisi">Tbilisi</SelectItem>
-                    <SelectItem value="Rustavi">Rustavi</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
+              <FormItem className="w-full">
+                <FormControl>
+                  <Dropdown
+                    onChangeHandler={field.onChange}
+                    value={field.value}
+                    placeholder="Location"
+                    type="location"
+                  />
+                </FormControl>
+                <FormMessage className="text-red-600" />
               </FormItem>
             )}
           />
@@ -227,12 +254,12 @@ const ProductFormPage = () => {
 
         <div className="w-full bg-white flex justify-between items-center px-12 py-6 rounded-[20px] mt-5">
           <div className="font-bold text-base bg-transparent hover:underline text-gray-400 cursor-pointer hover:decoration-blue-900">
-            გაუქმება
+            Cancel
           </div>
           <Button
             type="submit"
             className="text-white text-base font-bold px-10 py-[14px] bg-[#fec900] rounded-lg">
-            გამოქვეყნება
+            {loading ? "Submitting..." : "Submit"}
           </Button>
         </div>
       </form>

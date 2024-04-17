@@ -1,24 +1,32 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { bottombarLinks } from "@/constants";
 import Image from "next/image";
+import { useAppSelector } from "@/redux/hooks";
+import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
 
 const Bottombar = () => {
-  const storedToken =
-    typeof window !== "undefined" && localStorage.getItem("access-token");
-  const initialUserLoggedIn = storedToken ? true : false;
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(initialUserLoggedIn);
+  const { data: user, refetch } = useRetrieveUserQuery(undefined, {
+    skip: !isAuthenticated,
+  });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      refetch();
+    }
+  }, [isAuthenticated]);
 
   const pathname = usePathname();
 
   return (
     <section className="bottombar shadow-top">
       <div className="bottombar_container">
-        {bottombarLinks.slice(0, isUserLoggedIn ? 4 : 5).map((link) => {
+        {bottombarLinks.slice(0, isAuthenticated ? 4 : 5).map((link) => {
           const isActive = pathname === link.route;
 
           return (
@@ -33,10 +41,10 @@ const Bottombar = () => {
             </Link>
           );
         })}
-        {isUserLoggedIn && (
+        {isAuthenticated && (
           <div className="bottombar_link">
             <Image
-              src="/assets/images/default-user.svg"
+              src={user ? user?.image : "/assets/images/default-user.svg"}
               width={24}
               height={24}
               alt="person"

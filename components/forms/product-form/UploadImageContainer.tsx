@@ -1,14 +1,20 @@
 import Image from "next/image";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import UploadImg from "@/public/assets/images/upload-img.svg";
 import YellowUploadImage from "@/public/assets/images/upload-img-yellow.svg";
 
-const UploadImageContainer = () => {
-  let alreadyUploadedImage = false;
-
+const UploadImageContainer = ({
+  handleImagesChange,
+  field,
+  isAtListOneImage,
+}: {
+  handleImagesChange: any;
+  field: any;
+  isAtListOneImage: boolean;
+}) => {
   return (
     <>
-      {alreadyUploadedImage ? (
+      {isAtListOneImage ? (
         <label
           htmlFor="images"
           className="flex flex-col items-center w-[130px] min-h-[130px]">
@@ -20,7 +26,7 @@ const UploadImageContainer = () => {
               className="hidden"
               accept="image/*"
               multiple
-              //   onChange={(e) => handleImageChange(e, setFieldValue)}
+              onChange={(e) => handleImagesChange(e, field)}
             />
             <Image
               alt="upload image"
@@ -40,7 +46,7 @@ const UploadImageContainer = () => {
               className="hidden"
               accept="image/*"
               multiple
-              //   onChange={(e) => handleImageChange(e, setFieldValue)}
+              onChange={(e) => handleImagesChange(e, field)}
             />
             <Image alt="upload image" src={UploadImg} width={35} height={35} />
             <h2 className="font-bold text-base mt-3">სურათის ატვირთვა</h2>

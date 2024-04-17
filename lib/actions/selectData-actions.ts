@@ -2,13 +2,15 @@
 
 const url = 'http://16.16.253.75';
 
-export const fetchCategoriesList = async (accesToken: string) => {
+export const fetchDropdownContentList = async (type: string) => {
+    const endpoint = `${url}/products/${type === "category" ? "category/" : "location/"}`;
+
     try {
-        const response = await fetch(`${url}/category/`, {
+        const response = await fetch(endpoint, {
             method: 'GET',
             headers: {
                 'accept': 'application/json',
-                'Authorization': `Bearer ${accesToken}`
+                // 'Authorization': `Bearer ${accesToken}`
             }
         });
 
@@ -17,8 +19,8 @@ export const fetchCategoriesList = async (accesToken: string) => {
         }
 
 
-        const categories = await response.json();
-        return { categories, status: response.status, accesToken };
+        const dropdownContent = await response.json();
+        return dropdownContent;
     } catch (error) {
         console.error('Error while fetching categories:', error);
         throw error;

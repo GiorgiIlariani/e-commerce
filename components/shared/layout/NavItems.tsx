@@ -1,21 +1,20 @@
 "use client";
 
 import { NavLinks } from "@/constants";
+import { useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { logout } from "@/redux/features/authSlice";
 
 const NavItems = () => {
+  const dispatch = useDispatch();
   const pathname = usePathname();
-  const storedToken =
-    typeof window !== "undefined" && localStorage.getItem("access-token");
-  const initialUserLoggedIn = storedToken ? true : false;
-
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(initialUserLoggedIn);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const handleLogout = () => {
-    localStorage.setItem("access-token", "");
-    setIsUserLoggedIn(false);
+    dispatch(logout());
   };
 
   return (
@@ -32,7 +31,7 @@ const NavItems = () => {
           </Link>
         );
       })}
-      {isUserLoggedIn && (
+      {isAuthenticated && (
         <div
           className="text-xl font-normal cursor-pointer"
           onClick={handleLogout}>

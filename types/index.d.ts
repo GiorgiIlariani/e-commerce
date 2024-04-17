@@ -28,10 +28,18 @@ declare interface UserDetailsTypes {
   email: string;
   first_name: string;
   last_name: string;
-  profile: {
-    image: string;
-    balance: number;
-  };
+  image: string;
+  balance: number;
+}
+
+type PostProductValues = {
+  name: string;
+  description?: string;
+  category: string;
+  price: string;
+  // quantity: string;
+  location: string;
+ images: string[];
 }
 
 type Product = {

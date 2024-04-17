@@ -18,9 +18,18 @@ import { Input } from "@/components/ui/input";
 import { SignInFormSchema } from "@/lib/validator";
 import { useRouter } from "next/navigation";
 import { SignInUser, authenticateUser } from "@/lib/actions/user-actions";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "@/redux/features/authApiSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { setAuth } from "@/redux/features/authSlice";
 
 const LogInForm = ({ type }: LoginFormProps) => {
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  const [register] = useRegisterMutation();
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const formDefaultValues =
@@ -43,62 +52,37 @@ const LogInForm = ({ type }: LoginFormProps) => {
   });
 
   async function onSubmit(values: z.infer<typeof SignInFormSchema>) {
-    try {
-      // Set loading state to true
-      setIsLoading(true);
+    const { username, first_name, last_name, email, password } = values;
 
-      let response;
+    if (type === "Sign Up") {
+      register({ username, first_name, last_name, email, password })
+        .unwrap()
+        .then(() => {
+          toast.success("Account has beed created successfully!");
 
-      // Determine the type of authentication
-      if (type === "Sign In") {
-        // Sign In user
-        response = await SignInUser({
-          username: values.username,
-          password: values.password,
+          router.push("/sign-in");
+        })
+        .catch(() => {
+          toast.error("Failed to register account");
         });
-      } else {
-        // Authenticate user
-        response = await authenticateUser({
-          email: values.email || "test@example.com",
-          first_name: values.first_name || "test",
-          last_name: values.last_name || "test",
-          username: values.username,
-          password: values.password,
+    }
+
+    if (type === "Sign In") {
+      login({ password, username })
+        .unwrap()
+        .then((response) => {
+          typeof window !== "undefined" &&
+            localStorage.setItem("access-token", response.access);
+          typeof window !== "undefined" &&
+            localStorage.setItem("refresh-token", response.refresh);
+
+          dispatch(setAuth());
+          toast.success("Logged in");
+          router.push("/");
+        })
+        .catch(() => {
+          toast.error("Failed to log in");
         });
-      }
-
-      // Redirect to sign-in page if user ID exists
-      if (response.id) {
-        router.push(`/sign-in`);
-      }
-
-      // If access token exists, store it in local storage and redirect to home page
-      if (response.access) {
-        typeof window !== "undefined" &&
-          localStorage.setItem("access-token", response.access);
-        typeof window !== "undefined" &&
-          localStorage.setItem("refresh-token", response.refresh);
-        router.push("/");
-      }
-
-      // If response indicates incorrect credentials, display error message
-      if (!response.refresh || !response.access) {
-        if (type !== "Sign Up") {
-          toast.error(
-            "Incorrect credentials, please provide correct password or username",
-            {
-              position: "top-center",
-              autoClose: 3000,
-            }
-          );
-        }
-      }
-    } catch (error) {
-      // Log any errors that occur during authentication
-      console.log(error);
-    } finally {
-      // Set loading state to false regardless of outcome
-      setIsLoading(false);
     }
   }
 
@@ -210,3 +194,63 @@ const LogInForm = ({ type }: LoginFormProps) => {
 };
 
 export default LogInForm;
+
+// async function onSubmit(values: z.infer<typeof SignInFormSchema>) {
+//   try {
+//     // Set loading state to true
+//     setIsLoading(true);
+
+//     let response;
+
+//     // Determine the type of authentication
+//     if (type === "Sign In") {
+//       // Sign In user
+//       response = await SignInUser({
+//         username: values.username,
+//         password: values.password,
+//       });
+//     } else {
+//       // Authenticate user
+//       response = await authenticateUser({
+//         email: values.email || "test@example.com",
+//         first_name: values.first_name || "test",
+//         last_name: values.last_name || "test",
+//         username: values.username,
+//         password: values.password,
+//       });
+//     }
+
+//     // Redirect to sign-in page if user ID exists
+//     if (response.id) {
+//       router.push(`/sign-in`);
+//     }
+
+//     // If access token exists, store it in local storage and redirect to home page
+//     if (response.access) {
+//       typeof window !== "undefined" &&
+//         localStorage.setItem("access-token", response.access);
+//       typeof window !== "undefined" &&
+//         localStorage.setItem("refresh-token", response.refresh);
+//       router.push("/");
+//     }
+
+//     // If response indicates incorrect credentials, display error message
+//     if (!response.refresh || !response.access) {
+//       if (type !== "Sign Up") {
+//         toast.error(
+//           "Incorrect credentials, please provide correct password or username",
+//           {
+//             position: "top-center",
+//             autoClose: 3000,
+//           }
+//         );
+//       }
+//     }
+//   } catch (error) {
+//     // Log any errors that occur during authentication
+//     console.log(error);
+//   } finally {
+//     // Set loading state to false regardless of outcome
+//     setIsLoading(false);
+//   }
+// }
