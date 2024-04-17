@@ -18,23 +18,36 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
+import { useAppSelector } from "@/redux/hooks";
+import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
+import { ChangeEvent, useEffect, useState } from "react";
 
 const formSchema = z.object({
   image: z.string().optional(),
   username: z.string(),
   email: z.string().email(),
-  password: z.string(),
   agreement: z.boolean(),
 });
 
 const InfoPage = () => {
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  const { data: user, refetch } = useRetrieveUserQuery(undefined, {
+    skip: !isAuthenticated,
+  });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      refetch();
+    }
+  }, [isAuthenticated]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      image: "",
-      username: "",
-      email: "",
-      password: "",
+      image: user ? user?.profile?.image : "",
+      username: user ? user?.username : "",
+      email: user ? user?.email : "",
       agreement: false,
     },
   });
@@ -54,14 +67,15 @@ const InfoPage = () => {
               <FormItem className="flex items-center gap-4">
                 <FormLabel className="w-16 h-16  border broder-[#e4e7ed] cursor-pointer rounded-[12px]">
                   {field.value && (
-                    <Image
-                      src={field.value}
-                      alt="image"
-                      width={64}
-                      height={64}
-                      priority
-                      className="rounded-full object-contain"
-                    />
+                    <div>user image</div>
+                    // <Image
+                    //   src={field.value}
+                    //   alt="image"
+                    //   width={64}
+                    //   height={64}
+                    //   priority
+                    //   className="object-contain w-16 h-16 rounded-[12px]"
+                    // />
                   )}
                 </FormLabel>
                 <FormControl className="flex-1 font-normal text-lg text-gray-200">
@@ -70,7 +84,6 @@ const InfoPage = () => {
                     accept="image/*"
                     type="file"
                     className="hidden"
-                    // onChange={(e) => handleImage(e, field.onChange)}
                   />
                 </FormControl>
                 <div className="flex flex-col">
@@ -113,21 +126,6 @@ const InfoPage = () => {
               )}
             />
           </div>
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm font-medium text-[#a3adc0]">
-                  Password*
-                </FormLabel>
-                <FormControl>
-                  <Input type="password" {...field} className="input-field" />
-                </FormControl>
-                <FormMessage className="text-red-600" />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="agreement"

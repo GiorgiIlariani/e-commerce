@@ -3,21 +3,64 @@
 import FilteredProducts from "@/components/products/FilteredProducts";
 import { FilterDropdown } from "@/components/shared/FilterDropdown";
 import SearchFilterSidebar from "@/components/shared/layout/SearchFilterSidebar";
+import { getFavoriteProductsList } from "@/lib/actions/favorite-actions";
 import { fetchProducts } from "@/lib/actions/product-actions";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const SearchedProducts = () => {
   const [searchedProducts, setSearchedProducts] = useState([]);
+  const [favoriteProducts, setFavoriteProducts] = useState([]);
+  const searchParams = useSearchParams();
+
+  const min_price = searchParams.get("min_price") || "";
+  const max_price = searchParams.get("max_price") || "";
+  const location = searchParams.get("location") || "";
+
+  const token =
+    typeof window !== "undefined" && localStorage.getItem("access-token");
 
   useEffect(() => {
     const fetchProductsList = async () => {
-      const searchedProducts = await fetchProducts();
-      setSearchedProducts(searchedProducts);
+      const products = await fetchProducts({
+        min_price,
+        max_price,
+        location,
+      });
+      setSearchedProducts(products);
     };
 
     fetchProductsList();
   }, []);
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        if (token) {
+          const favorites = await getFavoriteProductsList(token);
+          setFavoriteProducts(favorites);
+        }
+      } catch (error) {
+        console.error("Error fetching favorites:", error);
+      }
+    };
+
+    fetchFavorites();
+  }, []);
+
+  const refetchFavorites = async () => {
+    try {
+      if (token) {
+        const favorites = await getFavoriteProductsList(token);
+        console.log({ favorites });
+
+        setFavoriteProducts(favorites);
+      }
+    } catch (error) {
+      console.error("Error refetching favorites:", error);
+    }
+  };
 
   return (
     <main className="w-full min-h-screen wrapper flex flex-col bg-[#f1f3f6]">
@@ -35,9 +78,13 @@ const SearchedProducts = () => {
           <FilterDropdown />
         </div>
       </div>
-      <section className="flex flex-row gap-8 mt-8 items-start">
-        <SearchFilterSidebar />
-        <FilteredProducts searchedProducts={searchedProducts} />
+      <section className="flex flex-col lg:flex-row gap-8 mt-8 items-start">
+        {/* <SearchFilterSide`bar /> */}
+        <FilteredProducts
+          searchedProducts={searchedProducts}
+          favoriteProducts={favoriteProducts}
+          refetchFavorites={refetchFavorites}
+        />
       </section>
     </main>
   );

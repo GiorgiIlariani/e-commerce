@@ -35,6 +35,7 @@ import { IoTrashBinSharp } from "react-icons/io5";
 import { Input } from "../../ui/input";
 import { filtersFormSchema } from "@/lib/validator";
 import { useRouter } from "next/navigation";
+import Dropdown from "../Dropdown";
 
 export function Filters() {
   const router = useRouter();
@@ -49,23 +50,15 @@ export function Filters() {
   });
 
   function onSubmit(values: z.infer<typeof filtersFormSchema>) {
-    const min_price = values.min_price;
-    const max_price = values.max_price;
-    const location = values.location;
+    const { min_price, max_price, location } = values;
+    const queryParams = [];
 
-    let queryString = "/search/?";
+    if (min_price !== "") queryParams.push(`min_price=${min_price}`);
+    if (max_price !== "") queryParams.push(`max_price=${max_price}`);
+    if (location !== "") queryParams.push(`location=${location}`);
 
-    if (min_price !== "") {
-      queryString += `min_price=${min_price}&`;
-    }
-
-    if (max_price !== "") {
-      queryString += `max_price=${max_price}&`;
-    }
-
-    if (location !== "") {
-      queryString += `location=${location}`;
-    }
+    const queryString =
+      queryParams.length > 0 ? `/search/?${queryParams.join("&")}` : "/search/";
 
     router.push(queryString);
   }
@@ -90,22 +83,16 @@ export function Filters() {
                 control={form.control}
                 name="location"
                 render={({ field }) => (
-                  <FormItem>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger className="input-field">
-                          <SelectValue placeholder="აირჩიე მდებარეობა" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Gori">Gori</SelectItem>
-                        <SelectItem value="Tbilisi">Tbilisi</SelectItem>
-                        <SelectItem value="Rustavi">Rustavi</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <Dropdown
+                        onChangeHandler={field.onChange}
+                        value={field.value}
+                        placeholder="Location"
+                        type="location"
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-600" />
                   </FormItem>
                 )}
               />

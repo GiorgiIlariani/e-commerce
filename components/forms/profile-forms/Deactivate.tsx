@@ -55,7 +55,6 @@ const DeactivateForm = () => {
 
   async function onSubmit(values: z.infer<typeof deactivateFormSchema>) {
     try {
-      setIsRemoving(true);
       if (values.username !== user?.username) {
         toast.error(
           "Unauthorized username. Please log in with appropriate username to continue.",
@@ -74,6 +73,7 @@ const DeactivateForm = () => {
 
   async function onDialogCorfirmation() {
     if (!accessToken) return;
+    setIsRemoving(true);
     const status = await deleteUser(accessToken);
     form.reset();
 

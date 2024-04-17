@@ -1,10 +1,21 @@
 const url = 'http://16.16.253.75';
 
-// category?: string
-export const fetchProducts = async () => {
-    
+export const fetchProducts = async ({ min_price, max_price, location }: fetchProductsTypes) => {
+    let queryParams = '';
+
+    // Build query parameters string
+    if (min_price !== '') {
+        queryParams += `min_price=${min_price}&`;
+    }
+    if (max_price !== '') {
+        queryParams += `max_price=${max_price}&`;
+    }
+    if (location !== '') {
+        queryParams += `location=${location}&`;
+    }
+
     try {
-        const response = await fetch(`${url}/products/`, {
+        const response = await fetch(`${url}/products/?${queryParams}`, {
             method: 'GET',
             headers: {
                 'accept': 'application/json',
@@ -22,6 +33,7 @@ export const fetchProducts = async () => {
         throw error;
     }
 };
+
 
 export const fetchSingleProduct = async (productId: string, user: string) => {
     try {
@@ -45,7 +57,7 @@ export const fetchSingleProduct = async (productId: string, user: string) => {
     }
 };
 
-export const postProduct = async (productData: PostProductValues, accessToken: string) => {
+export const postProduct = async (productData: any, accessToken: string) => {
     try {
         const response = await fetch(`${url}/products/`, {
             method: 'POST',

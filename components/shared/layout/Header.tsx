@@ -32,11 +32,11 @@ const Header = () => {
     <header className="w-full border-b border-[#e5e7eb]">
       <div className="wrapper flex-between">
         {/* left side of the navbar */}
-        <Link href="/">
+        <Link href="/" className="rounded-full">
           <Image
             src="/assets/images/mymarket.svg"
             alt="market logo"
-            className="cursor-pointer object-contain"
+            className="cursor-pointer object-contain rounded-full"
             width={150}
             height={40}
             priority

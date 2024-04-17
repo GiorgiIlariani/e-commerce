@@ -48,3 +48,24 @@ export const getFavoriteProductsList = async (accessToken: string) => {
         throw error;
     }
 };
+
+export const removeFromFavorites = async (productId: string, accessToken: string) => {
+    try {
+        const response = await fetch(`${url}/favourites/${productId}/`, {
+            method: 'DELETE',
+            headers: {
+                'accept': '*/*',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to remove from favorites');
+        }
+
+        return { status: response.status };
+    } catch (error) {
+        console.error('Error while removing from favorites:', error);
+        throw error;
+    }
+};

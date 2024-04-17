@@ -1,16 +1,32 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import ProductCard from "./ProductCard";
 
 const FilteredProducts = ({
   searchedProducts,
+  favoriteProducts,
+  refetchFavorites,
 }: {
   searchedProducts: ProductList;
+  favoriteProducts: any;
+  refetchFavorites: () => Promise<void>;
 }) => {
   return (
-    <div className="w-[calc(100%-300px)] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {searchedProducts.map((productItem) => (
-        <ProductCard key={productItem?.id} {...productItem} />
-      ))}
+    <div className="w-full grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      {searchedProducts.map((productItem) => {
+        const favorireProductIds = favoriteProducts.map(
+          (product: any) => product.product
+        );
+        const isFavorite = favorireProductIds.includes(productItem.id);
+
+        return (
+          <ProductCard
+            key={productItem?.id}
+            {...productItem}
+            isFavorite={isFavorite}
+            refetchFavorites={refetchFavorites}
+          />
+        );
+      })}
     </div>
   );
 };

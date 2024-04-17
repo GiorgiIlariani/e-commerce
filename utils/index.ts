@@ -33,34 +33,16 @@ export function removeKeysFromQuery({
   );
 }
 
-const url = "http://16.16.253.75";
+export function sliceDescription(
+  text: string,
+  length: number,
+  isSliced: boolean
+) {
+  if (text.length >= length && isSliced) {
+    const newText = text.slice(0, length);
 
-export const refreshTokenFunc = async (refreshToken: string) => {
-  try {
-    const response = await fetch(`${url}/api/token/refresh/`, {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ refresh: refreshToken }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to refresh token");
-    }
-
-    const newToken = await response.json();
-    return newToken;
-  } catch (error) {
-    console.error("Error while refreshing token:", error);
-    throw error;
+    return newText + "...";
+  } else {
+    return text;
   }
-};
-
-export function convertDataURIToBinaryString(dataURI: string) {
-  var BASE64_MARKER = ";base64,";
-  var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
-  var base64 = dataURI.substring(base64Index);
-  return base64;
 }
