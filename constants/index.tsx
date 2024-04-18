@@ -280,3 +280,26 @@ export const CircledCategoriesConstants = [
     title: "სპორტი და დასვენება",
   },
 ];
+
+export const SignedInNavbarPopupConstants = [
+  {
+    id: 1,
+    text: "ჩემი განცხადებები",
+    route: "/myproducts",
+  },
+  {
+    id: 2,
+    text: "შეძენა/გაყიდვის ისტორიები",
+    route: "/myproducts",
+  },
+  {
+    id: 3,
+    text: "ჩემი ფინანსები",
+    route: "/myproducts",
+  },
+  {
+    id: 4,
+    text: "ანგარიშის რედაქცტირება",
+    route: "/profile/info",
+  },
+];

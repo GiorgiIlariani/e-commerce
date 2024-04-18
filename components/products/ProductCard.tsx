@@ -38,7 +38,6 @@ const ProductCard = ({
   const handleFavoriteClick = async () => {
     try {
       if (!accessToken) return;
-
       if (!isFavorite) {
         await addToFavorites(String(id), accessToken);
       } else {
@@ -52,10 +51,9 @@ const ProductCard = ({
   };
 
   return (
-    <div
+    <Link
       className="flex flex-col justify-between bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer xs:max-w-[350px] px-3 py-3 hover:scale-105 transition duration-300"
-      // href={`/search/${id}`}
-    >
+      href={`/search/${id}`}>
       <div className="relative w-full h-40 overflow-hidden">
         <Swiper
           mousewheel
@@ -101,14 +99,14 @@ const ProductCard = ({
                 isFavorite
                   ? "bg-[#fec900] text-white"
                   : "bg-gray-200 text-black"
-              } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300`}
+              } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 favorite-icon`}
               onClick={handleFavoriteClick}>
               <IoIosHeartEmpty className="text-lg" />
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
