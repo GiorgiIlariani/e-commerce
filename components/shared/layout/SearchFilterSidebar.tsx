@@ -1,6 +1,5 @@
 "use client";
 
-import { refreshTokenFunc } from "@/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 

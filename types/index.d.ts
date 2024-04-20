@@ -40,11 +40,16 @@ declare type Product = {
   quantity: number;
   created_at: string; // Assuming this is a string representation of datetime
   location: string;
+  favourites?: number;
   images: { id: number; image: string }[];
   user: number;
 };
 
 declare type ProductList = Product[];
+
+declare type favoriteProductList = {
+  product: Product;
+}
 
 
 declare type fetchProductsTypes = {
@@ -57,4 +62,14 @@ declare type FavoriteCardTypes = {
   id: number;
   product: number;
   user: number;
+}
+
+declare type PromotingProps = {
+  buttonText: string;
+  image: {
+    src: any;
+    alt: string;
+  };
+  title: string;
+  description: string;
 }

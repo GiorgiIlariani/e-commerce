@@ -53,7 +53,7 @@ const SearchedProducts = () => {
     try {
       if (token) {
         const favorites = await getFavoriteProductsList(token);
-        console.log({ favorites });
+        // console.log({ favorites });
 
         setFavoriteProducts(favorites);
       }
@@ -61,6 +61,8 @@ const SearchedProducts = () => {
       console.error("Error refetching favorites:", error);
     }
   };
+
+  console.log({ searchedProducts });
 
   return (
     <main className="w-full min-h-screen wrapper flex flex-col bg-[#f1f3f6]">

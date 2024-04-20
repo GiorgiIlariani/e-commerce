@@ -11,6 +11,10 @@ import { Navigation } from "swiper/modules";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
+// mui
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 const SavedCategories = () => {
   const [selectedButton, setSetelectedButton] = useState<
     "lastSearched" | "saved"
@@ -91,6 +95,14 @@ const SavedCategories = () => {
               შენახული
             </Button>
           </div>
+        </div>
+        <div className="flex items-center gap-x-4">
+          <Button className="image-swiper-btn image-swiper-button-prev">
+            <ChevronLeftIcon />
+          </Button>
+          <Button className="image-swiper-btn image-swiper-button-next">
+            <ChevronRightIcon />
+          </Button>
         </div>
       </div>
       <div className="w-full flex justify-start gap-x-5 mt-10 items-center overflow-auto no-scrollbar">

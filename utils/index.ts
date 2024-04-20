@@ -46,3 +46,17 @@ export function sliceDescription(
     return text;
   }
 }
+
+export function sliceTitle(
+  text: string,
+  length: number,
+  isSliced: boolean
+) {
+  if (text.length >= length && isSliced) {
+    const newText = text.slice(0, length);
+
+    return newText + "...";
+  } else {
+    return text;
+  }
+}

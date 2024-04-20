@@ -2,11 +2,10 @@ import * as React from "react";
 import { Separator } from "../ui/separator";
 import { IoIosHeartEmpty } from "react-icons/io";
 import Image from "next/image";
-import { Button } from "../ui/button";
-import Link from "next/link";
-import { sliceDescription } from "@/utils";
+import { sliceDescription, sliceTitle } from "@/utils";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { MdAddShoppingCart } from "react-icons/md";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,6 +13,7 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from "@/lib/actions/favorite-actions";
+import { useRouter } from "next/navigation";
 
 const ProductCard = ({
   id,
@@ -28,32 +28,36 @@ const ProductCard = ({
   user,
   isFavorite,
   refetchFavorites,
+  baseUrl,
 }: Product & {
   isFavorite: boolean;
-  refetchFavorites: () => Promise<void>;
+  refetchFavorites?: () => Promise<void>;
+  baseUrl?: string;
 }) => {
+  const router = useRouter();
+
   const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
 
-  const handleFavoriteClick = async () => {
+  const handleFavoriteClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     try {
+      e.stopPropagation();
       if (!accessToken) return;
       if (!isFavorite) {
         await addToFavorites(String(id), accessToken);
       } else {
-        await removeFromFavorites(String(23), accessToken);
+        await removeFromFavorites(String(id), accessToken);
       }
-      // After adding/removing favorite, trigger refetch
-      refetchFavorites();
+      refetchFavorites && refetchFavorites();
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <Link
+    <div
       className="flex flex-col justify-between bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer xs:max-w-[350px] px-3 py-3 hover:scale-105 transition duration-300"
-      href={`/search/${id}`}>
+      onClick={() => router.push(`/search/${id}`)}>
       <div className="relative w-full h-40 overflow-hidden">
         <Swiper
           mousewheel
@@ -70,7 +74,7 @@ const ProductCard = ({
               className="text-center flex justify-center items-center">
               <Image
                 alt="product img"
-                src={image}
+                src={baseUrl ? baseUrl + image : image}
                 className="w-full h-full rounded-2xl object-cover"
                 fill
               />
@@ -79,10 +83,10 @@ const ProductCard = ({
         </Swiper>
       </div>
 
-      <div className="relative flex flex-col flex-1 justify-between gap-3 p-4">
-        <div className="mb-5">
-          <h3 className="text-lg font-semibold text-gray-800 capitalize">
-            {name}
+      <div className="relative flex flex-col flex-1 justify-between gap-3 p-2">
+        <div className="mb-1">
+          <h3 className="text-base font-semibold text-gray-800 capitalize overflow-ellipsis whitespace-normal">
+            {sliceTitle(description, 20, true)}
           </h3>
           <p className="text-sm text-gray-600 mt-3">
             {sliceDescription(description, 65, true)}
@@ -90,23 +94,36 @@ const ProductCard = ({
         </div>
 
         <div>
-          <Separator className="mb-4 border" />
+          <Separator className="mb-3 border" />
 
           <div className="flex-between">
             <span className="text-lg font-bold text-gray-700">{price}₾</span>
-            <div
-              className={`${
-                isFavorite
-                  ? "bg-[#fec900] text-white"
-                  : "bg-gray-200 text-black"
-              } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 favorite-icon`}
-              onClick={handleFavoriteClick}>
-              <IoIosHeartEmpty className="text-lg" />
+            <div className="flex items-center gap-2">
+              <div
+                className={`${
+                  isFavorite
+                    ? "bg-[#fec900] text-white"
+                    : "bg-gray-200 text-black"
+                } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 `}
+                onClick={handleFavoriteClick}>
+                <IoIosHeartEmpty className="text-lg" />
+              </div>
+              <div
+                className={`${
+                  isFavorite
+                    ? "bg-[#fec900] text-white"
+                    : "bg-gray-200 text-black"
+                } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 `}
+                // onClick={handleAddCart}
+              >
+                cart
+                <MdAddShoppingCart className="text-lg" />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

@@ -107,20 +107,12 @@ const ProductFormPage = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="sm:space-y-14 space-y-16">
         <div className="w-full bg-white rounded-3xl py-10 px-10 mt-5">
-          <h2 className="text-xl font-bold">განცხადების დეტალები</h2>
-          <h5 className="text-sm mt-3">განცხადების ტიპი</h5>
-          <div className="flex items-center gap-x-3 my-[10px]">
-            <Button
-              type="button"
-              className="rounded-3xl bg-[#4a6cfa] text-white px-7 py-[10px]">
-              გაყიდვა
-            </Button>
-          </div>
+          <h2 className="text-lg font-bold">განცხადების დეტალები</h2>
           <FormField
             control={form.control}
             name="category"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className="w-full mt-6">
                 <FormControl>
                   <Dropdown
                     onChangeHandler={field.onChange}
@@ -237,7 +229,7 @@ const ProductFormPage = () => {
             control={form.control}
             name="location"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className="w-full mt-6">
                 <FormControl>
                   <Dropdown
                     onChangeHandler={field.onChange}

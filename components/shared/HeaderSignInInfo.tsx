@@ -36,7 +36,7 @@ const HeaderSignInInfo = ({
       {user ? (
         <Popover>
           <PopoverTrigger asChild>
-            <div className="w-[120px] flex items-center justify-center gap-2 px-1 cursor-pointer border border-[#dee2e6] py-[6px] rounded-xl">
+            <div className="flex items-center justify-center gap-2 px-2 cursor-pointer border border-[#dee2e6] py-[6px] rounded-xl">
               <Image
                 src={user?.image}
                 alt="user image"
@@ -48,7 +48,7 @@ const HeaderSignInInfo = ({
               <FaAngleDown />
             </div>
           </PopoverTrigger>
-          <PopoverContent className="w-[250px] bg-white">
+          <PopoverContent className="w-[250px] bg-white hidden md:block absolute -right-[61px] top-0">
             <div className="flex items-center gap-3">
               <Image
                 src={user?.image}
@@ -73,7 +73,7 @@ const HeaderSignInInfo = ({
                   <Link
                     href={item?.route}
                     key={item.id}
-                    className={`text-sm font-medium hover:text-[#fec900] transition duration-300 ${
+                    className={`text-sm font-medium hover:text-[#fec900] transition duration-200 ${
                       isActive ? "text-[#fec900]" : "text-[#6f7383]"
                     }`}>
                     {item?.text}

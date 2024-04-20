@@ -50,7 +50,7 @@ const Dropdown = ({
             <SelectItem
               key={id}
               value={String(id)}
-              className="select-item p-regular-14">
+              className="select-item p-regular-14 cursor-pointer hover:text-[#007aff] trasition duration-200">
               {name}
             </SelectItem>
           ))}

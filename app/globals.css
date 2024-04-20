@@ -39,14 +39,15 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  color: white;
+  color: black;
   cursor: pointer;
-  background-color: #5d37f3;
+  background-color: white;
 }
 
 .swiper-button-disabled {
-  background-color: #e4e3eb;
+  background-color: white;
   pointer-events: none;
+  color: #e4e3eb;
 }
 
 .swiper-pagination-bullet {
@@ -68,7 +69,7 @@
 /* ========================================== TAILWIND STYLES */
 @layer utilities {
   .wrapper {
-    @apply max-w-7xl lg:mx-auto px-5 py-6 md:px-10 xl:px-4 w-full;
+    @apply max-w-7xl lg:mx-auto px-2 md:px-4 py-6 lg:px-6 w-full;
   }
 
   .flex-center {
@@ -91,7 +92,7 @@
   }
 
   .bottombar {
-    @apply fixed bottom-0 z-10 w-full rounded-t-3xl p-5 md:hidden sm:px-7 border bg-white;
+    @apply fixed bottom-0 z-10 w-full rounded-t-3xl p-5 lg:hidden sm:px-7 border bg-white;
   }
 
   .bottombar_container {
@@ -99,6 +100,13 @@
   }
 
   .bottombar_link {
-    @apply relative flex flex-col items-center gap-2 rounded-lg p-2 sm:flex-1 sm:px-2 sm:py-2.5 text-base md:text-lg font-medium;
+    @apply relative flex flex-col items-center gap-2 rounded-lg p-2 sm:flex-1 sm:px-2 sm:py-2.5 md:py-3 text-base md:text-lg font-medium;
+  }
+
+  .profile_link {
+    @apply flex-center w-8 h-8 rounded-md bg-[#f6f7fa] group-hover:bg-[#faedd9] transition duration-200;
+  }
+  .profile_link-p {
+    @apply group-hover:text-[#fec900] transition duration-200;
   }
 }

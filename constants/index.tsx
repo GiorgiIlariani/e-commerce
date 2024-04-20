@@ -41,6 +41,14 @@ import FridgeLogo from "@/public/assets/images/circledCategories/fridge.png";
 import ClothesLogo from "@/public/assets/images/circledCategories/clothes.png";
 import BasketBall from "@/public/assets/images/circledCategories/basketball.png";
 
+import { IoIosAddCircle } from "react-icons/io";
+import { AiOutlineUser } from "react-icons/ai";
+import { IoListOutline } from "react-icons/io5";
+import { IoWalletOutline } from "react-icons/io5";
+import { FaLocationDot } from "react-icons/fa6";
+import { FaHistory } from "react-icons/fa";
+import { FaRegMessage } from "react-icons/fa6";
+
 //  layout constants
 export const headerIcons = [
   {
@@ -302,4 +310,22 @@ export const SignedInNavbarPopupConstants = [
     text: "ანგარიშის რედაქცტირება",
     route: "/profile/info",
   },
+];
+
+export const profileLinks = [
+  { href: "/product-form", Icon: IoIosAddCircle, text: "განცხადების დამატება" },
+  { href: "/myproducts", Icon: IoListOutline, text: "ჩემი განცხადებები" },
+  { href: "/myproducts", Icon: IoWalletOutline, text: "ჩემი ფინანსები" },
+  { href: "/favorites", Icon: FaRegMessage, text: "მესიჯები" },
+];
+
+export const extraLinks = [
+  { href: "/favorites", Icon: AiOutlineHeart, text: "ჩემი რჩეულები" },
+  { href: "/mycart", Icon: MdAddShoppingCart, text: "ჩემი კალათა" },
+  { href: "/favorites", Icon: FaLocationDot, text: "ლოკაცია" },
+];
+
+export const accountLinks = [
+  { href: "/profile/info", Icon: FaHistory, text: "ყიდვის ისტორია" },
+  { href: "/profile/info", Icon: AiOutlineUser, text: "ანგარიშის რედაქტირება" },
 ];

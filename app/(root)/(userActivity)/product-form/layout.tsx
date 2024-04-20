@@ -7,7 +7,7 @@ export default function ProductFormLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-1 max-w-[768px] flex-col gap-5">
+    <div className="flex flex-1 w-full lg:max-w-[768px] flex-col gap-5">
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <Link href="/" className="text-base text-[#8996ae]">
