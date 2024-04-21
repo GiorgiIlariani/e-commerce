@@ -3,6 +3,7 @@
 import FilteredProducts from "@/components/products/FilteredProducts";
 import { FilterDropdown } from "@/components/shared/FilterDropdown";
 import SearchFilterSidebar from "@/components/shared/layout/SearchFilterSidebar";
+import { getCartProducts } from "@/lib/actions/cart-actions";
 import { getFavoriteProductsList } from "@/lib/actions/favorite-actions";
 import { fetchProducts } from "@/lib/actions/product-actions";
 import Link from "next/link";
@@ -12,6 +13,7 @@ import { useEffect, useState } from "react";
 const SearchedProducts = () => {
   const [searchedProducts, setSearchedProducts] = useState([]);
   const [favoriteProducts, setFavoriteProducts] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
   const searchParams = useSearchParams();
 
   const min_price = searchParams.get("min_price") || "";
@@ -49,11 +51,25 @@ const SearchedProducts = () => {
     fetchFavorites();
   }, []);
 
+  useEffect(() => {
+    const fetchCartProducts = async () => {
+      try {
+        if (token) {
+          const cartProducts = await getCartProducts(token);
+          setCartProducts(cartProducts);
+        }
+      } catch (error) {
+        console.error("Error fetching cart products:", error);
+      }
+    };
+
+    fetchCartProducts();
+  }, []);
+
   const refetchFavorites = async () => {
     try {
       if (token) {
         const favorites = await getFavoriteProductsList(token);
-        // console.log({ favorites });
 
         setFavoriteProducts(favorites);
       }
@@ -62,7 +78,17 @@ const SearchedProducts = () => {
     }
   };
 
-  console.log({ searchedProducts });
+  const refetchCartProducts = async () => {
+    try {
+      if (token) {
+        const cartProducts = await getCartProducts(token);
+
+        setCartProducts(cartProducts);
+      }
+    } catch (error) {
+      console.error("Error refetching cart products:", error);
+    }
+  };
 
   return (
     <main className="w-full min-h-screen wrapper flex flex-col bg-[#f1f3f6]">
@@ -86,6 +112,8 @@ const SearchedProducts = () => {
           searchedProducts={searchedProducts}
           favoriteProducts={favoriteProducts}
           refetchFavorites={refetchFavorites}
+          refetchCartProducts={refetchCartProducts}
+          cartProducts={cartProducts}
         />
       </section>
     </main>

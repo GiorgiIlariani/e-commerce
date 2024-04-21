@@ -82,18 +82,18 @@ export const postProduct = async (productData: any, accessToken: string) => {
 };
 
 export const postImages = async (productId: string, accessToken: string, images: string[]) => {
+    const image = images[0];
     try {
         const formData = new FormData();
-        formData.append('productId', productId);
-
-        images.forEach((image, index) => {
-            formData.append(`image${index}`, image);
-        });
+        formData.append('product', productId); // Ensure consistency with the curl command
+        formData.append(`image`, image); // Ensure consistency with the curl command
+        
 
         const response = await fetch(`${url}/products/image/`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
+                "Accept": "application/json",
             },
             body: formData
         });
@@ -109,5 +109,6 @@ export const postImages = async (productId: string, accessToken: string, images:
         throw error;
     }
 };
+
 
 

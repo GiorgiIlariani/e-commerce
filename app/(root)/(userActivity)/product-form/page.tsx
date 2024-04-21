@@ -46,9 +46,10 @@ const ProductFormPage = () => {
     try {
       setLoading(true);
       if (!accessToken) return;
-      const product = await postProduct(values, accessToken);
-      const productId = product?.id;
+      // const product = await postProduct(values, accessToken);
+      // const productId = product?.id;
       // await postImages("3", accessToken, values.images);
+      console.log(values.images);
     } catch (error) {
       console.log(error);
     } finally {
@@ -56,49 +57,50 @@ const ProductFormPage = () => {
     }
   }
 
-  const handleImagesChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    field: any // Pass field as an argumen
-  ) => {
-    e.preventDefault();
+  // const handleImagesChange = async (
+  //   e: ChangeEvent<HTMLInputElement>,
+  //   field: any
+  // ) => {
+  //   e.preventDefault();
 
-    const fileReader = new FileReader();
-    const selectedFiles = e.target.files;
+  //   const fileReader = new FileReader();
+  //   const selectedFiles = e.target.files;
 
-    if (!selectedFiles || selectedFiles.length === 0) {
-      return;
-    }
+  //   if (!selectedFiles || selectedFiles.length === 0) {
+  //     return;
+  //   }
 
-    const imagePromises: Promise<string>[] = [];
+  //   const imagePromises: Promise<string>[] = [];
 
-    // Create a copy of the existing images array
-    const newImages = [...field.value];
+  //   for (let i = 0; i < selectedFiles.length; i++) {
+  //     const file = selectedFiles[i];
 
-    for (let i = 0; i < selectedFiles.length; i++) {
-      const file = selectedFiles[i];
+  //     if (file.type.includes("image")) {
+  //       const promise = new Promise<string>((resolve) => {
+  //         fileReader.onload = (event) => {
+  //           const imageDataUrl = event.target?.result?.toString() || "";
+  //           resolve(imageDataUrl);
+  //         };
+  //         fileReader.readAsDataURL(file);
+  //       });
 
-      if (file.type.includes("image")) {
-        const promise = new Promise<string>((resolve) => {
-          fileReader.onload = (event) => {
-            const imageDataUrl = event.target?.result?.toString() || "";
-            resolve(imageDataUrl);
-          };
-          fileReader.readAsDataURL(file);
-        });
+  //       imagePromises.push(promise);
+  //     }
+  //   }
 
-        imagePromises.push(promise);
-      }
-    }
+  //   try {
+  //     const imageDataUrls = await Promise.all(imagePromises);
+  //     const newImages = [...field.value, ...imageDataUrls];
+  //     field.onChange(newImages);
+  //     setImages(newImages);
+  //   } catch (error) {
+  //     console.error("Error reading image files:", error);
+  //     // Handle error gracefully
+  //   }
+  // };
 
-    Promise.all(imagePromises)
-      .then((imageDataUrls) => {
-        // Append new images to the existing array
-        field.onChange([...newImages, ...imageDataUrls]);
-        setImages([...newImages, ...imageDataUrls]);
-      })
-      .catch((error) => {
-        console.error("Error reading image files:", error);
-      });
+  const handleImagesChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
   };
 
   return (
@@ -149,7 +151,7 @@ const ProductFormPage = () => {
               )}
             />
 
-            {images.map((image, index) => {
+            {/* {images.map((image, index) => {
               const isFirstImage = index === 0; // Check if it's the first image
               return (
                 <UploadedImages
@@ -161,7 +163,7 @@ const ProductFormPage = () => {
                   // handleAddAsFirstImage={handleAddAsFirstImage}
                 />
               );
-            })}
+            })} */}
           </div>
         </div>
 
