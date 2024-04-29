@@ -32,12 +32,20 @@ const ProductCard = ({
   refetchFavorites,
   refetchCartProducts,
   baseUrl,
+  setFavoriteProducts,
+  isOnFavoritePage,
+  isNewProduct,
 }: Product & {
   isFavorite?: boolean;
   isInCart?: boolean;
   refetchFavorites?: () => Promise<void>;
   refetchCartProducts?: () => Promise<void>;
   baseUrl?: string;
+  setFavoriteProducts?: React.Dispatch<
+    React.SetStateAction<favoriteProductList[]>
+  >;
+  isOnFavoritePage?: boolean;
+  isNewProduct?: boolean;
 }) => {
   const router = useRouter();
 
@@ -52,6 +60,11 @@ const ProductCard = ({
         await addToFavorites(String(id), accessToken);
       } else {
         await removeFromFavorites(String(id), accessToken);
+        // Remove the deleted favorite product from the state
+        setFavoriteProducts &&
+          setFavoriteProducts((prevFavoriteProducts) =>
+            prevFavoriteProducts.filter((product) => product.product.id !== id)
+          );
       }
       refetchFavorites && refetchFavorites();
     } catch (error) {
@@ -76,7 +89,11 @@ const ProductCard = ({
 
   return (
     <div
-      className="flex flex-col justify-between bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer xs:max-w-[370px] px-3 py-3 hover:scale-105 transition duration-300"
+      className={`flex flex-col justify-between ${
+        isNewProduct
+          ? "bg-transparent hover:scale-105 transition duration-300"
+          : "bg-white"
+      } rounded-2xl shadow-md overflow-hidden cursor-pointer xs:max-w-[370px] px-3 py-3 `}
       onClick={() => router.push(`/search/${id}`)}>
       <div className="relative w-full h-40 overflow-hidden">
         <Swiper
@@ -106,25 +123,33 @@ const ProductCard = ({
       <div className="relative flex flex-col flex-1 justify-between gap-3 p-2">
         <div className="mb-1">
           <h3 className="text-base font-semibold text-gray-800 capitalize overflow-ellipsis whitespace-normal">
-            {sliceTitle(description, 20, true)}
+            {sliceTitle(name, 20, true)}
           </h3>
-          <p className="text-sm text-gray-600 mt-3">
+          <p
+            className={`text-sm text-gray-600 mt-3 ${
+              isNewProduct && "hidden"
+            }`}>
             {sliceDescription(description, 65, true)}
           </p>
         </div>
 
         <div>
-          <Separator className="mb-3 border" />
+          <Separator className={`mb-3 border ${isNewProduct && "hidden"}`} />
 
           <div className="flex-between">
             <span className="text-lg font-bold text-gray-700">{price}₾</span>
-            <div className="flex items-center gap-2">
+            <div
+              className={`${
+                isNewProduct ? "hidden" : "flex"
+              } items-center gap-2`}>
               <div
                 className={`${
                   isInCart
                     ? "bg-[#fec900] text-white"
                     : "bg-gray-200 text-black"
-                } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 `}
+                } rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 ${
+                  isOnFavoritePage ? "hidden" : "flex-center"
+                }`}
                 onClick={handleAddCart}>
                 <MdAddShoppingCart className="text-lg" />
               </div>

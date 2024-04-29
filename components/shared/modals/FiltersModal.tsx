@@ -106,7 +106,7 @@ export function Filters() {
                           type="input"
                           {...field}
                           className="input-field"
-                          placeholder="დან"
+                          placeholder="from"
                         />
                       </FormControl>
                     </FormItem>
@@ -126,7 +126,7 @@ export function Filters() {
                           type="input"
                           {...field}
                           className="input-field"
-                          placeholder="მდე"
+                          placeholder="to"
                         />
                       </FormControl>
                     </FormItem>

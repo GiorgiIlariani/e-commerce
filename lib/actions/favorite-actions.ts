@@ -1,23 +1,20 @@
+import { fetchWithRetry } from "./refresh-token";
+
 const url = 'http://16.16.253.75';
 
-export const addToFavorites = async (productId: string, accessToken: string) => {
+
+export const addToFavorites = async (productId: string, accessToken: string, refreshToken: string) => {
+    const options: RequestInit = {
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ product: productId }),
+    };
+
     try {
-        const response = await fetch(`${url}/favourites/`, {
-            method: 'POST',
-            headers: {
-                'accept': 'application/json',
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                product: productId
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to add to favorites');
-        }
-
+        const response = await fetchWithRetry(`${url}/favourites/`, options, accessToken, refreshToken);
         const responseData = await response.json();
         return responseData;
     } catch (error) {
@@ -26,21 +23,16 @@ export const addToFavorites = async (productId: string, accessToken: string) => 
     }
 };
 
+export const getFavoriteProductsList = async (accessToken: string, refreshToken: string) => {
+    const options: RequestInit = {
+        method: 'GET',
+        headers: {
+            'accept': 'application/json',
+        },
+    };
 
-export const getFavoriteProductsList = async (accessToken: string) => {
     try {
-        const response = await fetch(`${url}/favourites/`, {
-            method: 'GET',
-            headers: {
-                'accept': 'application/json',
-                'Authorization': `Bearer ${accessToken}`,
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to get favorites');
-        }
-
+        const response = await fetchWithRetry(`${url}/favourites/`, options, accessToken, refreshToken);
         const responseData = await response.json();
         return responseData;
     } catch (error) {
@@ -49,20 +41,16 @@ export const getFavoriteProductsList = async (accessToken: string) => {
     }
 };
 
-export const removeFromFavorites = async (productId: string, accessToken: string) => {
+export const removeFromFavorites = async (productId: string, accessToken: string, refreshToken: string) => {
+    const options: RequestInit = {
+        method: 'DELETE',
+        headers: {
+            'accept': '*/*',
+        },
+    };
+
     try {
-        const response = await fetch(`${url}/favourites/${productId}/`, {
-            method: 'DELETE',
-            headers: {
-                'accept': '*/*',
-                'Authorization': `Bearer ${accessToken}`,
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to remove from favorites');
-        }
-
+        const response = await fetchWithRetry(`${url}/favourites/${productId}/`, options, accessToken, refreshToken);
         return { status: response.status };
     } catch (error) {
         console.error('Error while removing from favorites:', error);

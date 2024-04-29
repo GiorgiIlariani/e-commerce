@@ -36,7 +36,6 @@ export const authenticateUser = async ({
   }
 };
 
-
 export const SignInUser = async ({ username, password }: { username: string, password: string}) => {
   const response = await fetch(`${url}/api/token/`, {
     method: 'POST',

@@ -6,12 +6,18 @@ import { Button } from "@/components/ui/button";
 interface Props {
   imageUrl: string;
   isFirstImage: boolean;
-  //   handleImageRemove: (index: number) => void;
-  //   handleAddAsFirstImage: (index: number) => void;
+  // handleImageRemove: (index: number) => void;
+  // handleAddAsFirstImage: (index: number) => void;
   index: number;
 }
 
-const UploadedImages = ({ imageUrl, isFirstImage, index }: Props) => {
+const UploadedImages = ({
+  imageUrl,
+  isFirstImage,
+  index,
+}: // handleImageRemove,
+// handleAddAsFirstImage,
+Props) => {
   return (
     <div className="relative rounded-2xl group">
       <Image

@@ -5,6 +5,7 @@ import SavedCategories from "@/components/shared/home/SavedCategories";
 import SearchComponent from "@/components/shared/home/Search";
 import { Suspense } from "react";
 import BuySellLogo from "@/public/assets/images/buy-sell.png";
+import NewAddedCategories from "@/components/shared/home/NewAddedProducts";
 
 const HomePage = () => {
   return (
@@ -25,6 +26,7 @@ const HomePage = () => {
             }}
           />
           {/* <CircledCategories /> */}
+          <NewAddedCategories />
         </Suspense>
       </div>
 

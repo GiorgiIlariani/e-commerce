@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { toast } from "react-toastify";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -26,7 +25,6 @@ import { useAppDispatch } from "@/redux/hooks";
 import { setAuth } from "@/redux/features/authSlice";
 
 const LogInForm = ({ type }: LoginFormProps) => {
-  // const [isLoading, setIsLoading] = useState(false);
   const [register] = useRegisterMutation();
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useAppDispatch();
@@ -194,63 +192,3 @@ const LogInForm = ({ type }: LoginFormProps) => {
 };
 
 export default LogInForm;
-
-// async function onSubmit(values: z.infer<typeof SignInFormSchema>) {
-//   try {
-//     // Set loading state to true
-//     setIsLoading(true);
-
-//     let response;
-
-//     // Determine the type of authentication
-//     if (type === "Sign In") {
-//       // Sign In user
-//       response = await SignInUser({
-//         username: values.username,
-//         password: values.password,
-//       });
-//     } else {
-//       // Authenticate user
-//       response = await authenticateUser({
-//         email: values.email || "test@example.com",
-//         first_name: values.first_name || "test",
-//         last_name: values.last_name || "test",
-//         username: values.username,
-//         password: values.password,
-//       });
-//     }
-
-//     // Redirect to sign-in page if user ID exists
-//     if (response.id) {
-//       router.push(`/sign-in`);
-//     }
-
-//     // If access token exists, store it in local storage and redirect to home page
-//     if (response.access) {
-//       typeof window !== "undefined" &&
-//         localStorage.setItem("access-token", response.access);
-//       typeof window !== "undefined" &&
-//         localStorage.setItem("refresh-token", response.refresh);
-//       router.push("/");
-//     }
-
-//     // If response indicates incorrect credentials, display error message
-//     if (!response.refresh || !response.access) {
-//       if (type !== "Sign Up") {
-//         toast.error(
-//           "Incorrect credentials, please provide correct password or username",
-//           {
-//             position: "top-center",
-//             autoClose: 3000,
-//           }
-//         );
-//       }
-//     }
-//   } catch (error) {
-//     // Log any errors that occur during authentication
-//     console.log(error);
-//   } finally {
-//     // Set loading state to false regardless of outcome
-//     setIsLoading(false);
-//   }
-// }

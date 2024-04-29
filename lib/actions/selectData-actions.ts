@@ -1,5 +1,3 @@
-// import { refreshTokenFunc } from "@/utils";
-
 const url = 'http://16.16.253.75';
 
 export const fetchDropdownContentList = async (type: string) => {
@@ -10,7 +8,6 @@ export const fetchDropdownContentList = async (type: string) => {
             method: 'GET',
             headers: {
                 'accept': 'application/json',
-                // 'Authorization': `Bearer ${accesToken}`
             }
         });
 

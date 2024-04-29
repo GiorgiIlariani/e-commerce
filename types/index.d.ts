@@ -31,19 +31,26 @@ declare interface UserDetailsTypes {
   balance: number;
 }
 
-declare type Product = {
+type Product = {
   id: number;
   name: string;
   description: string;
   category: number[];
   price: number;
   quantity: number;
-  created_at: string; // Assuming this is a string representation of datetime
-  location: string;
-  favourites?: number;
+  created_at: string;
+  location: number;
   images: { id: number; image: string }[];
+  favourites: number;
   user: number;
 };
+
+declare type SearchedProductTypes = {
+  count: number;
+  next: null | boolean;
+  previous: null | boolean;
+  results: Product[];
+}
 
 declare type ProductList = Product[];
 
@@ -51,17 +58,13 @@ declare type favoriteProductList = {
   product: Product;
 }
 
-
 declare type fetchProductsTypes = {
-  min_price: string;
-  max_price: string;
-  location: string;
-}
-
-declare type FavoriteCardTypes = {
-  id: number;
-  product: number;
-  user: number;
+  min_price?: string;
+  max_price?: string;
+  location?: string;
+  searchQuery?: string;
+  page_size?: number;
+  user?: number;
 }
 
 declare type PromotingProps = {
@@ -72,4 +75,34 @@ declare type PromotingProps = {
   };
   title: string;
   description: string;
+}
+
+
+declare type CartProducts = {
+  quantity: number;
+  product: {
+    id: number;
+    name: string;
+    category: number[];
+    created_at: string;
+    description: string;
+    favourites: number;
+    id: number;
+    images: { id: number; image: string }[];
+    location: number;
+    name: string;
+    price: number;
+    quantity: number;
+    user: numbrt;
+  };
+};
+
+declare type NewProductsCardTypes =  {
+  id: number;
+  images: {
+    id: number;
+    image: string;
+  }[];
+  title: string;
+  price: number;
 }

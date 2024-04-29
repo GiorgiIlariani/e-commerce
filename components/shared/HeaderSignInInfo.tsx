@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "../ui/separator";
 import { SignedInNavbarPopupConstants } from "@/constants";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/redux/features/authSlice";
 import { useDispatch } from "react-redux";
 import { FaAngleDown } from "react-icons/fa6";
@@ -26,9 +26,11 @@ const HeaderSignInInfo = ({
 }) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
+  const router = useRouter();
 
   const handleLogout = () => {
     dispatch(logout());
+    router.push("/");
   };
 
   return (

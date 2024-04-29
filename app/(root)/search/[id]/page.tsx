@@ -14,20 +14,25 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import Spinner from "@/components/shared/Spinner";
 
 const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
   const [isSliced, setIsSliced] = useState(true);
   const [productDetails, setProductDetails] = useState<Product>();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-  const accessToken =
-    typeof window !== "undefined" && localStorage.getItem("access-token");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchSingleProductDetails = async () => {
-      if (!accessToken) return;
-      const details = await fetchSingleProduct(params.id, accessToken);
-      setProductDetails(details);
+      try {
+        setIsLoading(true);
+        const details = await fetchSingleProduct(params.id);
+        setProductDetails(details);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchSingleProductDetails();
   }, []);
@@ -46,16 +51,26 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
     return formattedDate;
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-[70vh] w-full flex-center">
+        <Spinner lg />
+      </div>
+    );
+  }
+
   return (
-    <section className="wrapper flex flex-col lg:flex-row gap-8 w-full bg-[#f1f3f6]">
-      <div className=" basis-2/5 shrink-0 bg-white flex flex-col justify-center gap-4 rounded-2xl h-max">
+    <section className="wrapper flex flex-col lg:flex-row gap-8 w-full bg-[#f1f3f6] py-10">
+      <div className="basis-2/5 shrink-0 bg-white flex flex-col justify-center gap-4 rounded-2xl h-max">
         <div className="w-[320px] mx-auto">
           <Swiper
             mousewheel
             slidesPerView={1}
             spaceBetween={10}
             navigation={true}
-            thumbs={{ swiper: thumbsSwiper }}
+            thumbs={{
+              swiper: thumbsSwiper && !thumbsSwiper ? thumbsSwiper : null,
+            }}
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper2 object-cover">
             {productDetails?.images?.map((image) => (

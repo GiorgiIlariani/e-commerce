@@ -1,6 +1,7 @@
 "use client";
 
 import ProductCard from "@/components/products/ProductCard";
+import Spinner from "@/components/shared/Spinner";
 import UserActivityHeader from "@/components/shared/UserActivityHeader";
 import { Button } from "@/components/ui/button";
 import { getFavoriteProductsList } from "@/lib/actions/favorite-actions";
@@ -9,21 +10,43 @@ import { useEffect, useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 
 const FavoritesPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [favoriteProducts, setFavoriteProducts] = useState<
     favoriteProductList[]
   >([]);
 
   const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
+  const refreshToken =
+    typeof window !== "undefined" && localStorage.getItem("refresh-token");
 
   useEffect(() => {
     const fetchFavoriteProducts = async () => {
-      if (!accessToken) return;
-      const favoriteProducts = await getFavoriteProductsList(accessToken);
-      setFavoriteProducts(favoriteProducts);
+      if (!accessToken || !refreshToken) return;
+      try {
+        setIsLoading(true);
+        const favoriteProducts = await getFavoriteProductsList(
+          accessToken,
+          refreshToken
+        );
+
+        setFavoriteProducts(favoriteProducts);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchFavoriteProducts();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-[70vh] w-full flex-center">
+        <Spinner lg />
+      </div>
+    );
+  }
 
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">
@@ -54,6 +77,8 @@ const FavoritesPage = () => {
                 {...favoriteProduct?.product}
                 isFavorite={true}
                 baseUrl="http://16.16.253.75"
+                setFavoriteProducts={setFavoriteProducts}
+                isOnFavoritePage={true}
               />
             ))}
           </div>

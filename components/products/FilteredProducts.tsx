@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from "react";
+"use client";
+
 import ProductCard from "./ProductCard";
 
 const FilteredProducts = ({
@@ -8,11 +9,11 @@ const FilteredProducts = ({
   refetchCartProducts,
   cartProducts,
 }: {
-  searchedProducts: ProductList;
+  searchedProducts: Product[];
   favoriteProducts: any;
   refetchFavorites: () => Promise<void>;
   refetchCartProducts: () => Promise<void>;
-  cartProducts: any;
+  cartProducts: CartProducts[];
 }) => {
   return (
     <div className="w-full grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">

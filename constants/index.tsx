@@ -298,12 +298,12 @@ export const SignedInNavbarPopupConstants = [
   {
     id: 2,
     text: "შეძენა/გაყიდვის ისტორიები",
-    route: "/myproducts",
+    route: "/history",
   },
   {
     id: 3,
     text: "ჩემი ფინანსები",
-    route: "/myproducts",
+    route: "/myFinances",
   },
   {
     id: 4,
@@ -315,17 +315,17 @@ export const SignedInNavbarPopupConstants = [
 export const profileLinks = [
   { href: "/product-form", Icon: IoIosAddCircle, text: "განცხადების დამატება" },
   { href: "/myproducts", Icon: IoListOutline, text: "ჩემი განცხადებები" },
-  { href: "/myproducts", Icon: IoWalletOutline, text: "ჩემი ფინანსები" },
-  { href: "/favorites", Icon: FaRegMessage, text: "მესიჯები" },
+  { href: "/myFinances", Icon: IoWalletOutline, text: "ჩემი ფინანსები" },
+  { href: "/messages", Icon: FaRegMessage, text: "მესიჯები" },
 ];
 
 export const extraLinks = [
   { href: "/favorites", Icon: AiOutlineHeart, text: "ჩემი რჩეულები" },
   { href: "/mycart", Icon: MdAddShoppingCart, text: "ჩემი კალათა" },
-  { href: "/favorites", Icon: FaLocationDot, text: "ლოკაცია" },
+  { href: "/location", Icon: FaLocationDot, text: "ლოკაცია" },
 ];
 
 export const accountLinks = [
-  { href: "/profile/info", Icon: FaHistory, text: "ყიდვის ისტორია" },
+  { href: "/history", Icon: FaHistory, text: "ყიდვის ისტორია" },
   { href: "/profile/info", Icon: AiOutlineUser, text: "ანგარიშის რედაქტირება" },
 ];

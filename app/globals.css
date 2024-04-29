@@ -107,6 +107,6 @@
     @apply flex-center w-8 h-8 rounded-md bg-[#f6f7fa] group-hover:bg-[#faedd9] transition duration-200;
   }
   .profile_link-p {
-    @apply group-hover:text-[#fec900] transition duration-200;
+    @apply group-hover:text-[#fec900] transition duration-200 xl:text-base text-sm;
   }
 }

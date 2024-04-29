@@ -3,7 +3,7 @@
 import { NavLinks } from "@/constants";
 import { useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { useDispatch } from "react-redux";
 import { logout } from "@/redux/features/authSlice";
@@ -11,10 +11,12 @@ import { logout } from "@/redux/features/authSlice";
 const NavItems = () => {
   const dispatch = useDispatch();
   const pathname = usePathname();
+  const router = useRouter();
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const handleLogout = () => {
     dispatch(logout());
+    router.push("/");
   };
 
   return (

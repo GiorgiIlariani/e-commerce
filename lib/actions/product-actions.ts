@@ -1,18 +1,31 @@
+import { fetchWithRetry } from "./refresh-token";
+
 const url = 'http://16.16.253.75';
 
-export const fetchProducts = async ({ min_price, max_price, location }: fetchProductsTypes) => {
+export const fetchProducts = async ({ min_price, max_price, location, searchQuery, page_size, user }: fetchProductsTypes) => {    
     let queryParams = '';
 
     // Build query parameters string
-    if (min_price !== '') {
+    if (min_price !== undefined && min_price !== '') {
         queryParams += `min_price=${min_price}&`;
     }
-    if (max_price !== '') {
+    if (max_price !== undefined && max_price !== '') {
         queryParams += `max_price=${max_price}&`;
     }
-    if (location !== '') {
+    if (location !== undefined && location !== '') {
         queryParams += `location=${location}&`;
     }
+    if (searchQuery !== undefined && searchQuery !== '') {
+        queryParams += `search=${searchQuery}&`;
+    }
+    if (page_size !== undefined && page_size) {
+        queryParams += `page_size=${page_size}&`;
+    }
+
+    if(user !== undefined && user) {
+        queryParams += `user=${user}&`;
+    }
+
 
     try {
         const response = await fetch(`${url}/products/?${queryParams}`, {
@@ -34,14 +47,12 @@ export const fetchProducts = async ({ min_price, max_price, location }: fetchPro
     }
 };
 
-
-export const fetchSingleProduct = async (productId: string, user: string) => {
+export const fetchSingleProduct = async (productId: string) => {
     try {
         const response = await fetch(`${url}/products/${productId}/`, {
             method: 'GET',
             headers: {
                 'accept': 'application/json',
-                'Authorization': `Bearer ${user}`,
             }
         });
 
@@ -57,18 +68,20 @@ export const fetchSingleProduct = async (productId: string, user: string) => {
     }
 };
 
-export const postProduct = async (productData: any, accessToken: string) => {
-    try {
-        const response = await fetch(`${url}/products/`, {
-            method: 'POST',
-            headers: {
-                'accept': 'application/json',
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ...productData, quantity: 1, category: [productData?.category] })
-        });
+export const postProduct = async (productData: any, accessToken: string, refreshToken: string) => {
+    const options: RequestInit = {
+        method: 'POST',
+        headers: {
+            'accept': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...productData, quantity: 1, category: [productData?.category] })
+    };
 
+    try {
+        const response = await fetchWithRetry(`${url}/products/`, options, accessToken, refreshToken);
+        
         if (!response.ok) {
             throw new Error('Failed to post product');
         }
@@ -81,34 +94,36 @@ export const postProduct = async (productData: any, accessToken: string) => {
     }
 };
 
-export const postImages = async (productId: string, accessToken: string, images: string[]) => {
-    const image = images[0];
+export const postImages = async (productId: string, accessToken: string, images: any[], refreshToken: string) => {
     try {
-        const formData = new FormData();
-        formData.append('product', productId); // Ensure consistency with the curl command
-        formData.append(`image`, image); // Ensure consistency with the curl command
-        
+        const responses = [];
+        for (const image of images) {
+            const formData = new FormData();
+            formData.append('product', productId);
+            formData.append('image', image);
 
-        const response = await fetch(`${url}/products/image/`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                "Accept": "application/json",
-            },
-            body: formData
-        });
+            const options: RequestInit = {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Accept': 'application/json',
+                },
+                body: formData,
+            };
 
-        if (!response.ok) {
-            throw new Error('Failed to post images');
+            const response = await fetchWithRetry(`${url}/products/image/`, options, accessToken, refreshToken);
+
+            if (!response.ok) {
+                throw new Error('Failed to post images');
+            }
+
+            const responseData = await response.json();
+            responses.push(responseData);
         }
 
-        const responseData = await response.json();
-        return responseData;
+        return responses;
     } catch (error) {
         console.error('Error while posting images:', error);
         throw error;
     }
 };
-
-
-
