@@ -2,7 +2,7 @@ import { fetchWithRetry } from "./refresh-token";
 
 const url = 'http://16.16.253.75';
 
-export const fetchProducts = async ({ min_price, max_price, location, searchQuery, page_size, user }: fetchProductsTypes) => {    
+export const fetchProducts = async ({ min_price, max_price, location, searchQuery, page_size, page,  user }: fetchProductsTypes) => {    
     let queryParams = '';
 
     // Build query parameters string

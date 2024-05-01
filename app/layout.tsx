@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Provider from "@/redux/provider";
 
 import "./globals.css";
+import RateUs from "@/components/shared/RateUs";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <RateUs />
         </Provider>
       </body>
     </html>

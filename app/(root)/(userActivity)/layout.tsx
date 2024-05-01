@@ -9,7 +9,7 @@ export default function UserActivityLayout({
     <main className="min-h-screen bg-[#f1f3f6]">
       <div className="wrapper">
         <div className="flex flex-row items-start">
-          {/* <LeftSidebar /> */}
+          <LeftSidebar />
           <div className="flex-1">{children}</div>
         </div>
       </div>

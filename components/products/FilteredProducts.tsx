@@ -8,12 +8,14 @@ const FilteredProducts = ({
   refetchFavorites,
   refetchCartProducts,
   cartProducts,
+  isAuthenticated,
 }: {
   searchedProducts: Product[];
   favoriteProducts: any;
   refetchFavorites: () => Promise<void>;
   refetchCartProducts: () => Promise<void>;
   cartProducts: CartProducts[];
+  isAuthenticated: boolean;
 }) => {
   return (
     <div className="w-full grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
@@ -36,6 +38,7 @@ const FilteredProducts = ({
             isInCart={isInCart}
             refetchFavorites={refetchFavorites}
             refetchCartProducts={refetchCartProducts}
+            isAuthenticated={isAuthenticated}
           />
         );
       })}

@@ -21,16 +21,28 @@ import Image from "next/image";
 import { useAppSelector } from "@/redux/hooks";
 import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
 import { ChangeEvent, useEffect, useState } from "react";
+import {
+  updateUserInformation,
+  updateUserProfileImage,
+} from "@/lib/actions/user-actions";
+import isAuth from "@/lib/actions/isAuth";
 
 const formSchema = z.object({
   image: z.string().optional(),
   username: z.string(),
   email: z.string().email(),
-  agreement: z.boolean(),
+  agreement: z.literal<boolean>(true),
 });
 
 const InfoPage = () => {
+  const [file, setFile] = useState<File[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  const accessToken =
+    typeof window !== "undefined" && localStorage.getItem("access-token");
+  const refreshToken =
+    typeof window !== "undefined" && localStorage.getItem("refresh-token");
 
   const { data: user, refetch } = useRetrieveUserQuery(undefined, {
     skip: !isAuthenticated,
@@ -45,16 +57,54 @@ const InfoPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      image: user ? user?.profile?.image : "",
+      image: user ? user?.image : "",
       username: user ? user?.username : "",
       email: user ? user?.email : "",
       agreement: false,
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!accessToken || !refreshToken) return;
+    try {
+      setIsLoading(true);
+      if (file.length) {
+        await updateUserProfileImage({ accessToken, image: file[0] });
+      }
+
+      if (user?.email !== values.email || user?.username !== values.username) {
+        await updateUserInformation(values, accessToken, refreshToken);
+      }
+      refetch();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   }
+
+  const handleImageChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    fieldChange: (value: string) => void
+  ) => {
+    e.preventDefault();
+
+    const fileReader = new FileReader();
+
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setFile(Array.from(e.target.files));
+
+      if (!file.type.includes("image")) return;
+
+      fileReader.onload = async (event) => {
+        const imageDataUrl = event.target?.result?.toString() || "";
+        fieldChange(imageDataUrl);
+      };
+
+      fileReader.readAsDataURL(file);
+    }
+  };
 
   return (
     <section>
@@ -67,23 +117,22 @@ const InfoPage = () => {
               <FormItem className="flex items-center gap-4">
                 <FormLabel className="w-16 h-16  border broder-[#e4e7ed] cursor-pointer rounded-[12px]">
                   {field.value && (
-                    <div>user image</div>
-                    // <Image
-                    //   src={field.value}
-                    //   alt="image"
-                    //   width={64}
-                    //   height={64}
-                    //   priority
-                    //   className="object-contain w-16 h-16 rounded-[12px]"
-                    // />
+                    <Image
+                      src={field.value}
+                      alt="image"
+                      width={64}
+                      height={64}
+                      priority
+                      className="object-cover w-16 h-16 rounded-[12px]"
+                    />
                   )}
                 </FormLabel>
                 <FormControl className="flex-1 font-normal text-lg text-gray-200">
                   <Input
-                    {...field}
                     accept="image/*"
                     type="file"
                     className="hidden"
+                    onChange={(e) => handleImageChange(e, field.onChange)}
                   />
                 </FormControl>
                 <div className="flex flex-col">
@@ -151,12 +200,12 @@ const InfoPage = () => {
             <Button
               type="submit"
               className="bg-transparent rounded-lg py-[22px] text-[#8996ae] text-center font-medium hover:underline">
-              გაუქმება
+              Cancel
             </Button>
             <Button
               type="submit"
               className="bg-[#fec900] rounded-lg py-[22px] text-white text-center font-medium hover:bg-[#ffdb4d]">
-              შენახვა
+              {isLoading ? "Saving..." : "Save"}
             </Button>
           </div>
         </form>
@@ -165,4 +214,4 @@ const InfoPage = () => {
   );
 };
 
-export default InfoPage;
+export default isAuth(InfoPage);

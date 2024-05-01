@@ -35,6 +35,7 @@ const ProductCard = ({
   setFavoriteProducts,
   isOnFavoritePage,
   isNewProduct,
+  isAuthenticated,
 }: Product & {
   isFavorite?: boolean;
   isInCart?: boolean;
@@ -46,20 +47,23 @@ const ProductCard = ({
   >;
   isOnFavoritePage?: boolean;
   isNewProduct?: boolean;
+  isAuthenticated?: boolean;
 }) => {
   const router = useRouter();
 
   const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
+  const refreshToken =
+    typeof window !== "undefined" && localStorage.getItem("refresh-token");
 
   const handleFavoriteClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     try {
       e.stopPropagation();
-      if (!accessToken) return;
+      if (!accessToken || !refreshToken) return;
       if (!isFavorite) {
-        await addToFavorites(String(id), accessToken);
+        await addToFavorites(String(id), accessToken, refreshToken);
       } else {
-        await removeFromFavorites(String(id), accessToken);
+        await removeFromFavorites(String(id), accessToken, refreshToken);
         // Remove the deleted favorite product from the state
         setFavoriteProducts &&
           setFavoriteProducts((prevFavoriteProducts) =>
@@ -75,11 +79,11 @@ const ProductCard = ({
   const handleAddCart = async (e: React.MouseEvent<HTMLDivElement>) => {
     try {
       e.stopPropagation();
-      if (!accessToken) return;
+      if (!accessToken || !refreshToken) return;
       if (!isInCart) {
-        await addToCart(String(id), accessToken, quantity);
+        await addToCart(String(id), accessToken, quantity, refreshToken);
       } else {
-        await removeProductFromCart(String(id), accessToken);
+        await removeProductFromCart(String(id), accessToken, refreshToken);
       }
       refetchCartProducts && refetchCartProducts();
     } catch (error) {
@@ -90,10 +94,8 @@ const ProductCard = ({
   return (
     <div
       className={`flex flex-col justify-between ${
-        isNewProduct
-          ? "bg-transparent hover:scale-105 transition duration-300"
-          : "bg-white"
-      } rounded-2xl shadow-md overflow-hidden cursor-pointer xs:max-w-[370px] px-3 py-3 `}
+        isNewProduct ? "bg-transparent" : "bg-white"
+      } rounded-2xl shadow-md overflow-hidden cursor-pointer xs:max-w-[370px] px-3 py-3  hover:scale-105 transition duration-300`}
       onClick={() => router.push(`/search/${id}`)}>
       <div className="relative w-full h-40 overflow-hidden">
         <Swiper
@@ -114,6 +116,7 @@ const ProductCard = ({
                 src={baseUrl ? baseUrl + image : image}
                 className="w-full h-full rounded-2xl object-cover"
                 fill
+                sizes="100%"
               />
             </SwiperSlide>
           ))}
@@ -134,35 +137,41 @@ const ProductCard = ({
         </div>
 
         <div>
-          <Separator className={`mb-3 border ${isNewProduct && "hidden"}`} />
+          <Separator
+            className={`mb-3 border ${
+              isNewProduct || (!isAuthenticated && "hidden")
+            }`}
+          />
 
           <div className="flex-between">
             <span className="text-lg font-bold text-gray-700">{price}₾</span>
-            <div
-              className={`${
-                isNewProduct ? "hidden" : "flex"
-              } items-center gap-2`}>
+            {isAuthenticated && (
               <div
                 className={`${
-                  isInCart
-                    ? "bg-[#fec900] text-white"
-                    : "bg-gray-200 text-black"
-                } rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 ${
-                  isOnFavoritePage ? "hidden" : "flex-center"
-                }`}
-                onClick={handleAddCart}>
-                <MdAddShoppingCart className="text-lg" />
+                  isNewProduct ? "hidden" : "flex"
+                } items-center gap-2`}>
+                <div
+                  className={`${
+                    isInCart
+                      ? "bg-[#fec900] text-white"
+                      : "bg-gray-200 text-black"
+                  } rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 ${
+                    isOnFavoritePage ? "hidden" : "flex-center"
+                  }`}
+                  onClick={handleAddCart}>
+                  <MdAddShoppingCart className="text-lg" />
+                </div>
+                <div
+                  className={`${
+                    isFavorite
+                      ? "bg-[#fec900] text-white"
+                      : "bg-gray-200 text-black"
+                  } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 `}
+                  onClick={handleFavoriteClick}>
+                  <IoIosHeartEmpty className="text-lg" />
+                </div>
               </div>
-              <div
-                className={`${
-                  isFavorite
-                    ? "bg-[#fec900] text-white"
-                    : "bg-gray-200 text-black"
-                } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 `}
-                onClick={handleFavoriteClick}>
-                <IoIosHeartEmpty className="text-lg" />
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

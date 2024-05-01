@@ -25,6 +25,7 @@ import UploadedImages from "@/components/forms/product-form/uploadedImages";
 import { useRouter } from "next/navigation";
 import UserActivityHeader from "@/components/shared/UserActivityHeader";
 import { toast } from "react-toastify";
+import isAuth from "@/lib/actions/isAuth";
 
 const ProductFormPage = () => {
   const router = useRouter();
@@ -295,4 +296,4 @@ const ProductFormPage = () => {
   );
 };
 
-export default ProductFormPage;
+export default isAuth(ProductFormPage);

@@ -9,8 +9,10 @@ import HeaderSignInInfo from "../HeaderSignInInfo";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
 import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
+import { redirect, useRouter } from "next/navigation";
 
 const Header = () => {
+  const router = useRouter();
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const {
@@ -28,6 +30,14 @@ const Header = () => {
     }
   }, [isAuthenticated]);
 
+  const addProduct = () => {
+    if (!isAuthenticated) {
+      router.push("/sign-in");
+    } else {
+      router.push("/product-form");
+    }
+  };
+
   return (
     <header className="w-full border-b border-[#e5e7eb]">
       <div className="wrapper flex-between">
@@ -44,17 +54,19 @@ const Header = () => {
         </Link>
         {/* right side of the header */}
         <div className="hidden md:flex items-center gap-4">
-          <Link href="/product-form">
-            <Button className="flex items-center gap-2 rounded-xl px-6 bg-[#FFF4CC] hover:bg-[#FFF4CC]">
-              <Image
-                src="/assets/images/add-sign.svg"
-                alt="add-sign"
-                width={20}
-                height={20}
-              />
-              <span className="text-xs font-medium">დამატება</span>
-            </Button>
-          </Link>
+          {/* <Link href="/product-form"> */}
+          <Button
+            className="flex items-center gap-2 rounded-xl px-6 bg-[#FFF4CC] hover:bg-[#FFF4CC]"
+            onClick={addProduct}>
+            <Image
+              src="/assets/images/add-sign.svg"
+              alt="add-sign"
+              width={20}
+              height={20}
+            />
+            <span className="text-xs font-medium">დამატება</span>
+          </Button>
+          {/* </Link> */}
           <ul className="flex items-center">
             {headerIcons.map(({ href, icon }) => (
               <Link href={href} className="icon-overlay" key={href}>

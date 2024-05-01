@@ -1,6 +1,8 @@
 "use client";
 
+import MyProductsFilter from "@/components/shared/MyProductsFilter";
 import UserActivityHeader from "@/components/shared/UserActivityHeader";
+import isAuth from "@/lib/actions/isAuth";
 import { fetchProducts } from "@/lib/actions/product-actions";
 import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
 import { useAppSelector } from "@/redux/hooks";
@@ -37,17 +39,15 @@ const MyProductsPage = () => {
     fetchMyProducts();
   }, []);
 
-  console.log(myProducts);
-
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">
       <div className="wrapper flex flex-col">
         <UserActivityHeader route="My Products" />
 
-        <div className="w-full"></div>
+        <MyProductsFilter />
       </div>
     </section>
   );
 };
 
-export default MyProductsPage;
+export default isAuth(MyProductsPage);

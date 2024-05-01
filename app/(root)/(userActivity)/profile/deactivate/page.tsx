@@ -1,4 +1,5 @@
 import DeactivateForm from "@/components/forms/profile-forms/Deactivate";
+import isAuth from "@/lib/actions/isAuth";
 
 const DeactivatePage = () => {
   return (
@@ -11,4 +12,4 @@ const DeactivatePage = () => {
   );
 };
 
-export default DeactivatePage;
+export default isAuth(DeactivatePage);

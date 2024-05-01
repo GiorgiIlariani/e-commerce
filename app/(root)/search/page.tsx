@@ -2,9 +2,11 @@
 
 import FilteredProducts from "@/components/products/FilteredProducts";
 import ProductCardLoader from "@/components/products/ProductCardLoader";
+import { PaginationComponent } from "@/components/shared/Pagination";
 import { getCartProducts } from "@/lib/actions/cart-actions";
 import { getFavoriteProductsList } from "@/lib/actions/favorite-actions";
 import { fetchProducts } from "@/lib/actions/product-actions";
+import { useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,10 +19,13 @@ const SearchedProducts = () => {
       previous: null,
       results: [],
     });
+
   const [favoriteProducts, setFavoriteProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
+
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const min_price = searchParams.get("min_price") || "";
   const max_price = searchParams.get("max_price") || "";
@@ -41,6 +46,7 @@ const SearchedProducts = () => {
           max_price,
           location,
           searchQuery,
+          page_size: 8,
         });
         setSearchedProducts(products);
       } catch (error) {
@@ -115,7 +121,7 @@ const SearchedProducts = () => {
 
   return (
     <main className="w-full min-h-screen wrapper flex flex-col bg-[#f1f3f6]">
-      <div className="flex items-center justify-start">
+      <div className="flex items-center justify-start mt-6">
         <div className="flex items-center gap-6">
           <Link href="/" className="text-[#8996ae] text-sm">
             მთავარი
@@ -125,7 +131,7 @@ const SearchedProducts = () => {
           </span>
         </div>
       </div>
-      <section className="flex flex-col lg:flex-row gap-8 my-8 items-start">
+      <section className="flex flex-col lg:flex-row gap-8 mb-20 mt-6 items-start">
         {/* <SearchFilterSide`bar /> */}
         {isLoading ? (
           <div className="w-full grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -134,13 +140,21 @@ const SearchedProducts = () => {
             ))}
           </div>
         ) : (
-          <FilteredProducts
-            searchedProducts={searchedProducts?.results}
-            favoriteProducts={favoriteProducts}
-            refetchFavorites={refetchFavorites}
-            refetchCartProducts={refetchCartProducts}
-            cartProducts={cartProducts}
-          />
+          <div className="w-full flex flex-col gap-12">
+            <FilteredProducts
+              searchedProducts={searchedProducts?.results}
+              favoriteProducts={favoriteProducts}
+              refetchFavorites={refetchFavorites}
+              refetchCartProducts={refetchCartProducts}
+              cartProducts={cartProducts}
+              isAuthenticated={isAuthenticated}
+            />
+            <PaginationComponent
+              count={searchedProducts.count}
+              next={searchedProducts.next}
+              previous={searchedProducts.previous}
+            />
+          </div>
         )}
       </section>
     </main>

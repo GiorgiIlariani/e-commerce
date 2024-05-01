@@ -19,6 +19,26 @@ export const SignInFormSchema = z.object({
   }).optional(),
 });
 
+// export const changeUserInformationSchema = z.object({
+//   email: z.string().email({
+//     message: "Invalid email format.",
+//   }).optional(),
+//   password: z.string().min(4, {
+//     message: "Password must be at least 4 characters long.",
+//   }),
+//   username: z.string().min(2, {
+//     message: "Username must be at least 2 characters long.",
+//   }),
+//   first_name: z.string().min(2, {
+//     message: "Username must be at least 2 characters long.",
+//   }),
+//   last_name: z.string().min(2, {
+//     message: "Username must be at least 2 characters long.",
+//   }),
+//   agremeent: z.boolean(),
+//   image: z.string(),
+// });
+
 
 export const deactivateFormSchema = z.object({
   username: z.string().min(2, {

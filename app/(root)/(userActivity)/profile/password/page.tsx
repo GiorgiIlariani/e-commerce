@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { updateUserInformation } from "@/lib/actions/user-actions";
+import { useDispatch } from "react-redux";
+import { logout } from "@/redux/features/authSlice";
+import { useRouter } from "next/navigation";
+import isAuth from "@/lib/actions/isAuth";
 
 const formSchema = z.object({
   newPassword: z.string().min(4, {
@@ -23,23 +29,42 @@ const formSchema = z.object({
   repeatNewPassword: z.string().min(4, {
     message: "პაროლის სიგრძე უნდა აღემატებოდეს 4 სიმბოლოს",
   }),
-  currentPassword: z.string().min(4, {
-    message: "პაროლის სიგრძე უნდა აღემატებოდეს 4 სიმბოლოს",
-  }),
 });
 
 const PasswordPage = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const accessToken =
+    typeof window !== "undefined" && localStorage.getItem("access-token");
+  const refreshToken =
+    typeof window !== "undefined" && localStorage.getItem("refresh-token");
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       newPassword: "",
       repeatNewPassword: "",
-      currentPassword: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (values.newPassword !== values.repeatNewPassword) {
+      toast.error("Password does not match!");
+      return;
+    }
+
+    if (!accessToken || !refreshToken) return;
+    const status = await updateUserInformation(
+      { password: values.newPassword },
+      accessToken,
+      refreshToken
+    );
+    if (status === 200) {
+      toast.success("password Changes successfully, please log in again.");
+      dispatch(logout());
+      router.push("/sign-in");
+    }
   }
 
   return (
@@ -78,22 +103,6 @@ const PasswordPage = () => {
               )}
             />
           </div>
-          <FormField
-            control={form.control}
-            name="currentPassword"
-            render={({ field }) => (
-              <FormItem className="w-full 1200:w-1/2">
-                <FormLabel className="text-sm font-medium text-[#a3adc0]">
-                  Current Password*
-                </FormLabel>
-                <FormControl>
-                  <Input type="password" {...field} className="input-field" />
-                </FormControl>
-                <FormMessage className="text-red-600" />
-              </FormItem>
-            )}
-          />
-          <Separator className="w-full my-2 bg-[#e4e7ed]" />
           <div className="w-full flex justify-between">
             <Button
               type="submit"
@@ -112,4 +121,4 @@ const PasswordPage = () => {
   );
 };
 
-export default PasswordPage;
+export default isAuth(PasswordPage);

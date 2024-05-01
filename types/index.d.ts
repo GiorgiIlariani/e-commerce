@@ -47,8 +47,8 @@ type Product = {
 
 declare type SearchedProductTypes = {
   count: number;
-  next: null | boolean;
-  previous: null | boolean;
+  next: null | string;
+  previous: null | string;
   results: Product[];
 }
 
@@ -65,6 +65,7 @@ declare type fetchProductsTypes = {
   searchQuery?: string;
   page_size?: number;
   user?: number;
+  page?: number;
 }
 
 declare type PromotingProps = {
