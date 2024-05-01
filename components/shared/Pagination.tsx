@@ -1,50 +1,37 @@
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+import { Pagination } from "@mui/material";
+import { usePathname, useRouter } from "next/navigation";
+import { Dispatch, SetStateAction } from "react";
 
 type PaginationComponentProps = {
   count: number;
-  next: null | string;
-  previous: null | string;
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
 };
 
 export function PaginationComponent({
   count,
-  next,
-  previous,
+  page,
+  setPage,
 }: PaginationComponentProps) {
-  const pageNumber = count / 12;
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(count / 12);
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    router.push(`${pathname}?/page=${value}`);
+  };
 
   return (
-    <Pagination>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious href="#" />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" isActive>
-            2
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+    <div className="w-full flex items-center justify-center mt-10">
+      <Pagination
+        count={totalPages}
+        page={page}
+        onChange={handleChange}
+        color="primary"
+      />
+    </div>
   );
 }

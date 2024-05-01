@@ -24,6 +24,7 @@ const SearchedProducts = () => {
   const [cartProducts, setCartProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
+  const [page, setPage] = useState(Number(searchParams.get("page") || 1));
 
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
@@ -31,6 +32,7 @@ const SearchedProducts = () => {
   const max_price = searchParams.get("max_price") || "";
   const location = searchParams.get("location") || "";
   const searchQuery = searchParams.get("query") || "";
+  const page_size = Number(searchParams.get("page_size") || 12);
 
   const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
@@ -39,6 +41,8 @@ const SearchedProducts = () => {
 
   useEffect(() => {
     const fetchProductsList = async () => {
+      console.log({ page });
+
       try {
         setIsLoading(true);
         const products = await fetchProducts({
@@ -46,7 +50,8 @@ const SearchedProducts = () => {
           max_price,
           location,
           searchQuery,
-          page_size: 8,
+          page_size,
+          page,
         });
         setSearchedProducts(products);
       } catch (error) {
@@ -57,7 +62,7 @@ const SearchedProducts = () => {
     };
 
     fetchProductsList();
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -151,8 +156,8 @@ const SearchedProducts = () => {
             />
             <PaginationComponent
               count={searchedProducts.count}
-              next={searchedProducts.next}
-              previous={searchedProducts.previous}
+              page={page}
+              setPage={setPage}
             />
           </div>
         )}

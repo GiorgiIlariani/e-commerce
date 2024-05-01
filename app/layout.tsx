@@ -5,6 +5,7 @@ import Footer from "@/components/shared/layout/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Provider from "@/redux/provider";
+// import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 
 import "./globals.css";
 import RateUs from "@/components/shared/RateUs";
@@ -29,7 +30,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable} flex h-screen flex-col`}>
         <ToastContainer />
-
         <Provider>
           <Header />
           <main className="flex-1">{children}</main>
