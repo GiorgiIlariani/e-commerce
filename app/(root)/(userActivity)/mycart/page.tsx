@@ -17,6 +17,7 @@ import Spinner from "@/components/shared/Spinner";
 const MyCartPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cartProducts, setCartProducts] = useState<CartProducts[]>([]);
+  const [totalPrice, setTotalPrice] = useState<number>(0); // State to store total price
 
   const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
@@ -29,11 +30,18 @@ const MyCartPage = () => {
       try {
         setIsLoading(true);
         const cartProducts = await getCartProducts(accessToken, refreshToken);
-
-        const priceArr = cartProducts.map(
-          (item: CartProducts) => item.product.price
+        // Calculate total price for each product and update state
+        const updatedCartProducts = cartProducts.map((item: CartProducts) => ({
+          ...item,
+          totalPrice: item.product.price * item.quantity,
+        }));
+        setCartProducts(updatedCartProducts);
+        // Calculate total price of all products
+        const totalPrice = updatedCartProducts.reduce(
+          (acc: number, curr: CartProducts) => acc + curr.product.price,
+          0
         );
-        setCartProducts(cartProducts);
+        setTotalPrice(totalPrice);
       } catch (error) {
         console.log(error);
       } finally {
@@ -57,6 +65,11 @@ const MyCartPage = () => {
         setCartProducts((prevCartProducts) =>
           prevCartProducts.filter((item) => item.product.id !== productId)
         );
+        // Calculate total price again after removing item
+        const totalPrice = cartProducts
+          .filter((item) => item.product.id !== productId)
+          .reduce((acc, curr) => acc + curr.product.price, 0);
+        setTotalPrice(totalPrice);
 
         toast.success("Item removed Successfully!");
       }
@@ -69,6 +82,7 @@ const MyCartPage = () => {
     try {
       if (!accessToken || !refreshToken) return;
       setCartProducts([]);
+      setTotalPrice(0); // Reset total price
       await removeAllCartItem(accessToken, refreshToken);
     } catch (error) {
       console.log(error);
@@ -125,15 +139,9 @@ const MyCartPage = () => {
                 />
               ))}
               <p className="self-start text-md text-gray-400">
-                ჯამი: <span className="text-blue-600 text-lg">***₾</span>
+                ჯამი:{" "}
+                <span className="text-blue-600 text-lg">{totalPrice}₾</span>
               </p>
-              {/* {total ? (
-                <p className="self-start text-md text-gray-400">
-                  ჯამი: <span className="text-blue-600 text-lg">{total}₾</span>
-                </p>
-              ) : (
-                ""
-              )} */}
             </div>
           </div>
         )}

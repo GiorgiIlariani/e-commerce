@@ -9,23 +9,33 @@ export const fetchProducts = async ({ min_price, max_price, location, searchQuer
     if (min_price !== undefined && min_price !== '') {
         queryParams += `min_price=${min_price}&`;
     }
+    
     if (max_price !== undefined && max_price !== '') {
         queryParams += `max_price=${max_price}&`;
     }
+
     if (location !== undefined && location !== '') {
         queryParams += `location=${location}&`;
     }
+
     if (searchQuery !== undefined && searchQuery !== '') {
         queryParams += `search=${searchQuery}&`;
     }
+
     if (page_size !== undefined && page_size) {
         queryParams += `page_size=${page_size}&`;
+    }
+
+    if (page !== undefined && page) {
+        queryParams += `page=${page}&`;
     }
 
     if(user !== undefined && user) {
         queryParams += `user=${user}&`;
     }
 
+    console.log(queryParams);
+    
 
     try {
         const response = await fetch(`${url}/products/?${queryParams}`, {
