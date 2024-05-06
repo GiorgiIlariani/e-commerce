@@ -15,6 +15,7 @@ const NewAddedCategories = () => {
       try {
         setIsLoading(true);
         const newProducts = await fetchProducts({ page_size: 12 });
+
         setProducts(newProducts.results);
       } catch (error) {
         console.log(error);

@@ -4,9 +4,9 @@ import React from "react";
 
 const SignInPage = () => {
   return (
-    <div className="flex flex-col">
+    <div className="w-full sm:max-w-xl flex flex-col my-10">
       <h2 className="text-[28px] font-medium">Create an account</h2>
-      <div className="max-w-xl py-6 w-full">
+      <div className="sm:max-w-xl py-6 w-full">
         <LogInForm type="Sign Up" />
       </div>
       <div className="max-w-xl mt-6 text-center">

@@ -126,8 +126,8 @@ export const updateUserProfileImage = async ({
       throw new Error("Failed to update user profile");
     }
 
-    const data = await response.json();
-    return data;
+    const status = await response.status;
+    return status;
   } catch (error) {
     console.error("Error updating user profile:", error);
     throw error;
@@ -156,6 +156,7 @@ export const updateUserInformation = async (
       accessToken,
       refreshToken
     );
+    
     return response.status;
   } catch (error) {
     console.error("Error while updating user information:", error);

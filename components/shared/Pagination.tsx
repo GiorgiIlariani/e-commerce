@@ -25,7 +25,7 @@ export function PaginationComponent({
   };
 
   return (
-    <div className="w-full flex items-center justify-center mt-10">
+    <div className="w-full flex items-center justify-center absolute bottom-10">
       <Pagination
         count={totalPages}
         page={page}

@@ -1,3 +1,5 @@
+"use client";
+
 import DeactivateForm from "@/components/forms/profile-forms/Deactivate";
 import isAuth from "@/lib/actions/isAuth";
 

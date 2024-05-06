@@ -1,48 +1,57 @@
 import { z } from "zod";
 
 
+// authentication schema
 export const SignInFormSchema = z.object({
   email: z.string().email({
     message: "Invalid email format.",
-  }).optional(),
+  })
+  .optional(),
   password: z.string().min(4, {
     message: "Password must be at least 4 characters long.",
-  }),
+  })
+  .max(150, "Password must be fewer that 150 charachters long."),
   username: z.string().min(2, {
     message: "Username must be at least 2 characters long.",
-  }),
+  })
+  .max(150, "username must be fewer that 150 charachters long."),
   first_name: z.string().min(2, {
     message: "Username must be at least 2 characters long.",
-  }).optional(),
+  })
+  .max(150, "firstName must be fewer that 150 charachters long.")
+  .optional(),
   last_name: z.string().min(2, {
     message: "Username must be at least 2 characters long.",
-  }).optional(),
+  })
+  .max(150, "lastName must be fewer that 150 charachters long.")
+  .optional(),
 });
 
-// export const changeUserInformationSchema = z.object({
-//   email: z.string().email({
-//     message: "Invalid email format.",
-//   }).optional(),
-//   password: z.string().min(4, {
-//     message: "Password must be at least 4 characters long.",
-//   }),
-//   username: z.string().min(2, {
-//     message: "Username must be at least 2 characters long.",
-//   }),
-//   first_name: z.string().min(2, {
-//     message: "Username must be at least 2 characters long.",
-//   }),
-//   last_name: z.string().min(2, {
-//     message: "Username must be at least 2 characters long.",
-//   }),
-//   agremeent: z.boolean(),
-//   image: z.string(),
-// });
-
+// user schemas
+export const changeUserInformationSchema = z.object({
+  image: z.string().optional(),
+  username: z.string().min(2, "username must be at least 2 charachters").max(150, "username must be fewer than 150 charachters"),
+  email: z.string().email(),
+  agreement: z.literal<boolean>(true, {
+    errorMap: () => ({ message: "You must accept the data processing" }),
+  }),
+});
 
 export const deactivateFormSchema = z.object({
   username: z.string().min(2, {
     message: "username must be at least 2 charachters",
+  }),
+  agreement: z.literal<boolean>(true, {
+    errorMap: () => ({ message: "You must accept the account deactvating" }),
+  }),
+});
+
+export const changePasswordSchema = z.object({
+  newPassword: z.string().min(4, {
+    message: "at least 4 characters long!",
+  }),
+  repeatNewPassword: z.string().min(4, {
+    message: "at least 4 characters long!",
   }),
 });
 

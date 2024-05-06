@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { DeactivateAccountAlertDialog } from "@/components/shared/modals/DeeactivateAlertDialog";
 import { logout } from "@/redux/features/authSlice";
 import { useDispatch } from "react-redux";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const DeactivateForm = () => {
   const router = useRouter();
@@ -50,6 +51,7 @@ const DeactivateForm = () => {
     resolver: zodResolver(deactivateFormSchema),
     defaultValues: {
       username: "",
+      agreement: false,
     },
   });
 
@@ -57,11 +59,7 @@ const DeactivateForm = () => {
     try {
       if (values.username !== user?.username) {
         toast.error(
-          "Unauthorized username. Please log in with appropriate username to continue.",
-          {
-            position: "top-center",
-            autoClose: 3000,
-          }
+          "Unauthorized username. Please log in with appropriate username to continue."
         );
       } else {
         setShowAlertDialog(true);
@@ -80,13 +78,7 @@ const DeactivateForm = () => {
     if (status === 204) {
       setIsRemoving(false);
       dispatch(logout());
-      toast.success(
-        "Account has beed deactivated, you will be redirected on home page soon!",
-        {
-          position: "top-center",
-          autoClose: 3000,
-        }
-      );
+      toast.success("Account has beed deactivated!");
       router.push("/");
     }
   }
@@ -104,9 +96,6 @@ const DeactivateForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm font-medium text-[#a3adc0]">
-                  Username*
-                </FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -114,6 +103,31 @@ const DeactivateForm = () => {
                     placeholder="Your username..."
                   />
                 </FormControl>
+                <FormMessage className="text-red-600" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="agreement"
+            render={({ field }) => (
+              <FormItem className="flex flex-col space-y-4 p-4">
+                <div className="flex flex-row space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel className="text-[#272a37]">
+                      Agreement{" "}
+                      <span className="text-[#4a6cfa]">
+                        deactivating account
+                      </span>
+                    </FormLabel>
+                  </div>
+                </div>
                 <FormMessage className="text-red-600" />
               </FormItem>
             )}

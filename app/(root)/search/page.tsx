@@ -125,7 +125,7 @@ const SearchedProducts = () => {
   };
 
   return (
-    <main className="w-full min-h-screen wrapper flex flex-col bg-[#f1f3f6]">
+    <main className="w-full min-h-screen wrapper flex flex-col bg-[#f1f3f6] relative">
       <div className="flex items-center justify-start mt-6">
         <div className="flex items-center gap-6">
           <Link href="/" className="text-[#8996ae] text-sm">
@@ -137,12 +137,16 @@ const SearchedProducts = () => {
         </div>
       </div>
       <section className="flex flex-col lg:flex-row gap-8 mb-20 mt-6 items-start">
-        {/* <SearchFilterSide`bar /> */}
+        {/* <SearchFilterSidebar /> */}
         {isLoading ? (
           <div className="w-full grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {Array.from({ length: 12 }).map((_, index) => (
               <ProductCardLoader key={index} />
             ))}
+          </div>
+        ) : searchedProducts?.results.length === 0 ? (
+          <div className="w-full text-center mt-10">
+            <p className="text-2xl text-gray-500">No products found.</p>
           </div>
         ) : (
           <div className="w-full flex flex-col gap-12">

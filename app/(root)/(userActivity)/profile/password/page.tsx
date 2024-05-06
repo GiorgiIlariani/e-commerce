@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +23,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "@/redux/features/authSlice";
 import { useRouter } from "next/navigation";
 import isAuth from "@/lib/actions/isAuth";
+import { changePasswordSchema } from "@/lib/validator";
 
 const formSchema = z.object({
   newPassword: z.string().min(4, {
@@ -35,20 +38,25 @@ const PasswordPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const [showPassword, setShowPassword] = useState({
+    newPassword: false,
+    repeatNewPassword: false,
+  });
+
   const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
   const refreshToken =
     typeof window !== "undefined" && localStorage.getItem("refresh-token");
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof changePasswordSchema>>({
+    resolver: zodResolver(changePasswordSchema),
     defaultValues: {
       newPassword: "",
       repeatNewPassword: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof changePasswordSchema>) {
     if (values.newPassword !== values.repeatNewPassword) {
       toast.error("Password does not match!");
       return;
@@ -61,7 +69,7 @@ const PasswordPage = () => {
       refreshToken
     );
     if (status === 200) {
-      toast.success("password Changes successfully, please log in again.");
+      toast.success("password Changed successfully, please log in again.");
       dispatch(logout());
       router.push("/sign-in");
     }
@@ -80,9 +88,30 @@ const PasswordPage = () => {
                   <FormLabel className="text-sm font-medium text-[#a3adc0]">
                     New Password*
                   </FormLabel>
-                  <FormControl>
-                    <Input type="password" {...field} className="input-field" />
-                  </FormControl>
+                  <div className="relative">
+                    <FormControl>
+                      <Input
+                        type={showPassword.newPassword ? "text" : "password"}
+                        {...field}
+                        className="rounded-lg ring-none border border-[#DBDBDB] text-[16px] font-medium leading-[24px] py-[22px] outline-none px-14"
+                      />
+                    </FormControl>
+                    <Button
+                      type="button"
+                      onClick={() =>
+                        setShowPassword((prevState) => ({
+                          ...prevState,
+                          newPassword: !prevState.newPassword,
+                        }))
+                      }
+                      className="outline-none absolute left-1 top-1">
+                      {showPassword.newPassword ? (
+                        <FaRegEye className="h-6 w-6 text-gray-400" />
+                      ) : (
+                        <FaRegEyeSlash className="h-6 w-6 text-gray-400" />
+                      )}
+                    </Button>
+                  </div>
                   <FormMessage className="text-red-600" />
                 </FormItem>
               )}
@@ -95,9 +124,32 @@ const PasswordPage = () => {
                   <FormLabel className="text-sm font-medium text-[#a3adc0]">
                     Repeat New Password*
                   </FormLabel>
-                  <FormControl>
-                    <Input type="password" {...field} className="input-field" />
-                  </FormControl>
+                  <div className="relative">
+                    <FormControl>
+                      <Input
+                        type={
+                          showPassword.repeatNewPassword ? "text" : "password"
+                        }
+                        {...field}
+                        className="rounded-lg ring-none border border-[#DBDBDB] text-[16px] font-medium leading-[24px] py-[22px] outline-none px-14"
+                      />
+                    </FormControl>
+                    <Button
+                      type="button"
+                      onClick={() =>
+                        setShowPassword((prevState) => ({
+                          ...prevState,
+                          repeatNewPassword: !prevState.repeatNewPassword,
+                        }))
+                      }
+                      className="outline-none absolute left-1 top-1">
+                      {showPassword.repeatNewPassword ? (
+                        <FaRegEye className="h-6 w-6 text-gray-400" />
+                      ) : (
+                        <FaRegEyeSlash className="h-6 w-6 text-gray-400" />
+                      )}
+                    </Button>
+                  </div>
                   <FormMessage className="text-red-600" />
                 </FormItem>
               )}

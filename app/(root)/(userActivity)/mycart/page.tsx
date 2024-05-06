@@ -13,11 +13,15 @@ import {
 import CartItem from "@/components/shared/CartItem";
 import { toast } from "react-toastify";
 import Spinner from "@/components/shared/Spinner";
+import Checkout from "@/components/shared/Checkout";
 
 const MyCartPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cartProducts, setCartProducts] = useState<CartProducts[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0); // State to store total price
+  const [selectedCartProductsId, setSelectedCartProductsId] = useState<
+    number[]
+  >([]);
 
   const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
@@ -78,12 +82,47 @@ const MyCartPage = () => {
     }
   };
 
+  // const handleRemoveAllCartItem = async () => {
+  //   try {
+  //     if (!accessToken || !refreshToken) return;
+  //     setCartProducts([]);
+  //     setTotalPrice(0); // Reset total price
+  //     await removeAllCartItem(accessToken, refreshToken);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const handleRemoveAllCartItem = async () => {
     try {
       if (!accessToken || !refreshToken) return;
-      setCartProducts([]);
-      setTotalPrice(0); // Reset total price
-      await removeAllCartItem(accessToken, refreshToken);
+      if (selectedCartProductsId.length === 0) {
+        // If no items are selected, remove all items
+        setCartProducts([]);
+        setTotalPrice(0); // Reset total price
+        await removeAllCartItem(accessToken, refreshToken);
+        toast.success("All items removed Successfully!");
+      } else {
+        // If there are selected items, remove only those
+        const selectedItemsIds = selectedCartProductsId.map((id) => String(id));
+        const remainingItems = cartProducts.filter(
+          (item) => !selectedItemsIds.includes(String(item.product.id))
+        );
+        setCartProducts(remainingItems);
+        // Calculate total price again after removing selected items
+        const totalPrice = remainingItems.reduce(
+          (acc, curr) => acc + curr.product.price,
+          0
+        );
+        setTotalPrice(totalPrice);
+        // Remove selected items from backend
+        for (const itemId of selectedItemsIds) {
+          await removeProductFromCart(itemId, accessToken, refreshToken);
+        }
+        // Clear the selected cart items state
+        setSelectedCartProductsId([]);
+        toast.success("Selected items removed Successfully!");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -126,7 +165,9 @@ const MyCartPage = () => {
               <Button
                 className="self-end text-[#8996ae] bg-[#f1f3f6] hover:bg-[#FEC900] hover:text-white p-4 rounded-lg text-sm font-bold"
                 onClick={handleRemoveAllCartItem}>
-                კალათის გასუფთავება
+                {selectedCartProductsId.length > 0
+                  ? "remove selected products"
+                  : "remove all products"}
               </Button>
 
               <div className="w-full h-[1px] bg-gray-300" />
@@ -136,12 +177,17 @@ const MyCartPage = () => {
                   key={i}
                   cartItem={item}
                   handleRemoveCartItem={handleRemoveCartItem}
+                  selectedCartProductsId={selectedCartProductsId}
+                  setSelectedCartProductsId={setSelectedCartProductsId}
                 />
               ))}
-              <p className="self-start text-md text-gray-400">
-                ჯამი:{" "}
-                <span className="text-blue-600 text-lg">{totalPrice}₾</span>
-              </p>
+              <div className="w-full flex-between">
+                <p className="self-start text-md text-gray-400">
+                  ჯამი:{" "}
+                  <span className="text-blue-600 text-lg">{totalPrice}₾</span>
+                </p>
+                <Checkout cartProducts={cartProducts} />
+              </div>
             </div>
           </div>
         )}

@@ -1,21 +1,41 @@
-"use client";
-
 import { sliceTitle } from "@/utils";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 type CartItemProps = {
   cartItem: CartProducts;
   handleRemoveCartItem: (productId: number) => Promise<void>;
+  selectedCartProductsId: number[];
+  setSelectedCartProductsId: Dispatch<SetStateAction<number[]>>;
 };
 
 const baseUrl = "http://16.16.253.75";
 
-const CartItem = ({ cartItem, handleRemoveCartItem }: CartItemProps) => {
+const CartItem = ({
+  cartItem,
+  handleRemoveCartItem,
+  selectedCartProductsId,
+  setSelectedCartProductsId,
+}: CartItemProps) => {
   const [quantity, setQuantity] = useState<number>(cartItem.quantity);
+
+  // Function to handle checkbox toggle
+  const handleCheckboxToggle = () => {
+    const productId = cartItem.product.id;
+    if (selectedCartProductsId.includes(productId)) {
+      // If the product is already selected, remove it from the selected list
+      setSelectedCartProductsId((prevIds) =>
+        prevIds.filter((id) => id !== productId)
+      );
+    } else {
+      // If the product is not selected, add it to the selected list
+      setSelectedCartProductsId((prevIds) => [...prevIds, productId]);
+    }
+  };
 
   const handleSubtraction = () => {
     if (quantity > 1) {
@@ -28,11 +48,14 @@ const CartItem = ({ cartItem, handleRemoveCartItem }: CartItemProps) => {
   };
 
   return (
-    <div className="relative flex items-center justify-between w-full px-3 border-b py-2">
+    <div className="relative flex items-center justify-between w-full px-3 border-b pt-2 pb-5">
       <div className="basis-1/2 gap-4 self-start flex items-center">
-        <Checkbox
+        <Input
+          type="checkbox"
           id={String(cartItem?.product.id)}
-          className="checked:text-white checked:bg-[#FEC900]"
+          className="w-4 h-4 rounded-sm bg-white checked:bg-[#fec900]"
+          checked={selectedCartProductsId.includes(cartItem.product.id)}
+          onChange={handleCheckboxToggle}
         />
 
         <Image

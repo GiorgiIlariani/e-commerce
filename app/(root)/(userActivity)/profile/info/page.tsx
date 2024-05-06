@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -26,13 +26,7 @@ import {
   updateUserProfileImage,
 } from "@/lib/actions/user-actions";
 import isAuth from "@/lib/actions/isAuth";
-
-const formSchema = z.object({
-  image: z.string().optional(),
-  username: z.string(),
-  email: z.string().email(),
-  agreement: z.literal<boolean>(true),
-});
+import { changeUserInformationSchema } from "@/lib/validator";
 
 const InfoPage = () => {
   const [file, setFile] = useState<File[]>([]);
@@ -54,8 +48,8 @@ const InfoPage = () => {
     }
   }, [isAuthenticated]);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof changeUserInformationSchema>>({
+    resolver: zodResolver(changeUserInformationSchema),
     defaultValues: {
       image: user ? user?.image : "",
       username: user ? user?.username : "",
@@ -64,17 +58,43 @@ const InfoPage = () => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof changeUserInformationSchema>) {
+    let imageUploadStatus;
+    let userInfoStatus;
     if (!accessToken || !refreshToken) return;
+
     try {
       setIsLoading(true);
+
       if (file.length) {
-        await updateUserProfileImage({ accessToken, image: file[0] });
+        const status = await updateUserProfileImage({
+          accessToken,
+          image: file[0],
+        });
+        imageUploadStatus = status;
       }
 
       if (user?.email !== values.email || user?.username !== values.username) {
-        await updateUserInformation(values, accessToken, refreshToken);
+        const status = await updateUserInformation(
+          values,
+          accessToken,
+          refreshToken
+        );
+        userInfoStatus = status;
       }
+
+      if (imageUploadStatus === 200 || userInfoStatus === 200) {
+        toast.success("user account details changed successfully!");
+      }
+
+      if (
+        file.length === 0 &&
+        user?.email !== values.email &&
+        user?.username !== values.username
+      ) {
+        return;
+      }
+
       refetch();
     } catch (error) {
       console.log(error);
@@ -155,6 +175,7 @@ const InfoPage = () => {
                   <FormControl>
                     <Input type="text" {...field} className="input-field" />
                   </FormControl>
+
                   <FormMessage className="text-red-600" />
                 </FormItem>
               )}
@@ -179,19 +200,22 @@ const InfoPage = () => {
             control={form.control}
             name="agreement"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 p-4">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel className="text-[#272a37]">
-                    Agreement{" "}
-                    <span className="text-[#4a6cfa]"> data processing</span>
-                  </FormLabel>
+              <FormItem className="flex flex-col space-y-4 p-4">
+                <div className="flex flex-row space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel className="text-[#272a37]">
+                      Agreement{" "}
+                      <span className="text-[#4a6cfa]"> data processing</span>
+                    </FormLabel>
+                  </div>
                 </div>
+                <FormMessage className="text-red-600" />
               </FormItem>
             )}
           />

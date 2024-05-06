@@ -63,7 +63,7 @@ const HeaderSignInInfo = ({
                 <h5 className="text-sm font-semibold">
                   {user?.first_name} {user?.last_name}
                 </h5>
-                <span className="text-sm font-semibold">ID: 5567868</span>
+                {user?.username}
               </div>
             </div>
             <Separator className="w-full border border-gray-100 my-2" />
