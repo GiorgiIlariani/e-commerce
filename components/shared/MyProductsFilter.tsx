@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState, useEffect, Dispatch } from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
@@ -15,39 +15,67 @@ import {
 import { Input } from "../ui/input";
 import Dropdown from "./Dropdown";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { formUrlQuery, removeKeysFromQuery } from "@/utils";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const MyProductsFilter = () => {
-  React.useState([]);
-  const [date, setDate] = React.useState<Date>();
-  const [query, setQuery] = React.useState("");
-  const [selectedCategory, setSelectedCategory] = React.useState("");
-  const searchParams = useSearchParams();
+type MyProductsFilterProps = {
+  myProducts: ProductList;
+  setMyProducts: Dispatch<React.SetStateAction<ProductList>>;
+};
+
+const MyProductsFilter = ({
+  myProducts,
+  setMyProducts,
+}: MyProductsFilterProps) => {
+  const [date, setDate] = useState<Date>();
+  const [query, setQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const router = useRouter();
+  const pathname = usePathname();
 
-  React.useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      let newUrl = "";
+  useEffect(() => {
+    const updateUrl = () => {
+      const queryParams = new URLSearchParams();
 
+      // Add or remove the 'search' parameter based on the 'query'
       if (query) {
-        newUrl = formUrlQuery({
-          params: searchParams.toString(),
-          key: "query",
-          value: query,
-        });
+        queryParams.set("search", query);
       } else {
-        newUrl = removeKeysFromQuery({
-          params: searchParams.toString(),
-          keysToRemove: ["query"],
-        });
+        queryParams.delete("search");
       }
 
-      router.push(newUrl, { scroll: false });
-    }, 300);
+      // Add or remove the 'category' parameter based on the 'selectedCategory'
+      if (selectedCategory) {
+        queryParams.set("category", selectedCategory);
+      } else {
+        queryParams.delete("category");
+      }
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [query, searchParams, router]);
+      // Add or remove the 'minPrice' parameter based on 'minPrice'
+      if (minPrice) {
+        queryParams.set("min_price", minPrice.toString());
+      } else {
+        queryParams.delete("min_price");
+      }
+
+      // Add or remove the 'maxPrice' parameter based on 'maxPrice'
+      if (maxPrice) {
+        queryParams.set("max_price", maxPrice.toString());
+      } else {
+        queryParams.delete("max_price");
+      }
+
+      const url = queryParams.toString();
+      router.push(`${pathname}/?${url}`, { scroll: false });
+    };
+
+    const debouncedUpdateUrl = setTimeout(updateUrl, 300);
+
+    return () => {
+      clearTimeout(debouncedUpdateUrl);
+    };
+  }, [query, selectedCategory, minPrice, maxPrice]);
 
   return (
     <div className="w-full rounded-[16px] py-6 px-4 bg-white flex items-center gap-4 mt-6">
@@ -69,6 +97,7 @@ const MyProductsFilter = () => {
           value={selectedCategory}
           placeholder="category"
           type="category"
+          setSelectedCategory={setSelectedCategory}
         />
       </div>
 
@@ -107,8 +136,20 @@ const MyProductsFilter = () => {
           </PopoverTrigger>
           <PopoverContent className="bg-white">
             <div className="flex items-center gap-5">
-              <Input type="number" placeholder="from" className="input-field" />
-              <Input type="number" placeholder="To" className="input-field" />
+              <Input
+                type="number"
+                placeholder="from"
+                className="input-field"
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
+              />
+              <Input
+                type="number"
+                placeholder="To"
+                className="input-field"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+              />
             </div>
           </PopoverContent>
         </Popover>
@@ -118,3 +159,31 @@ const MyProductsFilter = () => {
 };
 
 export default MyProductsFilter;
+
+// // Add or remove the 'search' parameter based on the 'query'
+// if (query) {
+//   newUrl = formUrlQuery({
+//     params: newUrl,
+//     key: "search",
+//     value: query,
+//   });
+// } else {
+//   newUrl = removeKeysFromQuery({
+//     params: newUrl,
+//     keysToRemove: ["search"],
+//   });
+// }
+
+// // Add or remove the 'category' parameter based on the 'selectedCategory'
+// if (selectedCategory) {
+//   newUrl = formUrlQuery({
+//     params: newUrl,
+//     key: "category",
+//     value: selectedCategory,
+//   });
+// } else {
+//   newUrl = removeKeysFromQuery({
+//     params: newUrl,
+//     keysToRemove: ["category"],
+//   });
+// }

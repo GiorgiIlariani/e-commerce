@@ -62,10 +62,12 @@ declare type fetchProductsTypes = {
   min_price?: string;
   max_price?: string;
   location?: string;
+  category?: string;
   searchQuery?: string;
   page_size?: number;
   user?: number;
   page?: number;
+
 }
 
 declare type PromotingProps = {

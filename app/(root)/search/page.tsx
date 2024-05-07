@@ -1,7 +1,7 @@
 "use client";
 
 import FilteredProducts from "@/components/products/FilteredProducts";
-import ProductCardLoader from "@/components/products/ProductCardLoader";
+import ProductCardLoader from "@/components/shared/loader/ProductCardLoader";
 import { PaginationComponent } from "@/components/shared/Pagination";
 import { getCartProducts } from "@/lib/actions/cart-actions";
 import { getFavoriteProductsList } from "@/lib/actions/favorite-actions";

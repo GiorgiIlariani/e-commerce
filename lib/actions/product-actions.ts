@@ -2,7 +2,7 @@ import { fetchWithRetry } from "./refresh-token";
 
 const url = 'http://16.16.253.75';
 
-export const fetchProducts = async ({ min_price, max_price, location, searchQuery, page_size, page,  user }: fetchProductsTypes) => {    
+export const fetchProducts = async ({ min_price, max_price, location, category, searchQuery, page_size, page, user }: fetchProductsTypes) => {    
     let queryParams = '';
 
     // Build query parameters string
@@ -16,6 +16,10 @@ export const fetchProducts = async ({ min_price, max_price, location, searchQuer
 
     if (location !== undefined && location !== '') {
         queryParams += `location=${location}&`;
+    }
+
+    if (category !== undefined && category !== '') {
+        queryParams += `category=${[category]}&`;
     }
 
     if (searchQuery !== undefined && searchQuery !== '') {
@@ -32,10 +36,8 @@ export const fetchProducts = async ({ min_price, max_price, location, searchQuer
 
     if(user !== undefined && user) {
         queryParams += `user=${user}&`;
-    }
+    }  
 
-    console.log(queryParams);
-    
 
     try {
         const response = await fetch(`${url}/products/?${queryParams}`, {
@@ -137,3 +139,26 @@ export const postImages = async (productId: string, accessToken: string, images:
         throw error;
     }
 };
+
+export const removeProduct = async (productId: number, accessToken: string, refreshToken: string) => {
+    const options: RequestInit = {
+        method: 'DELETE',
+        headers: {
+            'accept': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        }
+    };
+    
+    try {
+        const response = await fetchWithRetry(`${url}/products/${productId}/`, options, accessToken, refreshToken);
+        
+        if (!response.ok) {
+            throw new Error('Failed to remove product');
+        }
+        
+        return response.status;
+    } catch (error) {
+        console.error('Error while removing product:', error);
+        throw error;
+    }
+}

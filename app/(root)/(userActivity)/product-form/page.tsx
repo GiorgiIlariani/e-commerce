@@ -15,14 +15,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import AdditionalInformation from "@/components/shared/AdditionalInformation";
 import Dropdown from "@/components/shared/Dropdown";
-import { postImages, postProduct } from "@/lib/actions/product-actions";
+import {
+  fetchSingleProduct,
+  postImages,
+  postProduct,
+} from "@/lib/actions/product-actions";
 import UploadImageContainer from "@/components/forms/product-form/UploadImageContainer";
 import { productFormSchema } from "@/lib/validator";
 import UploadedImages from "@/components/forms/product-form/uploadedImages";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import UserActivityHeader from "@/components/shared/UserActivityHeader";
 import { toast } from "react-toastify";
 import isAuth from "@/lib/actions/isAuth";
@@ -32,6 +36,10 @@ const ProductFormPage = () => {
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [imagesForUpload, setImagesForUpload] = useState<any>([]);
+  const [product, setProduct] = useState<Product>();
+  const searchParams = useSearchParams();
+
+  const productId = searchParams.get("productId");
 
   const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
@@ -42,14 +50,38 @@ const ProductFormPage = () => {
   const form = useForm<z.infer<typeof productFormSchema>>({
     resolver: zodResolver(productFormSchema),
     defaultValues: {
-      description: "",
-      name: "",
-      price: "",
-      location: "",
-      images: [],
-      category: "",
+      description: product ? product?.description : "",
+      name: product ? product?.name : "",
+      price: product ? String(product?.price) : "",
+      location: product ? String(product?.location) : "",
+      images: [], // product ? product?.images :
+      category: product ? String(product?.category) : "",
     },
   });
+
+  useEffect(() => {
+    const fetchEditedProduct = async () => {
+      try {
+        if (!productId) return;
+
+        const product = await fetchSingleProduct(productId);
+        setProduct(product);
+
+        // Set the default values for the form fields after fetching the product data
+        form.reset({
+          description: product.description,
+          name: product.name,
+          price: product.price, // You can modify this accordingly
+          location: String(product.location), // You can modify this accordingly
+          images: [], // You can modify this accordingly
+          category: product.category, // You can modify this accordingly
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchEditedProduct();
+  }, []);
 
   async function onSubmit(values: z.infer<typeof productFormSchema>) {
     try {

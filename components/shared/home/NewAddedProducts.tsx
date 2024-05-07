@@ -1,7 +1,7 @@
 "use client";
 
 import ProductCard from "@/components/products/ProductCard";
-import ProductCardLoader from "@/components/products/ProductCardLoader";
+import ProductCardLoader from "@/components/shared/loader/ProductCardLoader";
 import { fetchProducts } from "@/lib/actions/product-actions";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";

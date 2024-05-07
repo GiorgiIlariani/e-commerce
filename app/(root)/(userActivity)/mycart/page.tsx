@@ -82,17 +82,6 @@ const MyCartPage = () => {
     }
   };
 
-  // const handleRemoveAllCartItem = async () => {
-  //   try {
-  //     if (!accessToken || !refreshToken) return;
-  //     setCartProducts([]);
-  //     setTotalPrice(0); // Reset total price
-  //     await removeAllCartItem(accessToken, refreshToken);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const handleRemoveAllCartItem = async () => {
     try {
       if (!accessToken || !refreshToken) return;

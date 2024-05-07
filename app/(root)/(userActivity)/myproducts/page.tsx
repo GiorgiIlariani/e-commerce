@@ -3,60 +3,120 @@
 import MyProductsFilter from "@/components/shared/MyProductsFilter";
 import UserActivityHeader from "@/components/shared/UserActivityHeader";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import isAuth from "@/lib/actions/isAuth";
-import { fetchProducts } from "@/lib/actions/product-actions";
+import { fetchProducts, removeProduct } from "@/lib/actions/product-actions";
 import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
 import { useAppSelector } from "@/redux/hooks";
+import { convertDate, sliceTitle } from "@/utils";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoListOutline } from "react-icons/io5";
+import { WiTime10 } from "react-icons/wi";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { CiEdit } from "react-icons/ci";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { MdDeleteOutline } from "react-icons/md";
+import { toast } from "react-toastify";
+import MyProductsLoader from "@/components/shared/loader/MyProductsLoader";
 
 const MyProductsPage = () => {
   const [myProducts, setMyProducts] = useState<ProductList>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const searchParams = useSearchParams();
 
-  // const {
-  //   data: user,
-  //   isLoading,
-  //   isFetching,
-  //   refetch,
-  // } = useRetrieveUserQuery(undefined, {
-  //   skip: !isAuthenticated,
-  // });
+  const searchQuery = searchParams.get("search") || "";
+  const category = searchParams.get("category") || "";
+  const min_price = searchParams.get("min_price") || "";
+  const max_price = searchParams.get("max_price") || "";
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     refetch();
-  //   }
-  // }, [isAuthenticated]);
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   const fetchMyProducts = async () => {
-  //     try {
-  //       const myProducts = await fetchProducts({ user: user?.id });
-  //       setMyProducts(myProducts.results);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchMyProducts();
-  // }, []);
+  const accessToken =
+    typeof window !== "undefined" && localStorage.getItem("access-token");
+  const refreshToken =
+    typeof window !== "undefined" && localStorage.getItem("refresh-token");
+
+  const {
+    data: user,
+    // isLoading,
+    refetch,
+  } = useRetrieveUserQuery(undefined, {
+    skip: !isAuthenticated,
+  });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      refetch();
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    const fetchMyProducts = async () => {
+      try {
+        setIsLoading(true);
+        const myProducts = await fetchProducts({
+          user: user?.id,
+          searchQuery,
+          category,
+          min_price,
+          max_price,
+        });
+        setMyProducts(myProducts.results);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchMyProducts();
+  }, [searchQuery, category, min_price, max_price]);
+
+  const handleProductEdit = (productId: number) => {
+    router.push(`/product-form?productId=${productId}`);
+  };
+
+  const handleRemoveProduct = async (productId: number) => {
+    try {
+      if (!accessToken || !refreshToken) return;
+      setIsLoading(true);
+      const status = await removeProduct(productId, accessToken, refreshToken);
+
+      if (status === 204) {
+        toast.success("product removed successfully!");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">
       <div className="wrapper flex flex-col">
         <UserActivityHeader route="My Products" />
 
-        <MyProductsFilter />
+        <MyProductsFilter
+          myProducts={myProducts}
+          setMyProducts={setMyProducts}
+        />
 
-        {myProducts.length === 0 ? (
+        {myProducts.length === 0 && !isLoading && searchParams.size === 0 ? (
           <div className="w-full flex flex-col justify-center items-center pt-[100px] pb-[200px] rounded-[16px] text-center bg-white mt-10">
             <div className="flex h-12 w-12 items-center justify-center text-xl duration-300 ease-out rounded-full bg-gray-300">
               <IoListOutline fontSize={16} />
             </div>
 
             <p className="text-lg font-bold mt-4">
-              You have nt uploaded product
+              You have not uploaded product
             </p>
             <p className="text-[#8996ae] text-base mt-4">
               After adding product you can easily manage products from this page
@@ -68,8 +128,84 @@ const MyProductsPage = () => {
               </Button>
             </Link>
           </div>
+        ) : isLoading ? (
+          <div className="w-full flex flex-col justify-center gap-6 p-6 runded-[16px] bg-white mt-10">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <MyProductsLoader key={index} />
+            ))}
+          </div>
+        ) : myProducts.length === 0 && searchParams.size > 0 ? (
+          <div className="w-full text-2xl text-center min-h-[70vh] font-bold flex items-center justify-center">
+            No Products to show!
+          </div>
         ) : (
-          <div className="w-full"></div>
+          <div className="w-full flex flex-col justify-center gap-6 p-6 rounded-[16px] text-center bg-white mt-10">
+            {myProducts.map((product) => (
+              <div
+                key={product.id}
+                className="flex justify-between items-center border-b pb-4">
+                <div className="w-1/5 flex items-center gap-3">
+                  <Input
+                    type="checkbox"
+                    // id={String(cartItem?.product.id)}
+                    className="w-4 h-4 rounded-sm bg-white checked:bg-[#fec900]"
+                    // checked={selectedCartProductsId.includes(cartItem.product.id)}
+                    // onChange={handleCheckboxToggle}
+                  />
+                  <Image
+                    src={product.images[0].image}
+                    alt="product image"
+                    width={80}
+                    height={80}
+                    className="object-cover w-20 h-20 rounded-[16px]"
+                  />
+                </div>
+
+                <div className="w-1/5 text-start">
+                  <p className="text-gray-500 mb-2 font-semibold">
+                    ID: {product.id}
+                  </p>
+                  <h4 className="text-md font-semibold text-nowrap">
+                    {sliceTitle(product.name, 25, true)}
+                  </h4>
+                </div>
+
+                <p className="text-xl font-bold">₾{product.price}</p>
+
+                <p className="flex items-center gap-2 text-gray-500 font-semibold">
+                  <WiTime10 />
+                  {convertDate(product.created_at)}
+                </p>
+
+                <div className="flex items-center gap-3">
+                  <div
+                    className="icon-overlay"
+                    onClick={() => handleProductEdit(product.id)}>
+                    <CiEdit />
+                  </div>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <div className="icon-overlay">
+                        <HiDotsHorizontal />
+                      </div>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] absolute -right-4 bg-white">
+                      <div className="flex flex-col gap-4">
+                        <div
+                          className="flex items-center gap-3 cursor-pointer"
+                          onClick={() => handleRemoveProduct(product.id)}>
+                          <MdDeleteOutline />
+                          <p className="text-red-600 text-sm font-semibold">
+                            remove
+                          </p>
+                        </div>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </section>
