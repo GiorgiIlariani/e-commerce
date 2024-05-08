@@ -14,7 +14,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import Spinner from "@/components/shared/Spinner";
+import Spinner from "@/components/shared/loader/Spinner";
 
 const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
   const [isSliced, setIsSliced] = useState(true);

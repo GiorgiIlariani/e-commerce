@@ -18,7 +18,7 @@ type DropdownProps = {
   onChangeHandler?: () => void;
   placeholder: string;
   type: "category" | "location";
-  setSelectedCategory?: Dispatch<SetStateAction<string>>;
+  // setSelectedCategory?: Dispatch<SetStateAction<string>>;
 };
 
 const Dropdown = ({
@@ -26,8 +26,8 @@ const Dropdown = ({
   onChangeHandler,
   placeholder,
   type,
-  setSelectedCategory,
-}: DropdownProps) => {
+}: // setSelectedCategory,
+DropdownProps) => {
   const [dropdownContent, setDropdownContent] = useState<dropdownContentType[]>(
     []
   );
@@ -41,13 +41,8 @@ const Dropdown = ({
     fetchDropdownContent();
   }, []);
 
-  const handleValueChange = (newValue: string) => {
-    if (onChangeHandler) onChangeHandler(); // Call onChangeHandler if provided
-    setSelectedCategory && setSelectedCategory(newValue); // Always update setSelectedCategory
-  };
-
   return (
-    <Select onValueChange={handleValueChange} defaultValue={value}>
+    <Select onValueChange={onChangeHandler} value={value}>
       <SelectTrigger className="input-field">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
@@ -56,7 +51,7 @@ const Dropdown = ({
           dropdownContent.map(({ id, name }) => (
             <SelectItem
               key={id}
-              value={String(id)}
+              value={id.toString()}
               className="select-item p-regular-14 cursor-pointer hover:text-[#007aff] trasition duration-200">
               {name}
             </SelectItem>

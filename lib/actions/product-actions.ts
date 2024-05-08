@@ -106,6 +106,33 @@ export const postProduct = async (productData: any, accessToken: string, refresh
     }
 };
 
+export const editProduct = async (productId: string, values: any, accessToken: string, refreshToken: string) => {
+    const options: RequestInit = {
+        method: 'PATCH', // Change method to PATCH for updating existing resource
+        headers: {
+            'accept': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...values, quantity: 1, category: [values?.category] }), // Send the updated product data in the body
+    };
+
+    try {
+        const response = await fetchWithRetry(`${url}/products/${productId}/`, options, accessToken, refreshToken);
+        
+        if (!response.ok) {
+            throw new Error('Failed to edit product');
+        }
+
+        const editedProduct = await response.json();
+        return editedProduct;
+    } catch (error) {
+        console.error('Error while editing product:', error);
+        throw error;
+    }
+};
+
+
 export const postImages = async (productId: string, accessToken: string, images: any[], refreshToken: string) => {
     try {
         const responses = [];

@@ -66,7 +66,16 @@ export const productFormSchema = z.object({
   name: z.string().min(1, { message: 'Please enter a name with at least 1 character.' }).optional(),
   price: z.string().min(0.01, { message: 'Please enter a price.' }).optional(),
   location: z.string().min(1, { message: 'Please select a location.' }).optional(),
-  images: z.array(z.string()).min(1).max(12, { message: 'Please upload at least 1 and at most 12 images.' }),
+  images: z.array(
+    z.union([
+        z.object({
+            image: z.string(),
+        }),
+        z.object({
+            id: z.number(),
+        })
+    ])
+  ).min(1).max(12, { message: 'Please upload at least 1 and at most 12 images.' }),
   category: z.string().min(1, { message: 'Please select a category.' }).optional(),
 });
 

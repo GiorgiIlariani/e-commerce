@@ -19,6 +19,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import AdditionalInformation from "@/components/shared/AdditionalInformation";
 import Dropdown from "@/components/shared/Dropdown";
 import {
+  editProduct,
   fetchSingleProduct,
   postImages,
   postProduct,
@@ -31,10 +32,12 @@ import UserActivityHeader from "@/components/shared/UserActivityHeader";
 import { toast } from "react-toastify";
 import isAuth from "@/lib/actions/isAuth";
 
+type ProductImageType = string[] | { id: number; image: string }[];
+
 const ProductFormPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<ProductImageType>([]);
   const [imagesForUpload, setImagesForUpload] = useState<any>([]);
   const [product, setProduct] = useState<Product>();
   const searchParams = useSearchParams();
@@ -54,7 +57,7 @@ const ProductFormPage = () => {
       name: product ? product?.name : "",
       price: product ? String(product?.price) : "",
       location: product ? String(product?.location) : "",
-      images: [], // product ? product?.images :
+      images: product ? product?.images : [],
       category: product ? String(product?.category) : "",
     },
   });
@@ -67,15 +70,18 @@ const ProductFormPage = () => {
         const product = await fetchSingleProduct(productId);
         setProduct(product);
 
+        console.log(product);
+
         // Set the default values for the form fields after fetching the product data
         form.reset({
           description: product.description,
           name: product.name,
-          price: product.price, // You can modify this accordingly
+          price: String(product.price), // You can modify this accordingly
           location: String(product.location), // You can modify this accordingly
-          images: [], // You can modify this accordingly
-          category: product.category, // You can modify this accordingly
+          images: product.images, // You can modify this accordingly
+          category: String(product.category[0]), // You can modify this accordingly
         });
+        setImages(product.images);
       } catch (error) {
         console.log(error);
       }
@@ -88,24 +94,44 @@ const ProductFormPage = () => {
       setLoading(true);
       if (!accessToken || !refreshToken) return;
 
-      // post product
-      const product = await postProduct(values, accessToken, refreshToken);
-      const productId = product?.id;
-      await postImages(
-        String(productId),
-        accessToken,
-        imagesForUpload,
-        refreshToken
+      if (productId) {
+        // User is editing an existing product
+        const product = await editProduct(
+          productId,
+          values,
+          accessToken,
+          refreshToken
+        );
+        await postImages(
+          String(product?.id),
+          accessToken,
+          imagesForUpload,
+          refreshToken
+        );
+        router.push(`/search/${product.id}`);
+      } else {
+        // User is creating a new product
+        const product = await postProduct(values, accessToken, refreshToken);
+        await postImages(
+          String(product?.id),
+          accessToken,
+          imagesForUpload,
+          refreshToken
+        );
+
+        // Redirect user
+        router.push("/search");
+      }
+
+      // successMessage
+      toast.success(
+        `Product ${productId ? "updated" : "created"} successfully!`
       );
 
-      // for reseting values
+      // Reset form values and state
       form.reset();
       setImages([]);
       setImagesForUpload([]);
-
-      // show user his/her recently added product
-      router.push("/search");
-      toast.success("product created successfully!");
     } catch (error) {
       console.log(error);
     } finally {
@@ -218,10 +244,12 @@ const ProductFormPage = () => {
 
                 {images.map((image, index) => {
                   const isFirstImage = index === 0; // Check if it's the first image
+                  const imageUrl =
+                    typeof image === "string" ? image : image.image;
                   return (
                     <UploadedImages
                       key={index}
-                      imageUrl={image}
+                      imageUrl={imageUrl}
                       isFirstImage={isFirstImage}
                       index={index}
                       // handleImageRemove={handleImageRemove}
@@ -318,7 +346,13 @@ const ProductFormPage = () => {
               <Button
                 type="submit"
                 className="text-white text-base font-bold px-10 py-[14px] bg-[#fec900] rounded-lg">
-                {loading ? "Submitting..." : "Submit"}
+                {loading
+                  ? productId
+                    ? "Editing..."
+                    : "Submitting..."
+                  : productId
+                  ? "Edit"
+                  : "Submit"}
               </Button>
             </div>
           </form>

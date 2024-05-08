@@ -90,7 +90,11 @@ const MyProductsPage = () => {
       const status = await removeProduct(productId, accessToken, refreshToken);
 
       if (status === 204) {
-        toast.success("product removed successfully!");
+        // Remove the deleted product from the list
+        setMyProducts((prevProducts) =>
+          prevProducts.filter((product) => product.id !== productId)
+        );
+        toast.success("Product removed successfully!");
       }
     } catch (error) {
       console.log(error);
