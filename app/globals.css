@@ -76,15 +76,24 @@
     @apply flex justify-center items-center;
   }
 
+  .flex-start {
+    @apply flex justify-center items-start;
+  }
+
   .flex-between {
     @apply flex justify-between items-center;
   }
+
   .icon-overlay {
     @apply flex-center h-[34px] w-[34px] cursor-pointer text-xl duration-300 ease-out hover:rounded-full hover:bg-[#f1f3f6] !important;
   }
 
   .input-field {
     @apply rounded-lg ring-none border border-[#DBDBDB] text-[16px] font-medium leading-[24px] px-4 py-[22px] outline-none !important;
+  }
+
+  .contact-input-field {
+    @apply rounded-[32px] ring-none border border-[#e4e7ed] text-[16px] font-medium leading-[24px] px-[24px] py-[29px] outline-none !important;
   }
 
   .ring-none {

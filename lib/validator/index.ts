@@ -79,5 +79,9 @@ export const productFormSchema = z.object({
   category: z.string().min(1, { message: 'Please select a category.' }).optional(),
 });
 
-
-
+export const contactFormSchema = z.object({
+  from_name: z.string().min(2, "Name must be at least 2 characters"),
+  from_email: z.string().email("არასწორი ელ.ფოსტის ფორმატი"),
+  phone_number: z.string().min(9, "მიუთითე ტელეფონის ნომერი"),
+  message: z.string().min(2, "Message must be at least 2 characters"),
+})

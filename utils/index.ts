@@ -61,7 +61,6 @@ export function sliceTitle(
   }
 }
 
-
 export const convertDate = (dateString: string) => {
   const date = new Date(dateString);
 
@@ -75,3 +74,13 @@ export const convertDate = (dateString: string) => {
 
   return formattedDate;
 };
+
+export function generateCode() {
+    var characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var code = '';
+    for (var i = 0; i < 5; i++) {
+        code += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return code;
+}
+
