@@ -15,10 +15,13 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import Spinner from "@/components/shared/loader/Spinner";
+import { convertDate } from "../../../../utils";
+import { fetchDropdownContentList } from "@/lib/actions/selectData-actions";
 
 const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
   const [isSliced, setIsSliced] = useState(true);
   const [productDetails, setProductDetails] = useState<Product>();
+  const [location, setLocation] = useState("");
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,6 +30,9 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
       try {
         setIsLoading(true);
         const details = await fetchSingleProduct(params.id);
+        const locationData = await fetchDropdownContentList("location");
+
+        setLocation(locationData[details?.location - 1].name);
         setProductDetails(details);
       } catch (error) {
         console.log(error);
@@ -36,20 +42,6 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
     };
     fetchSingleProductDetails();
   }, []);
-
-  const convertDate = (dateString: string) => {
-    const date = new Date(dateString);
-
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-
-    const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${
-      day < 10 ? "0" + day : day
-    }`;
-
-    return formattedDate;
-  };
 
   if (isLoading) {
     return (
@@ -117,15 +109,13 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
 
       <article className="flex-1 flex flex-col justify-between lg:justify-start gap-4 bg-white rounded-2xl p-6">
         <div className="flex flex-wrap gap-8 text-lg font-semibold">
-          <p className="flex gap-2 items-center">
-            ID: {productDetails?.location}
-          </p>
+          <p className="flex gap-2 items-center">ID: {productDetails?.id}</p>
 
           <p className="flex gap-2 items-center">
             <span className="text-gray-500">
               <FaLocationDot />
             </span>
-            {productDetails?.location}
+            {location}
           </p>
 
           <p className="flex gap-2 items-center ml-6">
@@ -155,7 +145,7 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
               <button
                 className="text-blue-500 w-max"
                 onClick={() => setIsSliced((prev) => !prev)}>
-                {isSliced ? "კითხვის გაგრძელება" : "აკეცვა"}
+                {isSliced ? "Continue reading" : "show less"}
               </button>
             )}
           </p>

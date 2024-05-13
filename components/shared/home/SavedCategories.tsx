@@ -74,7 +74,7 @@ const SavedCategories = () => {
     <section className="mt-10">
       <div className="w-full flex justify-between items-center">
         <div className="flex md:items-center gap-4 flex-col md:flex-row">
-          <h2 className="text-lg font-bold">გააგრძელე ძიება</h2>
+          <h2 className="text-lg font-bold">Continue Searching</h2>
           <div className="flex items-center gap-4">
             <Button
               className={`py-[7px] rounded-[20px] px-7 hover:bg-white font-semibold text-sm ${
@@ -83,7 +83,7 @@ const SavedCategories = () => {
                   : "bg-[rgba(137,150,174,.1)]"
               }`}
               onClick={() => setSetelectedButton("lastSearched")}>
-              ბოლო
+              Last visited
             </Button>
             <Button
               className={`py-[7px] rounded-[20px] px-7 hover:bg-white font-semibold text-sm ${
@@ -92,7 +92,7 @@ const SavedCategories = () => {
                   : "bg-[rgba(137,150,174,.1)]"
               }`}
               onClick={() => setSetelectedButton("saved")}>
-              შენახული
+              Saved
             </Button>
           </div>
         </div>

@@ -49,8 +49,8 @@ const UploadImageContainer = ({
               onChange={(e) => handleImagesChange(e, field)}
             />
             <Image alt="upload image" src={UploadImg} width={35} height={35} />
-            <h2 className="font-bold text-base mt-3">სურათის ატვირთვა</h2>
-            <p className="text-gray-500 text-sm mt-2">მაქსიმუმ 12 ფოტო</p>
+            <h2 className="font-bold text-base mt-3">Upload Image</h2>
+            <p className="text-gray-500 text-sm mt-2">maximum 12 photo</p>
           </div>
         </label>
       )}

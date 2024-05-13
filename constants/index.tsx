@@ -98,9 +98,9 @@ export const bottombarLinks = [
     label: "Home",
   },
   {
-    icon: <BiCategory />,
-    route: "/categories",
-    label: "Categories",
+    icon: <MdAddShoppingCart />,
+    route: "/mycart",
+    label: "Cart",
   },
   {
     icon: <IoIosAddCircleOutline />,
@@ -121,51 +121,51 @@ export const bottombarLinks = [
 
 // footer
 export const topCategories = {
-  title: "ტოპ კატეგორიები",
+  title: "Top Categories",
   links: [
-    "მომსახურება",
-    "გაქირავება",
-    "სახლი და ბაღი",
-    "საოჯახო ტექნიკა",
-    "ტექნიკა",
-    "ნადირობა და თევზაობა",
-    "მუსიკა",
-    "საბავშვო",
-    "სილამაზე და მოდა",
-    "მშენებლობა და რემონტი",
-    "სოფლის მეურნეობა",
-    "ცხოველები",
-    "სპორტი და დასვენება",
-    "ბიზნესი და დანადგარები",
-    "წიგნები და კანცელარია",
-    "ხელოვნება და საკოლექციო",
+    "Services",
+    "Sales",
+    "Home and Garden",
+    "Household Appliances",
+    "Electronics",
+    "Clothing and Accessories",
+    "Music",
+    "Kids",
+    "Beauty and Fashion",
+    "Construction and Renovation",
+    "Village Life",
+    "Pets",
+    "Sports and Recreation",
+    "Business and Investment",
+    "Books and Magazines",
+    "Handicrafts and Collectibles",
   ],
 };
 
 export const menuAndMyPageCategories = [
   {
     id: 1,
-    title: "მენიუ",
+    title: "Menu",
     links: [
-      "მთავარი",
-      "მაღაზიები",
-      "იყიდე ონლაინ",
-      "დახმარება",
-      "დაბრუნების პოლიტიკა",
-      "კონტაქტი",
-      "წესები და პირობები",
-      "კონფიდენციალობის პოლიტ",
+      "Home",
+      "Stores",
+      "Shop Online",
+      "Help",
+      "Return Policy",
+      "Contact",
+      "Terms and Conditions",
+      "Privacy Policy",
     ],
   },
   {
     id: 2,
-    title: "ჩემი გვერდი",
+    title: "My Page",
     links: [
-      "ჩემი განცხადებები",
-      "განცხადების დამატება",
-      "შეტყობინებები",
-      "ბალანსის შევსება",
-      "ანგარიშის რედაქტირება",
+      "My Announcements",
+      "Add Announcement",
+      "Notifications",
+      "Balance Top-up",
+      "Account Editing",
     ],
   },
 ];
@@ -173,17 +173,17 @@ export const menuAndMyPageCategories = [
 export const additionalCategories = [
   {
     id: 1,
-    title: "სოც.ქსელები",
+    title: "Social Networks",
     links: [Facebook, Instagram, LinkedIn],
   },
   {
     id: 2,
-    title: "ენები",
+    title: "Languages",
     links: [GeorgiaFlag, EnglishFlag, RussianFlag],
   },
   {
     id: 3,
-    title: "გადმოწერე აპლიკაცია",
+    title: "Download the App",
     links: [AppStore, GooglePlay],
   },
 ];
@@ -192,7 +192,7 @@ export const additionalCategories = [
 export const ContactPageConstants = [
   {
     id: 1,
-    text: "შპს თინეთი",
+    text: "Tineti LLC",
     img: ContactImg1,
   },
   {
@@ -202,7 +202,7 @@ export const ContactPageConstants = [
   },
   {
     id: 3,
-    text: "საიდენთიფიკაციო კოდი 405581096",
+    text: "Identification Code 405581096",
     img: ContactImg3,
   },
   {
@@ -212,23 +212,23 @@ export const ContactPageConstants = [
   },
   {
     id: 5,
-    text: "ქ. თბილისი, ვაკის რაიონი", // , შალვა ნუცუბიძის ქუჩა N129ა, სართული 3
+    text: "Tbilisi, Vake District",
     img: ContactImg5,
   },
 ];
 
-// user activity contsants
+// user activity constants
 export const userActivityConstants = [
   {
     id: 1,
     image: "/assets/images/userActivity/product-form.svg",
-    text: "ანგარიშის რედაქტირება",
+    text: "Account Editing",
     route: "/product-form",
   },
   {
     id: 2,
     image: "/assets/images/userActivity/logout.svg",
-    text: "ანგარიშის რედაქტირება",
+    text: "Logout",
   },
 ];
 
@@ -236,22 +236,22 @@ export const userActivityConstants = [
 export const HowToBuy = [
   {
     id: 1,
-    title: "დააკლიკე ღილაკს „ონლაინ ყიდვა",
+    title: "Click the button 'Buy Online'",
     img: MyMarketLogo,
   },
   {
     id: 2,
-    title: "ნახე სასურველ კატეგორიაში საშენო პროდუქტი",
+    title: "Browse desired products in the respective category",
     img: CartLogo,
   },
   {
     id: 3,
-    title: "დააჭირე ღილაკს „შეძენა“ და მიყევი ინსტრუქციას.",
+    title: "Press the 'Purchase' button and follow the instructions.",
     img: BoxLogo,
   },
   {
     id: 4,
-    title: "ნივთს ჩვენ მოგიტანთ სასურველ მისამართზე",
+    title: "We deliver the product to your desired address",
     img: HouseLogo,
   },
 ];
@@ -260,72 +260,103 @@ export const CircledCategoriesConstants = [
   {
     id: 1,
     img: TechnicLogo,
-    title: "ტექნიკა",
+    title: "Electronics",
   },
   {
     id: 2,
     img: RemontLogo,
-    title: "მშენებლობა და რემონტი",
+    title: "Construction and Renovation",
   },
   {
     id: 3,
     img: ChairLogo,
-    title: "სახლი და ბაღი",
+    title: "Home and Garden",
   },
   {
     id: 4,
     img: FridgeLogo,
-    title: "საოჯახო ტექნიკა",
+    title: "Household Appliances",
   },
   {
     id: 5,
     img: ClothesLogo,
-    title: "სილამაზე და მოდა",
+    title: "Beauty and Fashion",
   },
   {
     id: 6,
     img: BasketBall,
-    title: "სპორტი და დასვენება",
+    title: "Sports and Recreation",
   },
 ];
 
 export const SignedInNavbarPopupConstants = [
   {
     id: 1,
-    text: "ჩემი განცხადებები",
+    text: "My Products",
     route: "/myproducts",
   },
   {
     id: 2,
-    text: "შეძენა/გაყიდვის ისტორიები",
+    text: "Buy/Sell histories",
     route: "/history",
   },
   {
     id: 3,
-    text: "ჩემი ფინანსები",
+    text: "My finances",
     route: "/myFinances",
   },
   {
     id: 4,
-    text: "ანგარიშის რედაქცტირება",
+    text: "Contact",
+    route: "/contact",
+  },
+  {
+    id: 5,
+    text: "Help center",
+    route: "/faq",
+  },
+  {
+    id: 6,
+    text: "Edit account",
     route: "/profile/info",
   },
 ];
 
 export const profileLinks = [
-  { href: "/product-form", Icon: IoIosAddCircle, text: "განცხადების დამატება" },
-  { href: "/myproducts", Icon: IoListOutline, text: "ჩემი განცხადებები" },
-  { href: "/myFinances", Icon: IoWalletOutline, text: "ჩემი ფინანსები" },
-  { href: "/messages", Icon: FaRegMessage, text: "მესიჯები" },
+  { href: "/product-form", Icon: IoIosAddCircle, text: "Add Announcement" },
+  { href: "/myproducts", Icon: IoListOutline, text: "My Announcements" },
+  { href: "/myFinances", Icon: IoWalletOutline, text: "My Finances" },
+  { href: "/messages", Icon: FaRegMessage, text: "Messages" },
 ];
 
 export const extraLinks = [
-  { href: "/favorites", Icon: AiOutlineHeart, text: "ჩემი რჩეულები" },
-  { href: "/mycart", Icon: MdAddShoppingCart, text: "ჩემი კალათა" },
-  { href: "/location", Icon: FaLocationDot, text: "ლოკაცია" },
+  { href: "/favorites", Icon: AiOutlineHeart, text: "My Favorites" },
+  { href: "/mycart", Icon: MdAddShoppingCart, text: "My Cart" },
+  { href: "/location", Icon: FaLocationDot, text: "Location" },
 ];
 
 export const accountLinks = [
-  { href: "/history", Icon: FaHistory, text: "ყიდვის ისტორია" },
-  { href: "/profile/info", Icon: AiOutlineUser, text: "ანგარიშის რედაქტირება" },
+  { href: "/history", Icon: FaHistory, text: "Purchase History" },
+  { href: "/profile/info", Icon: AiOutlineUser, text: "Account Editing" },
+];
+
+export const FaqPageConstants = [
+  {
+    id: 1,
+    title: "Registration/Editing account",
+    image: "/assets/images/1_4.png",
+    href: "/faq/registration-editing",
+  },
+  {
+    id: 2,
+    title: "How to sell",
+    image: "/assets/images/2_4.png",
+    href: "/faq/how-to-sell",
+  },
+  {
+    id: 3,
+    title: "How to buy",
+    image: "/assets/images/3_4.png",
+    href: "/faq/how-to-buy",
+  },
 ];

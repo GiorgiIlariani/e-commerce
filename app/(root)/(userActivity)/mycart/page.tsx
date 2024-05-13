@@ -12,8 +12,7 @@ import {
 } from "@/lib/actions/cart-actions";
 import CartItem from "@/components/shared/CartItem";
 import { toast } from "react-toastify";
-import Spinner from "@/components/shared/Spinner";
-import Checkout from "@/components/shared/Checkout";
+import Spinner from "@/components/shared/loader/Spinner";
 
 const MyCartPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +38,7 @@ const MyCartPage = () => {
           ...item,
           totalPrice: item.product.price * item.quantity,
         }));
+
         setCartProducts(updatedCartProducts);
         // Calculate total price of all products
         const totalPrice = updatedCartProducts.reduce(
@@ -65,10 +65,13 @@ const MyCartPage = () => {
       );
 
       if (status === 204) {
-        // Update cartProducts state by filtering out the removed item
-        setCartProducts((prevCartProducts) =>
-          prevCartProducts.filter((item) => item.product.id !== productId)
+        // // Update cartProducts state by filtering out the removed item
+        setCartProducts(
+          cartProducts.filter((item) => item.product.id !== productId)
         );
+
+        console.log(cartProducts);
+
         // Calculate total price again after removing item
         const totalPrice = cartProducts
           .filter((item) => item.product.id !== productId)
@@ -161,21 +164,28 @@ const MyCartPage = () => {
 
               <div className="w-full h-[1px] bg-gray-300" />
 
-              {cartProducts.map((item, i) => (
+              {cartProducts.map((item) => (
                 <CartItem
-                  key={i}
+                  key={item.product.id}
                   cartItem={item}
                   handleRemoveCartItem={handleRemoveCartItem}
                   selectedCartProductsId={selectedCartProductsId}
                   setSelectedCartProductsId={setSelectedCartProductsId}
+                  setTotalPrice={setTotalPrice}
+                  // setCartProducts={setCartProducts}
                 />
               ))}
               <div className="w-full flex-between">
                 <p className="self-start text-md text-gray-400">
-                  ჯამი:{" "}
+                  Sum:{" "}
                   <span className="text-blue-600 text-lg">{totalPrice}₾</span>
                 </p>
-                <Checkout cartProducts={cartProducts} />
+                <Button
+                  type="submit"
+                  role="link"
+                  className="bg-[#fec900] rounded-lg py-[22px] text-white text-center hover:bg-[#ffdb4d] px-[72px] font-semibold">
+                  Buy
+                </Button>
               </div>
             </div>
           </div>

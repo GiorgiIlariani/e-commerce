@@ -52,12 +52,12 @@ const LeftSidebar = () => {
       </div>
       <div className="w-full flex justify-between items-center px-3 py-2 my-3 border rounded-lg">
         <div className="flex flex-col gap-2">
-          <h3 className="text-sm">ბალანსი</h3>
+          <h3 className="text-sm">Balance</h3>
           {/* hard coded */}
           <strong className="font-bold text-2xl">{user?.balance}.00</strong>
         </div>
         <div className="flex items-center gap-2">
-          <h4 className="text-sm">შევსება</h4>
+          <h4 className="text-sm">fill</h4>
           <div className="w-7 h-7 flex justify-center items-center bg-[#d0d8fa] rounded-[4px]">
             <AddIcon fontSize="inherit" color="primary" />
           </div>
@@ -126,7 +126,7 @@ const LeftSidebar = () => {
           <div className="profile_link">
             <FiLogOut />
           </div>
-          <p className="profile_link-p">გასვლა</p>
+          <p className="profile_link-p">Logout</p>
         </div>
       </div>
     </div>

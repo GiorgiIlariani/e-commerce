@@ -12,13 +12,13 @@ export default function NotFound() {
         height={300}
       />
       <h1 className="text-[#272a37] text-2xl font-semibold text-center">
-        ეს პროდუქტი ხელმისაწვდომი აღარ არის
+        This page is not available
       </h1>
       <p className="text-base text-[#8996ae] font-medium">
-        მთავარ გვერდზე დასაბრუნებლად დააჭირე ყვითელ ღილაკს
+        Click the yellow button to return to the main page
       </p>
       <Button className="h-14 rounded-xl px-20 text-white font-bold text-sm bg-[#fec900]">
-        მთავარი გვერდი
+        main page
       </Button>
     </div>
   );

@@ -93,7 +93,6 @@ const MyProductsFilter = ({
       {/* categories */}
       <div className="flex-1 max-w-[230px]">
         <Dropdown
-          // onChangeHandler={setSelectedCategory}
           value={selectedCategory}
           placeholder="category"
           type="category"
@@ -112,7 +111,7 @@ const MyProductsFilter = ({
                 !date && "text-muted-foreground"
               )}>
               <CalendarIcon className="mr-2 h-4 w-4" />
-              {date ? format(date, "PPP") : <span>თარიღი</span>}
+              {date ? format(date, "PPP") : <span>Date</span>}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-full p-0 bg-white">
@@ -131,7 +130,7 @@ const MyProductsFilter = ({
         <Popover>
           <PopoverTrigger asChild className="w-full py-[22px] flex-between">
             <Button variant="outline" className="flex-between w-full">
-              <p>ფასი</p> <MdKeyboardArrowDown />
+              <p>Price</p> <MdKeyboardArrowDown />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="bg-white">
@@ -159,31 +158,3 @@ const MyProductsFilter = ({
 };
 
 export default MyProductsFilter;
-
-// // Add or remove the 'search' parameter based on the 'query'
-// if (query) {
-//   newUrl = formUrlQuery({
-//     params: newUrl,
-//     key: "search",
-//     value: query,
-//   });
-// } else {
-//   newUrl = removeKeysFromQuery({
-//     params: newUrl,
-//     keysToRemove: ["search"],
-//   });
-// }
-
-// // Add or remove the 'category' parameter based on the 'selectedCategory'
-// if (selectedCategory) {
-//   newUrl = formUrlQuery({
-//     params: newUrl,
-//     key: "category",
-//     value: selectedCategory,
-//   });
-// } else {
-//   newUrl = removeKeysFromQuery({
-//     params: newUrl,
-//     keysToRemove: ["category"],
-//   });
-// }

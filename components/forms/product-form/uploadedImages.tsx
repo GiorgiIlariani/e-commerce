@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 interface Props {
   imageUrl: string;
   isFirstImage: boolean;
-  // handleImageRemove: (index: number) => void;
-  // handleAddAsFirstImage: (index: number) => void;
+  handleImageRemove: (index: number) => void;
+  handleAddAsFirstImage: (index: number) => void;
   index: number;
 }
 
@@ -15,9 +15,9 @@ const UploadedImages = ({
   imageUrl,
   isFirstImage,
   index,
-}: // handleImageRemove,
-// handleAddAsFirstImage,
-Props) => {
+  handleImageRemove,
+  handleAddAsFirstImage,
+}: Props) => {
   return (
     <div className="relative rounded-2xl group">
       <Image
@@ -31,7 +31,8 @@ Props) => {
         <div className="flex items-center gap-x-2">
           {!isFirstImage ? (
             <Button
-              // onClick={() => handleAddAsFirstImage(index)}
+              type="button"
+              onClick={() => handleAddAsFirstImage(index)}
               className="w-[48px] h-[48px] cursor-pointer hover:opacity-100 opacity-0 transition duration-300 ease-out flex justify-center items-center rounded-xl bg-[rgba(137,150,174,.4)]">
               <Image
                 src={AddAsMainImg}
@@ -43,7 +44,8 @@ Props) => {
             </Button>
           ) : null}
           <Button
-            // onClick={() => handleImageRemove(index)}
+            type="button"
+            onClick={() => handleImageRemove(index)}
             className="w-[48px] h-[48px] cursor-pointer hover:opacity-100 opacity-0 transition duration-300 ease-out flex justify-center items-center rounded-xl bg-[rgba(137,150,174,.4)]">
             <Image
               src={trashIcon}

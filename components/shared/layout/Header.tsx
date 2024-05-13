@@ -64,7 +64,7 @@ const Header = () => {
               width={20}
               height={20}
             />
-            <span className="text-xs font-medium">დამატება</span>
+            <span className="text-xs font-medium">Add product</span>
           </Button>
           {/* </Link> */}
           <ul className="flex items-center">

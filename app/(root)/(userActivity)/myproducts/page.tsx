@@ -148,7 +148,7 @@ const MyProductsPage = () => {
               <div
                 key={product.id}
                 className="flex justify-between items-center border-b pb-4">
-                <div className="w-1/5 flex items-center gap-3">
+                <div className="w-[15%] flex items-center gap-3">
                   <Input
                     type="checkbox"
                     // id={String(cartItem?.product.id)}
@@ -165,7 +165,7 @@ const MyProductsPage = () => {
                   />
                 </div>
 
-                <div className="w-1/5 text-start">
+                <div className="w-[25%] text-start">
                   <p className="text-gray-500 mb-2 font-semibold">
                     ID: {product.id}
                   </p>

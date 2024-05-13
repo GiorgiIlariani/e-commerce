@@ -5,7 +5,6 @@ import Footer from "@/components/shared/layout/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Provider from "@/redux/provider";
-// import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 
 import "./globals.css";
 import RateUs from "@/components/shared/RateUs";
@@ -17,8 +16,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "მეორადი და ახალი ნივთების გაყიდვის პლათფორმა...",
-  description: "მეორადი და ახალი ნივთების გაყიდვის პლათფორმა...",
+  title: "A platform for selling used and new items...",
+  description: "A platform for selling used and new items...",
 };
 
 export default function RootLayout({

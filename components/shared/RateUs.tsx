@@ -69,14 +69,14 @@ const RateUs = () => {
         <Button
           onClick={handleClick}
           className="bg-[#fec900] text-white p-[13px] rounded rotate-[-90deg] cursor-pointer hover:shadow-[0px_0px_30px_rgba(0,0,0,0.3)] ease-out duration-100 fixed right-[-25px] top-[calc(50%-43px)] text-[12px] w-[86px] tracking-tighter z-[9999]">
-          შეგვაფასე
+          Rate Us
         </Button>
       )}
       {/* After submit popup */}
       {showPopup && (
         <div className="text-sm py-3 w-[320px] text-center rounded-[4px] fixed top-[calc(50%-25px)] right-[52px] z-[9999] shadow-[0px_0px_10px_rgba(0,0,0,0.3)] hover:shadow-[0px_0px_20px_rgba(0,0,0,0.3)]] bg-white">
           <div className="w-[10px] h-[10px] absolute bg-white rotate-[45deg] right-[-4px] top-[calc(50%-6px)] shadow-[0px_0px_10px_rgba(0,0,0,0.3) z-10]"></div>
-          <span>მადლობა შეფასებისთვის!</span>
+          <span>Thanks for rating!</span>
           <Button
             className="cursor-pointer absolute right-[-12px] top-[-13px] text-2xl"
             onClick={() => setShowPopup(false)}>
@@ -97,7 +97,7 @@ const RateUs = () => {
         </button>
         {!value && (
           <p className="text-center font-[18px] mx-4 text-[rgb(53,53,53)]">
-            რამდენად კმაყოფილი ხარ Mymarket.ge-ით?
+            How satisfied are you with Mymarket.ge?
           </p>
         )}
 
@@ -132,21 +132,20 @@ const RateUs = () => {
               value={textAreaValue}
               className="w-full h-[150px] bg-[#e8e9ecfd] resize-none outline-none px-4 py-2 text-sm"
               name="experience"
-              placeholder="მოგვიყევით თქვენი გამოცდილების შესახებ..."></textarea>
+              placeholder="tell us about your experience..."></textarea>
             <div className="px-2">
               <h3 className="mb-3 font-semibold	 text-sm">
-                გაგვიზიარე, რას შეცვლიდი.
+                Tell us what you would change.
               </h3>
               <p className="text-xs color-[rgb(53,_53,_53)]">
-                ხარვეზის შემთხვევაში, დაგვიტოვე საკონტაქტოც, რომ დახმარება
-                შევძლოთ.
+                In case of error, please contact us to help we can.
               </p>
             </div>
             <Button
               type="submit"
               className="curson-pointer rounded-[3px] bg-[#fec900] disabled:bg-[#F1F2F6] py-2 px-3 m-[5px_15px_0_0] self-end text-white text-xs disabled:text-[rgba(0,0,0,0.43)]"
               disabled={!textAreaValue}>
-              გაგზავნა
+              Send
             </Button>
           </form>
         ) : null}

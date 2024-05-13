@@ -29,10 +29,10 @@ const NewAddedCategories = () => {
   return (
     <div className="w-full mt-10 flex flex-col gap-10">
       <div className="w-full flex-between">
-        <h5 className="text-lg font-semibold">ახალი დამატებული</h5>
+        <h5 className="text-lg font-semibold">Newly Added</h5>
 
         <Link href="/search" className="font-medium hover:underline">
-          ყველას ნახვა
+          See All
         </Link>
       </div>
       {isLoading ? (

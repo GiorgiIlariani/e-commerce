@@ -17,22 +17,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import { updateUserInformation } from "@/lib/actions/user-actions";
 import { useDispatch } from "react-redux";
 import { logout } from "@/redux/features/authSlice";
 import { useRouter } from "next/navigation";
 import isAuth from "@/lib/actions/isAuth";
 import { changePasswordSchema } from "@/lib/validator";
-
-const formSchema = z.object({
-  newPassword: z.string().min(4, {
-    message: "პაროლის სიგრძე უნდა აღემატებოდეს 4 სიმბოლოს",
-  }),
-  repeatNewPassword: z.string().min(4, {
-    message: "პაროლის სიგრძე უნდა აღემატებოდეს 4 სიმბოლოს",
-  }),
-});
 
 const PasswordPage = () => {
   const dispatch = useDispatch();
@@ -70,8 +60,7 @@ const PasswordPage = () => {
     );
     if (status === 200) {
       toast.success("password Changed successfully, please log in again.");
-      dispatch(logout());
-      router.push("/sign-in");
+      router.push("/");
     }
   }
 
@@ -159,12 +148,12 @@ const PasswordPage = () => {
             <Button
               type="submit"
               className="bg-transparent rounded-lg py-[22px] text-[#8996ae] text-center font-medium hover:underline">
-              გაუქმება
+              Cancel
             </Button>
             <Button
               type="submit"
               className="bg-[#fec900] rounded-lg py-[22px] text-white text-center font-medium hover:bg-[#ffdb4d]">
-              შენახვა
+              Save
             </Button>
           </div>
         </form>

@@ -18,7 +18,7 @@ type DropdownProps = {
   onChangeHandler?: () => void;
   placeholder: string;
   type: "category" | "location";
-  // setSelectedCategory?: Dispatch<SetStateAction<string>>;
+  setSelectedCategory?: Dispatch<SetStateAction<string>>;
 };
 
 const Dropdown = ({
@@ -26,8 +26,8 @@ const Dropdown = ({
   onChangeHandler,
   placeholder,
   type,
-}: // setSelectedCategory,
-DropdownProps) => {
+  setSelectedCategory,
+}: DropdownProps) => {
   const [dropdownContent, setDropdownContent] = useState<dropdownContentType[]>(
     []
   );
@@ -41,8 +41,14 @@ DropdownProps) => {
     fetchDropdownContent();
   }, []);
 
+  const handleValueChange = (newValue: string) => {
+    if (setSelectedCategory) setSelectedCategory(newValue);
+
+    if (onChangeHandler) onChangeHandler();
+  };
+
   return (
-    <Select onValueChange={onChangeHandler} value={value}>
+    <Select onValueChange={handleValueChange} value={value}>
       <SelectTrigger className="input-field">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

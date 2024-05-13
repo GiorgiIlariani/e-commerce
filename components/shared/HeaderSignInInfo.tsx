@@ -87,7 +87,7 @@ const HeaderSignInInfo = ({
             <div
               className="px-1 py-3 text-sm font-medium text-[#6f7383] cursor-pointer"
               onClick={handleLogout}>
-              გასვლა
+              Logout
             </div>
           </PopoverContent>
         </Popover>
@@ -100,7 +100,7 @@ const HeaderSignInInfo = ({
               width={20}
               height={20}
             />
-            <span className="text-xs font-medium">შესვლა</span>
+            <span className="text-xs font-medium">Log in</span>
           </Button>
         </Link>
       )}

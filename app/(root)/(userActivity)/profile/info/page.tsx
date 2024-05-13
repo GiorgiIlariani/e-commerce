@@ -126,6 +126,15 @@ const InfoPage = () => {
     }
   };
 
+  const handleCancelChanges = () => {
+    form.reset({
+      image: user?.image,
+      username: user?.username,
+      email: user?.email,
+      agreement: false,
+    });
+  };
+
   return (
     <section>
       <Form {...form}>
@@ -156,7 +165,7 @@ const InfoPage = () => {
                   />
                 </FormControl>
                 <div className="flex flex-col">
-                  <p className="text-[#a3adc0] text-sm">პროფილის ფოტო</p>
+                  <p className="text-[#a3adc0] text-sm">Profile photo</p>
                   <span className="text-[#728cfb] text-sm">64x128px</span>
                 </div>
               </FormItem>
@@ -222,8 +231,9 @@ const InfoPage = () => {
           <Separator className="w-full my-2 bg-[#e4e7ed]" />
           <div className="w-full flex justify-between">
             <Button
-              type="submit"
-              className="bg-transparent rounded-lg py-[22px] text-[#8996ae] text-center font-medium hover:underline">
+              type="button"
+              className="bg-transparent rounded-lg py-[22px] text-[#8996ae] text-center font-medium hover:underline"
+              onClick={handleCancelChanges}>
               Cancel
             </Button>
             <Button

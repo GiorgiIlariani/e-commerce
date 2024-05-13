@@ -81,6 +81,7 @@ const ProductFormPage = () => {
           images: product.images, // You can modify this accordingly
           category: String(product.category[0]), // You can modify this accordingly
         });
+
         setImages(product.images);
       } catch (error) {
         console.log(error);
@@ -180,7 +181,10 @@ const ProductFormPage = () => {
 
     try {
       const imageDataUrls = await Promise.all(imagePromises);
-      const newImages = [...field.value, ...imageDataUrls.filter(Boolean)];
+      const newImages = [
+        ...images,
+        ...imageDataUrls.filter(Boolean),
+      ] as ProductImageType;
       field.onChange(newImages);
       setImages(newImages);
       setImagesForUpload([...imagesForUpload, ...filesArray]);
@@ -189,6 +193,37 @@ const ProductFormPage = () => {
       // Handle error gracefully
     }
   };
+
+  const handleImageRemove = (indexToRemove: number) => {
+    const updatedImages = images
+      .filter((_, index) => index !== indexToRemove)
+      .map((image) => (typeof image === "string" ? image : image.image)); // Extract string URLs
+    setImages(updatedImages);
+
+    const updatedImagesForUpload = imagesForUpload.filter(
+      (_: any, index: number) => index !== indexToRemove
+    );
+    setImagesForUpload(updatedImagesForUpload);
+
+    // Update the form field value
+    form.setValue("images", updatedImages);
+  };
+
+  const handleAddAsFirstImage = (index: number) => {
+    const imageToMove = images[index];
+    const updatedImages = [
+      imageToMove,
+      ...images.filter((_, i) => i !== index),
+    ];
+    const updatedImagesForUpload = [
+      imagesForUpload[index],
+      ...imagesForUpload.filter((_: any, i: number) => i !== index),
+    ];
+    setImages(updatedImages);
+    setImagesForUpload(updatedImagesForUpload);
+  };
+
+  console.log(form.getValues());
 
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">
@@ -199,7 +234,7 @@ const ProductFormPage = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="sm:space-y-14 space-y-16">
             <div className="w-full bg-white rounded-3xl py-10 px-10 mt-5">
-              <h2 className="text-lg font-bold">განცხადების დეტალები</h2>
+              <h2 className="text-lg font-bold">Application details</h2>
               <FormField
                 control={form.control}
                 name="category"
@@ -221,7 +256,7 @@ const ProductFormPage = () => {
 
             {/* upload images */}
             <div className="w-full bg-white rounded-3xl p-10 mt-5 flex flex-col">
-              <AdditionalInformation text="სწორად შერჩეული ფოტოებით მეტ ადამიანს მიიზიდავ" />
+              <AdditionalInformation text="With properly selected photos, you will attract more people" />
 
               <div className="w-full flex flex-wrap items-center gap-3 mb-5">
                 <FormField
@@ -238,6 +273,7 @@ const ProductFormPage = () => {
                           />
                         )}
                       </FormControl>
+                      <FormMessage className="text-red-600" />
                     </FormItem>
                   )}
                 />
@@ -252,8 +288,8 @@ const ProductFormPage = () => {
                       imageUrl={imageUrl}
                       isFirstImage={isFirstImage}
                       index={index}
-                      // handleImageRemove={handleImageRemove}
-                      // handleAddAsFirstImage={handleAddAsFirstImage}
+                      handleImageRemove={handleImageRemove}
+                      handleAddAsFirstImage={handleAddAsFirstImage}
                     />
                   );
                 })}
@@ -261,15 +297,15 @@ const ProductFormPage = () => {
             </div>
 
             <div className="w-full flex flex-col bg-white rounded-3xl p-10 mt-5">
-              <h2 className="text-lg font-bold">ძირითადი მახასიათებლები</h2>
-              <AdditionalInformation text="დაამატე შესაფერისი სათაური და აღწერა" />
+              <h2 className="text-lg font-bold">Main features</h2>
+              <AdditionalInformation text="Add a suitable title and description" />
               <div className="flex flex-col gap-8">
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>სათაური*</FormLabel>
+                      <FormLabel>Title*</FormLabel>
                       <FormControl>
                         <Input {...field} className="input-field" />
                       </FormControl>
@@ -283,7 +319,7 @@ const ProductFormPage = () => {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>აღწერა*</FormLabel>
+                      <FormLabel>Description*</FormLabel>
                       <FormControl>
                         <Textarea {...field} className="input-field" rows={5} />
                       </FormControl>
@@ -294,14 +330,14 @@ const ProductFormPage = () => {
             </div>
 
             <div className="w-full flex flex-col bg-white rounded-2xl p-7 mt-5">
-              <h2 className="text-lg font-bold">ფასი</h2>
+              <h2 className="text-lg font-bold">Price</h2>
 
               <FormField
                 control={form.control}
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>მიუთითე ნივთის ფასი*</FormLabel>
+                    <FormLabel>Specify the price of the item*</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -318,7 +354,7 @@ const ProductFormPage = () => {
 
             <div className="w-full flex flex-col bg-white rounded-3xl py-10 px-10 mt-5">
               <h2 className="text-[20px] font-bold tracking-wide">
-                საკონტაქტო ინფორმაცია
+                contact information
               </h2>
               <FormField
                 control={form.control}

@@ -11,6 +11,8 @@ type CartItemProps = {
   handleRemoveCartItem: (productId: number) => Promise<void>;
   selectedCartProductsId: number[];
   setSelectedCartProductsId: Dispatch<SetStateAction<number[]>>;
+  setTotalPrice: Dispatch<SetStateAction<number>>;
+  // setCartProducts:  Dispatch<SetStateAction<CartProducts[]>>;
 };
 
 const baseUrl = "http://16.16.253.75";
@@ -20,8 +22,10 @@ const CartItem = ({
   handleRemoveCartItem,
   selectedCartProductsId,
   setSelectedCartProductsId,
-}: CartItemProps) => {
-  const [quantity, setQuantity] = useState<number>(cartItem.quantity);
+  setTotalPrice,
+}: // setCartProducts,
+CartItemProps) => {
+  const [quantity, setQuantity] = useState<number>(1);
 
   // Function to handle checkbox toggle
   const handleCheckboxToggle = () => {
@@ -40,11 +44,15 @@ const CartItem = ({
   const handleSubtraction = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
+      setTotalPrice(
+        (prevTotalPrice) => prevTotalPrice - cartItem.product.price
+      );
     }
   };
 
   const handleAddition = () => {
     setQuantity(quantity + 1);
+    setTotalPrice((prevTotalPrice) => prevTotalPrice + cartItem.product.price);
   };
 
   return (
@@ -90,7 +98,7 @@ const CartItem = ({
         </div>
 
         <p className="w-max text-md sm:text-lg font-medium sm:font-bold">
-          ₾ {cartItem.product.price * quantity}
+          ₾ {cartItem.product.price * cartItem.product.quantity}
         </p>
 
         <Button

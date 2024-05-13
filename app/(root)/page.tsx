@@ -15,11 +15,9 @@ const HomePage = () => {
           <SearchComponent />
           <SavedCategories />
           <Promoting
-            title="იყიდე-გაყიდე ნივთები მარტივად და სწრაფად"
-            description=" იყიდე/გაყიდე მეორადი ან ახალი პროდუქცია განვადების შესაძლებლობით
-            ონლაინ. ისარგებლე კურიერის მომსახურებით ან პირადად შეხვდით
-            ერთმანეთს."
-            buttonText="იყიდე ახლა"
+            title="Buy and Sell Items Easily and Quickly"
+            description="Buy or sell second-hand or new products online. Utilize courier services or meet in person."
+            buttonText="Buy Now"
             image={{
               src: BuySellLogo,
               alt: "buySell logo",

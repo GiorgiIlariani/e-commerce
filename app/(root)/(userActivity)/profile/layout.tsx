@@ -11,7 +11,7 @@ export default function ProfileLayout({
     <main className="min-h-screen bg-[#f1f3f6]">
       <div className="wrapper">
         <div className="flex flex-1 max-w-[768px] flex-col gap-5">
-          <UserActivityHeader route="ანგარიშის რედაქტირება" />
+          <UserActivityHeader route="Edit account" />
           <ProfileTabs />
           <Separator className="w-full my-2 bg-[#e4e7ed]" />
           <div className="bg-white rounded-2xl px-10 pt-10 pb-6">

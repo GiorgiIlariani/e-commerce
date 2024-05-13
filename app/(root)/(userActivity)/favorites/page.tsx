@@ -1,7 +1,7 @@
 "use client";
 
 import ProductCard from "@/components/products/ProductCard";
-import Spinner from "@/components/shared/Spinner";
+import Spinner from "@/components/shared/loader/Spinner";
 import UserActivityHeader from "@/components/shared/UserActivityHeader";
 import { Button } from "@/components/ui/button";
 import { getFavoriteProductsList } from "@/lib/actions/favorite-actions";
