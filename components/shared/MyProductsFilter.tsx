@@ -17,16 +17,7 @@ import Dropdown from "./Dropdown";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-type MyProductsFilterProps = {
-  myProducts: ProductList;
-  setMyProducts: Dispatch<React.SetStateAction<ProductList>>;
-};
-
-const MyProductsFilter = ({
-  myProducts,
-  setMyProducts,
-}: MyProductsFilterProps) => {
-  const [date, setDate] = useState<Date>();
+const MyProductsFilter = () => {
   const [query, setQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [minPrice, setMinPrice] = useState("");
@@ -78,9 +69,9 @@ const MyProductsFilter = ({
   }, [query, selectedCategory, minPrice, maxPrice]);
 
   return (
-    <div className="w-full rounded-[16px] py-6 px-4 bg-white flex items-center gap-4 mt-6">
+    <div className="w-full rounded-[16px] py-6 px-4 bg-white flex flex-col sm:flex-row items-center gap-4 mt-6">
       {/* search */}
-      <div className="flex-1 max-w-[320px]">
+      <div className="flex-1 w-full sm:max-w-[320px]">
         <Input
           type="text"
           className="input-field"
@@ -91,7 +82,7 @@ const MyProductsFilter = ({
       </div>
 
       {/* categories */}
-      <div className="flex-1 max-w-[230px]">
+      <div className="flex-1 w-full sm:max-w-[230px]">
         <Dropdown
           value={selectedCategory}
           placeholder="category"
@@ -100,33 +91,8 @@ const MyProductsFilter = ({
         />
       </div>
 
-      {/* date picker */}
-      <div className="relative flex-1 max-w-[160px]">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant={"outline"}
-              className={cn(
-                "w-full justify-start text-left font-normal py-[22px]",
-                !date && "text-muted-foreground"
-              )}>
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {date ? format(date, "PPP") : <span>Date</span>}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-full p-0 bg-white">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
-      </div>
-
       {/* price */}
-      <div className="flex-1 max-w-[130px]">
+      <div className="flex-1 w-full sm:max-w-full">
         <Popover>
           <PopoverTrigger asChild className="w-full py-[22px] flex-between">
             <Button variant="outline" className="flex-between w-full">

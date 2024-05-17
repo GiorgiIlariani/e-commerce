@@ -15,7 +15,7 @@ interface dropdownContentType {
 
 type DropdownProps = {
   value?: string;
-  onChangeHandler?: () => void;
+  onChangeHandler?: (value: string) => void;
   placeholder: string;
   type: "category" | "location";
   setSelectedCategory?: Dispatch<SetStateAction<string>>;
@@ -42,9 +42,11 @@ const Dropdown = ({
   }, []);
 
   const handleValueChange = (newValue: string) => {
-    if (setSelectedCategory) setSelectedCategory(newValue);
-
-    if (onChangeHandler) onChangeHandler();
+    if (setSelectedCategory) {
+      setSelectedCategory(newValue);
+    } else {
+      onChangeHandler && onChangeHandler(newValue); // Pass the new value to the onChangeHandler
+    }
   };
 
   return (

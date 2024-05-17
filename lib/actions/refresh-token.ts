@@ -49,7 +49,9 @@ export const fetchWithRetry = async (
                 const newAccessToken = refreshedTokenData.access;
 
                 // Update the access token
-                typeof window !== "undefined" && localStorage.setItem('access-token', newAccessToken);
+                if (typeof window !== "undefined") {
+                    localStorage.setItem('access-token', newAccessToken);
+                }
 
                 // Retry the request with the new access token
                 return fetchWithRetry(url, options, newAccessToken, refreshToken, false);

@@ -8,6 +8,7 @@ import Provider from "@/redux/provider";
 
 import "./globals.css";
 import RateUs from "@/components/shared/RateUs";
+import BottomHeader from "@/components/shared/layout/BottomHeader";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
         <ToastContainer />
         <Provider>
           <Header />
+          <BottomHeader />
           <main className="flex-1">{children}</main>
           <Footer />
           <RateUs />

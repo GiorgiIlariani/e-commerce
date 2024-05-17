@@ -1,4 +1,4 @@
-import { fetchWithRetry } from "./refresh-token";
+import { fetchWithRetry, refreshAccessToken } from "./refresh-token";
 
 const url = 'http://16.16.253.75';
 
@@ -88,7 +88,7 @@ export const postProduct = async (productData: any, accessToken: string, refresh
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...productData, quantity: 1, category: [productData?.category] })
+        body: JSON.stringify({ ...productData, category: [productData?.category] })
     };
 
     try {
@@ -136,6 +136,44 @@ export const editProduct = async (productId: string, values: any, accessToken: s
 export const postImages = async (productId: string, accessToken: string, images: any[], refreshToken: string) => {
     try {
         const responses = [];
+
+        // Function to check if access token is still valid
+        const isTokenValid = async (token: string): Promise<boolean> => {
+            try {
+                const testOptions: RequestInit = {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json',
+                    },
+                };
+
+                // Assuming there's an endpoint to test token validity
+                const testResponse = await fetch(`${url}/auth/test-token/`, testOptions);
+
+                return testResponse.ok;
+            } catch (error) {
+                console.error('Error while testing token validity:', error);
+                return false;
+            }
+        };
+
+        let validAccessToken = accessToken;
+
+        // Check if the current access token is valid
+        const tokenValid = await isTokenValid(accessToken);
+
+        if (!tokenValid) {
+            const refreshedTokenData = await refreshAccessToken(refreshToken);
+            validAccessToken = refreshedTokenData.access;
+
+            // Update the access token
+            if (typeof window !== "undefined") {
+                localStorage.setItem('access-token', validAccessToken);
+            }
+        }
+
+        // Upload each image using the valid access token
         for (const image of images) {
             const formData = new FormData();
             formData.append('product', productId);
@@ -144,13 +182,13 @@ export const postImages = async (productId: string, accessToken: string, images:
             const options: RequestInit = {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${accessToken}`,
+                    'Authorization': `Bearer ${validAccessToken}`,
                     'Accept': 'application/json',
                 },
                 body: formData,
             };
 
-            const response = await fetchWithRetry(`${url}/products/image/`, options, accessToken, refreshToken);
+            const response = await fetchWithRetry(`${url}/products/image/`, options, validAccessToken, refreshToken);
 
             if (!response.ok) {
                 throw new Error('Failed to post images');
@@ -166,6 +204,7 @@ export const postImages = async (productId: string, accessToken: string, images:
         throw error;
     }
 };
+
 
 export const removeProduct = async (productId: number, accessToken: string, refreshToken: string) => {
     const options: RequestInit = {

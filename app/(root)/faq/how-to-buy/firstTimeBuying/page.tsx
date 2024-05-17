@@ -4,13 +4,11 @@ const page = () => {
   return (
     <section className="w-full min-h-screen bg-white">
       <div className="wrapper my-6 flex flex-col lg:flex-row gap-6 lg:gap-14 justify-center">
-        <div>
-          <Link
-            href="/faq/how-to-buy"
-            className="text-3xl text-gray-400 font-medium">
-            Back
-          </Link>
-        </div>
+        <Link
+          href="/faq/how-to-buy"
+          className="text-3xl text-gray-400 font-medium">
+          Back
+        </Link>
 
         <article className="flex flex-col gap-8 text-[#212529] lg:max-w-[800px]">
           <h1 className="text-3xl font-bold ">

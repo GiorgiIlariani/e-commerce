@@ -108,10 +108,7 @@ const MyProductsPage = () => {
       <div className="wrapper flex flex-col">
         <UserActivityHeader route="My Products" />
 
-        <MyProductsFilter
-          myProducts={myProducts}
-          setMyProducts={setMyProducts}
-        />
+        <MyProductsFilter />
 
         {myProducts.length === 0 && !isLoading && searchParams.size === 0 ? (
           <div className="w-full flex flex-col justify-center items-center pt-[100px] pb-[200px] rounded-[16px] text-center bg-white mt-10">
@@ -143,40 +140,42 @@ const MyProductsPage = () => {
             No Products to show!
           </div>
         ) : (
-          <div className="w-full flex flex-col justify-center gap-6 p-6 rounded-[16px] text-center bg-white mt-10">
+          <div className="w-full flex flex-col justify-center gap-6 py-6 px-3 sm:px-6 rounded-[16px] text-center bg-white mt-10">
             {myProducts.map((product) => (
               <div
                 key={product.id}
                 className="flex justify-between items-center border-b pb-4">
-                <div className="w-[15%] flex items-center gap-3">
+                <div className="w-[30%] xs:w-[20%] flex items-center gap-3">
                   <Input
                     type="checkbox"
                     // id={String(cartItem?.product.id)}
-                    className="w-4 h-4 rounded-sm bg-white checked:bg-[#fec900]"
+                    className="w-3 h-3 sm:w-4 sm:h-4 rounded-sm bg-white checked:bg-[#fec900]"
                     // checked={selectedCartProductsId.includes(cartItem.product.id)}
                     // onChange={handleCheckboxToggle}
                   />
-                  <Image
-                    src={product.images[0].image}
-                    alt="product image"
-                    width={80}
-                    height={80}
-                    className="object-cover w-20 h-20 rounded-[16px]"
-                  />
+                  <Link href={`/search/${product.id}`}>
+                    <Image
+                      src={product.images[0].image}
+                      alt="product image"
+                      width={80}
+                      height={80}
+                      className="object-cover w-14 h-14 sm:w-20 sm:h-20 rounded-[16px]"
+                    />
+                  </Link>
                 </div>
 
-                <div className="w-[25%] text-start">
+                <div className="w-[25%] text-start hidden xl:block">
                   <p className="text-gray-500 mb-2 font-semibold">
                     ID: {product.id}
                   </p>
-                  <h4 className="text-md font-semibold text-nowrap">
-                    {sliceTitle(product.name, 25, true)}
+                  <h4 className="text-sm sm:text-base font-normal sm:font-semibold  text-nowrap">
+                    {sliceTitle(product.name, 20, true)}
                   </h4>
                 </div>
 
                 <p className="text-xl font-bold">₾{product.price}</p>
 
-                <p className="flex items-center gap-2 text-gray-500 font-semibold">
+                <p className="xs:flex items-center gap-2 text-gray-500 font-semibold hidden">
                   <WiTime10 />
                   {convertDate(product.created_at)}
                 </p>

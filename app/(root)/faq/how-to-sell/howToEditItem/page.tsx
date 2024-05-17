@@ -16,8 +16,8 @@ const page = () => {
           <h1 className="text-3xl font-bold ">How to edit my item?</h1>
 
           <p className="text-xl">
-            To edit the item you must go to “My products” and by clickling 3
-            dots you will be on editting page.
+            To edit the item you must go to “My products” and by clickling edit
+            icon you will be on editting page.
           </p>
         </article>
       </div>

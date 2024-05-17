@@ -5,7 +5,7 @@ const BottomHeader = () => {
   return (
     <div className="w-full border-b border-[#e5e7eb]">
       <div className="wrapper flex-between">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <Link
             href="/contact"
             className="text-sm font-semibold hover:text-[#fec900] transition duration-200">
@@ -17,16 +17,16 @@ const BottomHeader = () => {
             Help center
           </Link>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <Link
-            href="/contact"
+            href="/product-form"
             className="text-sm font-semibold hover:text-[#fec900] transition duration-200">
-            Contact
+            add Product
           </Link>
           <Link
-            href="/faq"
+            href="/favorites"
             className="text-sm font-semibold hover:text-[#fec900] transition duration-200">
-            Help center
+            Favorites
           </Link>
         </div>
       </div>

@@ -22,9 +22,10 @@ const page = () => {
             typing keywords into the search field or using the category.
             Clicking the "Search" button will display all listings, which you
             can further filter on the left side using additional menu options
-            like category, price, condition, and other parameters. To view the
+            like category, price, condition, and other parameters.
+            {/* To view the
             products you've purchased, you can check them on the "My Orders"
-            page.
+            page. */}
           </p>
         </article>
       </div>

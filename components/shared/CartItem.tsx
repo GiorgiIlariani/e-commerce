@@ -5,6 +5,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import Link from "next/link";
 
 type CartItemProps = {
   cartItem: CartProducts;
@@ -25,7 +26,7 @@ const CartItem = ({
   setTotalPrice,
 }: // setCartProducts,
 CartItemProps) => {
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState<number>(cartItem.quantity);
 
   // Function to handle checkbox toggle
   const handleCheckboxToggle = () => {
@@ -65,15 +66,15 @@ CartItemProps) => {
           checked={selectedCartProductsId.includes(cartItem.product.id)}
           onChange={handleCheckboxToggle}
         />
-
-        <Image
-          src={baseUrl + cartItem.product.images[0].image}
-          alt="item image"
-          width={64}
-          height={64}
-          className="object-cover rounded-lg w-16 h-16"
-        />
-
+        <Link href={`/search/${cartItem.product.id}`}>
+          <Image
+            src={baseUrl + cartItem.product.images[0].image}
+            alt="item image"
+            width={64}
+            height={64}
+            className="object-cover rounded-lg w-16 h-16"
+          />
+        </Link>
         <div className="flex flex-col">
           <h3 className="text-nowrap">
             {sliceTitle(cartItem.product.name, 18, true)}
@@ -98,7 +99,7 @@ CartItemProps) => {
         </div>
 
         <p className="w-max text-md sm:text-lg font-medium sm:font-bold">
-          ₾ {cartItem.product.price * cartItem.product.quantity}
+          ₾ {cartItem.product.price * quantity}
         </p>
 
         <Button

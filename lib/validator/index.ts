@@ -79,7 +79,8 @@ export const productFormSchema = z.object({
     .string()
     .min(1, { message: "Please enter a name with at least 1 character." })
     .optional(),
-  price: z.string().min(0.01, { message: "Please enter a price." }).optional(),
+  price: z.string().min(1, { message: "Please enter a price." }).optional(),
+  quantity: z.string().min(1, { message: "Please enter a quantity." }).optional(),
   location: z
     .string()
     .min(1, { message: "Please select a location." })
@@ -98,7 +99,7 @@ export const productFormSchema = z.object({
 
 export const contactFormSchema = z.object({
   from_name: z.string().min(2, "Name must be at least 2 characters"),
-  from_email: z.string().email("არასწორი ელ.ფოსტის ფორმატი"),
-  phone_number: z.string().min(9, "მიუთითე ტელეფონის ნომერი"),
+  from_email: z.string().email("Invalid email format"),
+  phone_number: z.string().min(9, "Please enter a phone number"),
   message: z.string().min(2, "Message must be at least 2 characters"),
-})
+});

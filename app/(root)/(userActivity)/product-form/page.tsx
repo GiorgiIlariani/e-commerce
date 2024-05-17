@@ -59,6 +59,7 @@ const ProductFormPage = () => {
       location: product ? String(product?.location) : "",
       images: product ? product?.images : [],
       category: product ? String(product?.category) : "",
+      quantity: product ? String(product?.quantity) : "",
     },
   });
 
@@ -70,8 +71,6 @@ const ProductFormPage = () => {
         const product = await fetchSingleProduct(productId);
         setProduct(product);
 
-        console.log(product);
-
         // Set the default values for the form fields after fetching the product data
         form.reset({
           description: product.description,
@@ -80,15 +79,19 @@ const ProductFormPage = () => {
           location: String(product.location), // You can modify this accordingly
           images: product.images, // You can modify this accordingly
           category: String(product.category[0]), // You can modify this accordingly
+          quantity: String(product.quantity),
         });
 
         setImages(product.images);
+        // setImagesForUpload(product.images);
       } catch (error) {
         console.log(error);
       }
     };
     fetchEditedProduct();
   }, []);
+
+  console.log(imagesForUpload);
 
   async function onSubmit(values: z.infer<typeof productFormSchema>) {
     try {
@@ -223,8 +226,6 @@ const ProductFormPage = () => {
     setImagesForUpload(updatedImagesForUpload);
   };
 
-  console.log(form.getValues());
-
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">
       <div className="wrapper flex flex-col gap-3">
@@ -329,9 +330,7 @@ const ProductFormPage = () => {
               </div>
             </div>
 
-            <div className="w-full flex flex-col bg-white rounded-2xl p-7 mt-5">
-              <h2 className="text-lg font-bold">Price</h2>
-
+            <div className="w-full flex flex-col gap-5 bg-white rounded-2xl p-7 mt-5">
               <FormField
                 control={form.control}
                 name="price"
@@ -343,6 +342,24 @@ const ProductFormPage = () => {
                         {...field}
                         type="number"
                         placeholder="0"
+                        className="input-field"
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-600" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="quantity"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Specify the quantity of the item*</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="number"
+                        // placeholder="0"
                         className="input-field"
                       />
                     </FormControl>

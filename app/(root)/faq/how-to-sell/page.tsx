@@ -5,7 +5,10 @@ const page = () => {
   return (
     <section className="w-full min-h-screen bg-white">
       <div className="wrapper my-6">
-        <h1 className="text-3xl font-bold text-[#212529]">
+        <Link href="/faq" className="text-3xl text-gray-400 font-medium">
+          Back
+        </Link>
+        <h1 className="text-3xl font-bold text-[#212529] mt-6">
           How to sell my item
         </h1>
 

@@ -2,10 +2,13 @@
 
 import ProductCard from "@/components/products/ProductCard";
 import Spinner from "@/components/shared/loader/Spinner";
+import { PaginationComponent } from "@/components/shared/Pagination";
 import UserActivityHeader from "@/components/shared/UserActivityHeader";
 import { Button } from "@/components/ui/button";
 import { getFavoriteProductsList } from "@/lib/actions/favorite-actions";
+import isAuth from "@/lib/actions/isAuth";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 
@@ -14,6 +17,8 @@ const FavoritesPage = () => {
   const [favoriteProducts, setFavoriteProducts] = useState<
     favoriteProductList[]
   >([]);
+  const searchParams = useSearchParams();
+  const [page, setPage] = useState(Number(searchParams.get("page") || 1));
 
   const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
@@ -49,7 +54,7 @@ const FavoritesPage = () => {
   }
 
   return (
-    <section className="w-full min-h-screen bg-[#f1f3f6]">
+    <section className="w-full min-h-screen bg-[#f1f3f6] relative">
       <div className="wrapper flex flex-col">
         <UserActivityHeader route="My Favourites" />
         {favoriteProducts.length === 0 ? (
@@ -69,7 +74,7 @@ const FavoritesPage = () => {
             </Link>
           </div>
         ) : (
-          <div className="w-full grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2 mt-8">
+          <div className="w-full md:my-[120px]  grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2 mt-8">
             {/* favorite products */}
             {favoriteProducts.map((favoriteProduct) => (
               <ProductCard
@@ -81,6 +86,12 @@ const FavoritesPage = () => {
                 isOnFavoritePage={true}
               />
             ))}
+
+            <PaginationComponent
+              count={favoriteProducts.length}
+              page={page}
+              setPage={setPage}
+            />
           </div>
         )}
       </div>
@@ -88,4 +99,4 @@ const FavoritesPage = () => {
   );
 };
 
-export default FavoritesPage;
+export default isAuth(FavoritesPage);

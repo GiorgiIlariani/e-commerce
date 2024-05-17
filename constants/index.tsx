@@ -86,8 +86,8 @@ export const NavLinks = [
     href: "/mycart",
   },
   {
-    label: "Rate us",
-    href: "/rate-us",
+    label: "My Products",
+    href: "/myProducts",
   },
 ];
 
@@ -295,16 +295,16 @@ export const SignedInNavbarPopupConstants = [
     text: "My Products",
     route: "/myproducts",
   },
-  {
-    id: 2,
-    text: "Buy/Sell histories",
-    route: "/history",
-  },
-  {
-    id: 3,
-    text: "My finances",
-    route: "/myFinances",
-  },
+  // {
+  //   id: 2,
+  //   text: "Buy/Sell histories",
+  //   route: "/history",
+  // },
+  // {
+  //   id: 3,
+  //   text: "My finances",
+  //   route: "/myFinances",
+  // },
   {
     id: 4,
     text: "Contact",
@@ -312,11 +312,6 @@ export const SignedInNavbarPopupConstants = [
   },
   {
     id: 5,
-    text: "Help center",
-    route: "/faq",
-  },
-  {
-    id: 6,
     text: "Edit account",
     route: "/profile/info",
   },

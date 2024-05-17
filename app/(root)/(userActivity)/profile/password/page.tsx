@@ -25,6 +25,7 @@ import isAuth from "@/lib/actions/isAuth";
 import { changePasswordSchema } from "@/lib/validator";
 
 const PasswordPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -53,16 +54,30 @@ const PasswordPage = () => {
     }
 
     if (!accessToken || !refreshToken) return;
-    const status = await updateUserInformation(
-      { password: values.newPassword },
-      accessToken,
-      refreshToken
-    );
-    if (status === 200) {
-      toast.success("password Changed successfully, please log in again.");
-      router.push("/");
+    try {
+      setIsLoading(true);
+      const status = await updateUserInformation(
+        { password: values.newPassword },
+        accessToken,
+        refreshToken
+      );
+      if (status === 200) {
+        toast.success("password Changed successfully!");
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
+
+  const handleCancel = () => {
+    form.reset({
+      newPassword: "",
+      repeatNewPassword: "",
+    });
+  };
 
   return (
     <section className="w-full flex flex-col">
@@ -147,13 +162,14 @@ const PasswordPage = () => {
           <div className="w-full flex justify-between">
             <Button
               type="submit"
-              className="bg-transparent rounded-lg py-[22px] text-[#8996ae] text-center font-medium hover:underline">
+              className="bg-transparent rounded-lg py-[22px] text-[#8996ae] text-center font-medium hover:underline"
+              onClick={handleCancel}>
               Cancel
             </Button>
             <Button
               type="submit"
               className="bg-[#fec900] rounded-lg py-[22px] text-white text-center font-medium hover:bg-[#ffdb4d]">
-              Save
+              {isLoading ? "Saving..." : "Save"}
             </Button>
           </div>
         </form>

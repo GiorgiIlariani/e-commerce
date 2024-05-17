@@ -33,6 +33,7 @@ const MyCartPage = () => {
       try {
         setIsLoading(true);
         const cartProducts = await getCartProducts(accessToken, refreshToken);
+
         // Calculate total price for each product and update state
         const updatedCartProducts = cartProducts.map((item: CartProducts) => ({
           ...item,
@@ -40,9 +41,11 @@ const MyCartPage = () => {
         }));
 
         setCartProducts(updatedCartProducts);
-        // Calculate total price of all products
+
+        // Calculate total price of all products, considering the quantity
         const totalPrice = updatedCartProducts.reduce(
-          (acc: number, curr: CartProducts) => acc + curr.product.price,
+          (acc: number, curr: CartProducts) =>
+            acc + curr.product.price * curr.quantity,
           0
         );
         setTotalPrice(totalPrice);
@@ -75,7 +78,7 @@ const MyCartPage = () => {
         // Calculate total price again after removing item
         const totalPrice = cartProducts
           .filter((item) => item.product.id !== productId)
-          .reduce((acc, curr) => acc + curr.product.price, 0);
+          .reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
         setTotalPrice(totalPrice);
 
         toast.success("Item removed Successfully!");
@@ -127,6 +130,8 @@ const MyCartPage = () => {
       </div>
     );
   }
+
+  console.log(cartProducts);
 
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">

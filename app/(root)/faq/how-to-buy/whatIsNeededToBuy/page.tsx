@@ -20,8 +20,8 @@ const page = () => {
           <p className="text-xl">
             To shop for products on Mymarket, first, go through the
             registration/login process. You can add desired products to your
-            cart or simply click "Quick Buy." For some products, you may utilize
-            the payment service or request a loan from a bank.
+            cart. For  products, you must utilize
+            the payment service.
           </p>
         </article>
       </div>
