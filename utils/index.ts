@@ -84,3 +84,25 @@ export function generateCode() {
     return code;
 }
 
+
+  function getMonthName(date: Date): string {
+    const options = { month: "long" } as const;
+    return date.toLocaleDateString("en-US", options);
+  }
+
+export function getNextThreeDays() {
+  const today = new Date();
+  const dates = [];
+  const prices = [12, 8, 6];
+
+  for (let i = 0; i < 3; i++) {
+    const current = new Date(today);
+    current.setDate(today.getDate() + i);
+    const options = { month: 'long' } as const;
+    const month = current.toLocaleDateString('en-US', options);
+    const date = current.getDate();
+    dates.push({ today: month, date, price: prices[i] });
+  }
+
+  return dates;
+}

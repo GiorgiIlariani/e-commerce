@@ -74,7 +74,7 @@ const FavoritesPage = () => {
             </Link>
           </div>
         ) : (
-          <div className="w-full md:my-[120px]  grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2 mt-8">
+          <div className="w-full my-[120px] md:my-10 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2 mt-8">
             {/* favorite products */}
             {favoriteProducts.map((favoriteProduct) => (
               <ProductCard

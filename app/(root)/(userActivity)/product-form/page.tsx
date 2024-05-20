@@ -23,6 +23,7 @@ import {
   fetchSingleProduct,
   postImages,
   postProduct,
+  removeSingleImage,
 } from "@/lib/actions/product-actions";
 import UploadImageContainer from "@/components/forms/product-form/UploadImageContainer";
 import { productFormSchema } from "@/lib/validator";
@@ -90,8 +91,6 @@ const ProductFormPage = () => {
     };
     fetchEditedProduct();
   }, []);
-
-  console.log(imagesForUpload);
 
   async function onSubmit(values: z.infer<typeof productFormSchema>) {
     try {
@@ -197,34 +196,66 @@ const ProductFormPage = () => {
     }
   };
 
-  const handleImageRemove = (indexToRemove: number) => {
-    const updatedImages = images
-      .filter((_, index) => index !== indexToRemove)
-      .map((image) => (typeof image === "string" ? image : image.image)); // Extract string URLs
-    setImages(updatedImages);
+  const handleImageRemove = async (indexToRemove: number, imageId: number) => {
+    if (imageId !== -1) {
+      if (!accessToken || !refreshToken) return null;
 
-    const updatedImagesForUpload = imagesForUpload.filter(
-      (_: any, index: number) => index !== indexToRemove
-    );
-    setImagesForUpload(updatedImagesForUpload);
+      try {
+        const status = await removeSingleImage(
+          imageId,
+          accessToken,
+          refreshToken
+        );
 
-    // Update the form field value
-    form.setValue("images", updatedImages);
+        if (status === 204) {
+          toast.success("image removed successfully!");
+        }
+        const updatedImages = images.filter(
+          (_, index) => index !== indexToRemove
+        );
+        setImages(updatedImages);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      const updatedImages = images
+        .filter((_, index) => index !== indexToRemove)
+        .map((image) => (typeof image === "string" ? image : image.image)); // Extract string URLs
+
+      setImages(updatedImages);
+      console.log({ indexToRemove, imagesForUpload });
+
+      const updatedImagesForUpload = imagesForUpload.filter(
+        (_: any, index: number) => index !== indexToRemove - (images.length - 1)
+      );
+
+      setImagesForUpload(updatedImagesForUpload);
+
+      // Update the form field value
+      form.setValue("images", updatedImages);
+    }
   };
 
-  const handleAddAsFirstImage = (index: number) => {
+  const handleAddAsFirstImage = (index: number, imageId: number) => {
+    // if (imageId !== -1) {
+    //   // const imageToMove = images[]
+    // } else {
     const imageToMove = images[index];
     const updatedImages = [
       imageToMove,
       ...images.filter((_, i) => i !== index),
     ];
+    
     const updatedImagesForUpload = [
       imagesForUpload[index],
       ...imagesForUpload.filter((_: any, i: number) => i !== index),
     ];
     setImages(updatedImages);
     setImagesForUpload(updatedImagesForUpload);
+    // }
   };
+
+  console.log({ images, imagesForUpload });
 
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">
@@ -283,6 +314,9 @@ const ProductFormPage = () => {
                   const isFirstImage = index === 0; // Check if it's the first image
                   const imageUrl =
                     typeof image === "string" ? image : image.image;
+
+                  const imageId = typeof image !== "string" ? image.id : -1;
+
                   return (
                     <UploadedImages
                       key={index}
@@ -291,6 +325,7 @@ const ProductFormPage = () => {
                       index={index}
                       handleImageRemove={handleImageRemove}
                       handleAddAsFirstImage={handleAddAsFirstImage}
+                      imageId={imageId}
                     />
                   );
                 })}

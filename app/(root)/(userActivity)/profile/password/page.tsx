@@ -161,7 +161,7 @@ const PasswordPage = () => {
           </div>
           <div className="w-full flex justify-between">
             <Button
-              type="submit"
+              type="button"
               className="bg-transparent rounded-lg py-[22px] text-[#8996ae] text-center font-medium hover:underline"
               onClick={handleCancel}>
               Cancel

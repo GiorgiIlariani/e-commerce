@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button";
 interface Props {
   imageUrl: string;
   isFirstImage: boolean;
-  handleImageRemove: (index: number) => void;
-  handleAddAsFirstImage: (index: number) => void;
+  handleImageRemove: (index: number, imageId: number) => void;
+  handleAddAsFirstImage: (index: number, imageId: number) => void;
   index: number;
+  imageId: number;
 }
 
 const UploadedImages = ({
@@ -17,6 +18,7 @@ const UploadedImages = ({
   index,
   handleImageRemove,
   handleAddAsFirstImage,
+  imageId,
 }: Props) => {
   return (
     <div className="relative rounded-2xl group">
@@ -32,7 +34,7 @@ const UploadedImages = ({
           {!isFirstImage ? (
             <Button
               type="button"
-              onClick={() => handleAddAsFirstImage(index)}
+              onClick={() => handleAddAsFirstImage(index, imageId)}
               className="w-[48px] h-[48px] cursor-pointer hover:opacity-100 opacity-0 transition duration-300 ease-out flex justify-center items-center rounded-xl bg-[rgba(137,150,174,.4)]">
               <Image
                 src={AddAsMainImg}
@@ -45,7 +47,7 @@ const UploadedImages = ({
           ) : null}
           <Button
             type="button"
-            onClick={() => handleImageRemove(index)}
+            onClick={() => handleImageRemove(index, imageId)}
             className="w-[48px] h-[48px] cursor-pointer hover:opacity-100 opacity-0 transition duration-300 ease-out flex justify-center items-center rounded-xl bg-[rgba(137,150,174,.4)]">
             <Image
               src={trashIcon}

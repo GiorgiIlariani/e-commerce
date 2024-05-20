@@ -19,10 +19,12 @@ const HeaderSignInInfo = ({
   user,
   isLoading,
   isFetching,
+  isAuthenticated,
 }: {
   user: UserDetailsTypes | undefined;
   isLoading: boolean;
   isFetching: boolean;
+  isAuthenticated: boolean;
 }) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
@@ -32,6 +34,10 @@ const HeaderSignInInfo = ({
     dispatch(logout());
     router.push("/");
   };
+
+  if (isLoading || isFetching) {
+    return null;
+  }
 
   return (
     <>

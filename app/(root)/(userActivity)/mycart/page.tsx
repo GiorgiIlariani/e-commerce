@@ -48,6 +48,7 @@ const MyCartPage = () => {
             acc + curr.product.price * curr.quantity,
           0
         );
+
         setTotalPrice(totalPrice);
       } catch (error) {
         console.log(error);
@@ -105,6 +106,7 @@ const MyCartPage = () => {
         );
         setCartProducts(remainingItems);
         // Calculate total price again after removing selected items
+        // * curr.quantity
         const totalPrice = remainingItems.reduce(
           (acc, curr) => acc + curr.product.price,
           0
@@ -130,8 +132,6 @@ const MyCartPage = () => {
       </div>
     );
   }
-
-  console.log(cartProducts);
 
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">
@@ -185,12 +185,13 @@ const MyCartPage = () => {
                   Sum:{" "}
                   <span className="text-blue-600 text-lg">{totalPrice}₾</span>
                 </p>
-                <Button
-                  type="submit"
-                  role="link"
-                  className="bg-[#fec900] rounded-lg py-[22px] text-white text-center hover:bg-[#ffdb4d] px-[72px] font-semibold">
-                  Buy
-                </Button>
+                <Link href="/checkout">
+                  <Button
+                    type="button"
+                    className="bg-[#fec900] rounded-lg py-[22px] text-white text-center hover:bg-[#ffdb4d] px-[72px] font-semibold">
+                    Buy
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

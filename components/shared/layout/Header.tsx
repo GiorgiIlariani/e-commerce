@@ -9,7 +9,7 @@ import HeaderSignInInfo from "../HeaderSignInInfo";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
 import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const router = useRouter();
@@ -37,6 +37,8 @@ const Header = () => {
       router.push("/product-form");
     }
   };
+
+  // console.log({ user, isAuthenticated, isLoading, isFetching });
 
   return (
     <header className="w-full border-b border-[#e5e7eb]">
@@ -79,6 +81,7 @@ const Header = () => {
             user={user}
             isLoading={isLoading}
             isFetching={isFetching}
+            isAuthenticated={isAuthenticated}
           />
         </div>
         {/* mobile navigation */}

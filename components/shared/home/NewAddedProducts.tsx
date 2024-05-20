@@ -26,6 +26,23 @@ const NewAddedCategories = () => {
     fetchNewProducts();
   }, []);
 
+  if (!isLoading && products.length === 0) {
+    return (
+      <div className="mt-10 w-full flex flex-col gap-20">
+        <div className="w-full flex-between">
+          <h5 className="text-lg font-semibold">Newly Added</h5>
+
+          <Link href="/search" className="font-medium hover:underline">
+            See All
+          </Link>
+        </div>
+        <p className="text-xl font-semibold text-center">
+          No New Products To Show!
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full mt-10 flex flex-col gap-10">
       <div className="w-full flex-between">

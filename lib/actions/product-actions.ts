@@ -228,3 +228,26 @@ export const removeProduct = async (productId: number, accessToken: string, refr
         throw error;
     }
 }
+
+export const removeSingleImage = async (imageId: number, accessToken: string, refreshToken: string) => {
+    const options: RequestInit = {
+        method: 'DELETE',
+        headers: {
+           'accept': '*/*',
+            'Authorization': `Bearer ${accessToken}`,
+        }
+    };
+
+    try {
+        const response = await fetchWithRetry(`${url}/products/image/${imageId}`, options, accessToken, refreshToken);
+        
+        if (!response.ok) {
+            throw new Error('Failed to remove image');
+        }
+        
+        return response.status;
+    } catch (error) {
+        console.error('Error while removing image:', error);
+        throw error;
+    }
+}
