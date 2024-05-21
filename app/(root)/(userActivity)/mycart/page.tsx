@@ -30,6 +30,7 @@ const MyCartPage = () => {
   useEffect(() => {
     const fetchCartProducts = async () => {
       if (!accessToken || !refreshToken) return;
+
       try {
         setIsLoading(true);
         const cartProducts = await getCartProducts(accessToken, refreshToken);
@@ -37,7 +38,7 @@ const MyCartPage = () => {
         // Calculate total price for each product and update state
         const updatedCartProducts = cartProducts.map((item: CartProducts) => ({
           ...item,
-          totalPrice: item.product.price * item.quantity,
+          totalPrice: item.product.price * item.product.quantity,
         }));
 
         setCartProducts(updatedCartProducts);
@@ -45,7 +46,7 @@ const MyCartPage = () => {
         // Calculate total price of all products, considering the quantity
         const totalPrice = updatedCartProducts.reduce(
           (acc: number, curr: CartProducts) =>
-            acc + curr.product.price * curr.quantity,
+            acc + curr.product.price * curr.product.quantity,
           0
         );
 
@@ -79,7 +80,10 @@ const MyCartPage = () => {
         // Calculate total price again after removing item
         const totalPrice = cartProducts
           .filter((item) => item.product.id !== productId)
-          .reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
+          .reduce(
+            (acc, curr) => acc + curr.product.price * curr.product.quantity,
+            0
+          );
         setTotalPrice(totalPrice);
 
         toast.success("Item removed Successfully!");
@@ -124,6 +128,8 @@ const MyCartPage = () => {
       console.log(error);
     }
   };
+
+  console.log(cartProducts);
 
   if (isLoading) {
     return (

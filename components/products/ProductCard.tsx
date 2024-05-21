@@ -145,32 +145,38 @@ const ProductCard = ({
 
           <div className="flex-between">
             <span className="text-lg font-bold text-gray-700">{price}₾</span>
-            {isAuthenticated && (
-              <div
-                className={`${
-                  isNewProduct ? "hidden" : "flex"
-                } items-center gap-2`}>
-                <div
-                  className={`${
-                    isInCart
-                      ? "bg-[#fec900] text-white"
-                      : "bg-gray-200 text-black"
-                  } rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 ${
-                    isOnFavoritePage ? "hidden" : "flex-center"
-                  }`}
-                  onClick={handleAddCart}>
-                  <MdAddShoppingCart className="text-lg" />
-                </div>
-                <div
-                  className={`${
-                    isFavorite
-                      ? "bg-[#fec900] text-white"
-                      : "bg-gray-200 text-black"
-                  } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 `}
-                  onClick={handleFavoriteClick}>
-                  <IoIosHeartEmpty className="text-lg" />
-                </div>
-              </div>
+            {quantity === 0 ? (
+              <span className="text-sm text-red-500">Sold Out</span>
+            ) : (
+              <>
+                {isAuthenticated && (
+                  <div
+                    className={`${
+                      isNewProduct ? "hidden" : "flex"
+                    } items-center gap-2`}>
+                    <div
+                      className={`${
+                        isInCart
+                          ? "bg-[#fec900] text-white"
+                          : "bg-gray-200 text-black"
+                      } rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 ${
+                        isOnFavoritePage ? "hidden" : "flex-center"
+                      }`}
+                      onClick={handleAddCart}>
+                      <MdAddShoppingCart className="text-lg" />
+                    </div>
+                    <div
+                      className={`${
+                        isFavorite
+                          ? "bg-[#fec900] text-white"
+                          : "bg-gray-200 text-black"
+                      } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 `}
+                      onClick={handleFavoriteClick}>
+                      <IoIosHeartEmpty className="text-lg" />
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

@@ -13,7 +13,6 @@ type CartItemProps = {
   selectedCartProductsId: number[];
   setSelectedCartProductsId: Dispatch<SetStateAction<number[]>>;
   setTotalPrice: Dispatch<SetStateAction<number>>;
-  // setCartProducts:  Dispatch<SetStateAction<CartProducts[]>>;
 };
 
 const baseUrl = "http://16.16.253.75";
@@ -24,9 +23,8 @@ const CartItem = ({
   selectedCartProductsId,
   setSelectedCartProductsId,
   setTotalPrice,
-}: // setCartProducts,
-CartItemProps) => {
-  const [quantity, setQuantity] = useState<number>(cartItem.quantity);
+}: CartItemProps) => {
+  const [quantity, setQuantity] = useState<number>(cartItem.product.quantity);
 
   // Function to handle checkbox toggle
   const handleCheckboxToggle = () => {
@@ -43,16 +41,14 @@ CartItemProps) => {
   };
 
   const handleSubtraction = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-      setTotalPrice(
-        (prevTotalPrice) => prevTotalPrice - cartItem.product.price
-      );
-    }
+    const newQuantity = quantity - 1;
+    setQuantity(newQuantity);
+    setTotalPrice((prevTotalPrice) => prevTotalPrice - cartItem.product.price);
   };
 
   const handleAddition = () => {
-    setQuantity(quantity + 1);
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
     setTotalPrice((prevTotalPrice) => prevTotalPrice + cartItem.product.price);
   };
 
@@ -84,24 +80,33 @@ CartItemProps) => {
       </div>
 
       <div className="flex-1 flex flex-col md:flex-row justify-between items-center gap-12">
-        <div className="flex justify-between items-center gap-4">
-          <Button
-            className="flex justify-center items-center w-6 h-6 bg-[#f1f3f6] text-[#8996ae] hover:bg-[#FEC900] hover:text-white text-bold rounded-full"
-            onClick={handleSubtraction}>
-            -
-          </Button>
-          <span className="text-sm sm:text-lg sm:font-medium">{quantity}</span>
-          <Button
-            className="flex justify-center items-center w-6 h-6 bg-[#f1f3f6] text-[#8996ae] hover:bg-[#FEC900] hover:text-white text-bold  rounded-full"
-            onClick={handleAddition}>
-            +
-          </Button>
-        </div>
+        {quantity > 0 ? (
+          <div className="flex justify-between items-center gap-4">
+            <Button
+              className="flex justify-center items-center w-6 h-6 bg-[#f1f3f6] text-[#8996ae] hover:bg-[#FEC900] hover:text-white text-bold rounded-full"
+              onClick={handleSubtraction}>
+              -
+            </Button>
+            <span className="text-sm sm:text-lg sm:font-medium">
+              {quantity}
+            </span>
+            <Button
+              className="flex justify-center items-center w-6 h-6 bg-[#f1f3f6] text-[#8996ae] hover:bg-[#FEC900] hover:text-white text-bold  rounded-full"
+              onClick={handleAddition}>
+              +
+            </Button>
+          </div>
+        ) : (
+          <span className="text-red-500 text-center text-lg">Sold Out</span>
+        )}
 
-        <p className="w-max text-md sm:text-lg font-medium sm:font-bold">
-          ₾ {cartItem.product.price * quantity}
-        </p>
-
+        {quantity > 0 && (
+          <>
+            <p className="w-max text-md sm:text-lg font-medium sm:font-bold">
+              ₾ {cartItem.product.price * quantity}
+            </p>
+          </>
+        )}
         <Button
           className="absolute -bottom-2 left-16 md:static text-xl bg-[#f1f3f6] text-[#8996ae] rounded-full p-[6px] hover:bg-[#FEC900] hover:text-white"
           onClick={() => handleRemoveCartItem(cartItem?.product.id)}>
