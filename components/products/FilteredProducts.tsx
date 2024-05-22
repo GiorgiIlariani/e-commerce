@@ -9,6 +9,7 @@ const FilteredProducts = ({
   refetchCartProducts,
   cartProducts,
   isAuthenticated,
+  userId,
 }: {
   searchedProducts: Product[];
   favoriteProducts: any;
@@ -16,6 +17,7 @@ const FilteredProducts = ({
   refetchCartProducts: () => Promise<void>;
   cartProducts: CartProducts[];
   isAuthenticated: boolean;
+  userId: number | undefined;
 }) => {
   return (
     <div className="w-full grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-20">
@@ -39,6 +41,7 @@ const FilteredProducts = ({
             refetchFavorites={refetchFavorites}
             refetchCartProducts={refetchCartProducts}
             isAuthenticated={isAuthenticated}
+            userId={userId}
           />
         );
       })}

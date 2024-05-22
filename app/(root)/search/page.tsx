@@ -6,6 +6,7 @@ import { PaginationComponent } from "@/components/shared/Pagination";
 import { getCartProducts } from "@/lib/actions/cart-actions";
 import { getFavoriteProductsList } from "@/lib/actions/favorite-actions";
 import { fetchProducts } from "@/lib/actions/product-actions";
+import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
 import { useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -27,6 +28,13 @@ const SearchedProducts = () => {
   const [page, setPage] = useState(Number(searchParams.get("page") || 1));
 
   const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const {
+    data: user,
+    isFetching,
+    refetch,
+  } = useRetrieveUserQuery(undefined, {
+    skip: !isAuthenticated,
+  });
 
   const min_price = searchParams.get("min_price") || "";
   const max_price = searchParams.get("max_price") || "";
@@ -38,6 +46,12 @@ const SearchedProducts = () => {
     typeof window !== "undefined" && localStorage.getItem("access-token");
   const refreshToken =
     typeof window !== "undefined" && localStorage.getItem("refresh-token");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      refetch();
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const fetchProductsList = async () => {
@@ -157,6 +171,7 @@ const SearchedProducts = () => {
               refetchCartProducts={refetchCartProducts}
               cartProducts={cartProducts}
               isAuthenticated={isAuthenticated}
+              userId={user?.id}
             />
             <PaginationComponent
               count={searchedProducts.count}

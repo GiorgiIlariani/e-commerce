@@ -38,8 +38,6 @@ const Header = () => {
     }
   };
 
-  // console.log({ user, isAuthenticated, isLoading, isFetching });
-
   return (
     <header className="w-full border-b border-[#e5e7eb]">
       <div className="wrapper flex-between">
@@ -81,7 +79,6 @@ const Header = () => {
             user={user}
             isLoading={isLoading}
             isFetching={isFetching}
-            isAuthenticated={isAuthenticated}
           />
         </div>
         {/* mobile navigation */}

@@ -295,16 +295,11 @@ export const SignedInNavbarPopupConstants = [
     text: "My Products",
     route: "/myproducts",
   },
-  // {
-  //   id: 2,
-  //   text: "Buy/Sell histories",
-  //   route: "/history",
-  // },
-  // {
-  //   id: 3,
-  //   text: "My finances",
-  //   route: "/myFinances",
-  // },
+  {
+    id: 3,
+    text: "Finances",
+    route: "/finances/balance",
+  },
   {
     id: 4,
     text: "Contact",
@@ -353,5 +348,35 @@ export const FaqPageConstants = [
     title: "How to buy",
     image: "/assets/images/3_4.png",
     href: "/faq/how-to-buy",
+  },
+];
+
+export const profileTabs = [
+  {
+    route: "/profile/info",
+    text: "Edit Information",
+  },
+  {
+    route: "/profile/password",
+    text: "Change Password",
+  },
+  {
+    route: "/profile/deactivate",
+    text: "Delete Account",
+  },
+];
+
+export const financesTabs = [
+  {
+    route: "/finances/balance",
+    text: "Add Balance",
+  },
+  {
+    route: "/finances/transactions",
+    text: "Transfer Money",
+  },
+  {
+    route: "/finances/transactions-history",
+    text: "Transaction History",
   },
 ];

@@ -6,12 +6,18 @@ import SearchComponent from "@/components/shared/home/Search";
 import { Suspense } from "react";
 import BuySellLogo from "@/public/assets/images/buy-sell.png";
 import NewAddedCategories from "@/components/shared/home/NewAddedProducts";
+import Spinner from "@/components/shared/loader/Spinner";
 
 const HomePage = () => {
   return (
     <div className="bg-[#f1f3f6]">
       <div className="wrapper">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={
+            <div className="min-h-[70vh] flex-center">
+              <Spinner lg />
+            </div>
+          }>
           <SearchComponent />
           <SavedCategories />
           <Promoting

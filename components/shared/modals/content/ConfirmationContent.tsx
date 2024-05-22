@@ -11,19 +11,17 @@ export const ConfirmationModalContent = ({
 }) => {
   return (
     <div className="space-y-4">
-      <p>
-        {remainingBalance >= 0 ? (
-          <>
-            You are about to buy the product:{" "}
-            <span className="font-semibold">{productDetails?.name}</span>
-          </>
-        ) : (
-          <>
-            You do not have enough balance to buy the product:{" "}
-            <span className="font-semibold">{productDetails?.name}</span>
-          </>
-        )}
-      </p>
+      {remainingBalance >= 0 ? (
+        <>
+          You are about to buy the product:{" "}
+          <span className="font-semibold">{productDetails?.name}</span>
+        </>
+      ) : (
+        <>
+          You do not have enough balance to buy the product:{" "}
+          <span className="font-semibold">{productDetails?.name}</span>
+        </>
+      )}
       <div className="flex justify-between">
         <span>Product Price:</span>
         <span className="font-medium">{productDetails?.price} ₾</span>

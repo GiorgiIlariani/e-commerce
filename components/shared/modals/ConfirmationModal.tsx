@@ -6,7 +6,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -37,9 +36,7 @@ export function ConfirmationModal({
         <AlertDialogHeader className="text-[#fec900]">
           <AlertDialogTitle>{title}</AlertDialogTitle>
         </AlertDialogHeader>
-        <AlertDialogDescription className="text-black">
-          {message}
-        </AlertDialogDescription>
+        <div className="text-black">{message}</div>
         <AlertDialogFooter className="mt-4">
           <AlertDialogCancel
             className="text-[#fec900] hover:bg-[#fec90033]"

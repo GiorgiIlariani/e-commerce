@@ -36,6 +36,7 @@ const ProductCard = ({
   isOnFavoritePage,
   isNewProduct,
   isAuthenticated,
+  userId,
 }: Product & {
   isFavorite?: boolean;
   isInCart?: boolean;
@@ -48,6 +49,7 @@ const ProductCard = ({
   isOnFavoritePage?: boolean;
   isNewProduct?: boolean;
   isAuthenticated?: boolean;
+  userId: number | undefined;
 }) => {
   const router = useRouter();
 
@@ -55,6 +57,8 @@ const ProductCard = ({
     typeof window !== "undefined" && localStorage.getItem("access-token");
   const refreshToken =
     typeof window !== "undefined" && localStorage.getItem("refresh-token");
+
+  const isUsersProductCard = user === userId;
 
   const handleFavoriteClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     try {
@@ -149,7 +153,7 @@ const ProductCard = ({
               <span className="text-sm text-red-500">Sold Out</span>
             ) : (
               <>
-                {isAuthenticated && (
+                {isAuthenticated && !isUsersProductCard && (
                   <div
                     className={`${
                       isNewProduct ? "hidden" : "flex"

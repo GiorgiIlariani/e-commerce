@@ -10,11 +10,15 @@ import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
 import { accountLinks, extraLinks, profileLinks } from "@/constants";
 import { FiLogOut } from "react-icons/fi";
 import AddIcon from "@mui/icons-material/Add";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { logout } from "@/redux/features/authSlice";
+import { useDispatch } from "react-redux";
 
 const LeftSidebar = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   const pathname = usePathname();
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const {
     data: user,
@@ -30,6 +34,11 @@ const LeftSidebar = () => {
       refetch();
     }
   }, [isAuthenticated]);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push("/");
+  };
 
   if (!user) return null;
 
@@ -56,15 +65,15 @@ const LeftSidebar = () => {
           {/* hard coded */}
           <strong className="font-bold text-2xl">{user?.balance}.00</strong>
         </div>
-        <div className="flex items-center gap-2">
+        <Link className="flex items-center gap-2" href="/finances/balance">
           <h4 className="text-sm">fill</h4>
           <div className="w-7 h-7 flex justify-center items-center bg-[#d0d8fa] rounded-[4px]">
             <AddIcon fontSize="inherit" color="primary" />
           </div>
-        </div>
+        </Link>
       </div>
 
-      <div className="flex flex-col gap-4 items-start">
+      <div className="flex flex-col gap-4 items-start mt-6">
         {profileLinks.map((link, index) => {
           const isActive = link.href === pathname;
           return (
@@ -122,7 +131,9 @@ const LeftSidebar = () => {
             </Link>
           );
         })}
-        <div className="flex items-center gap-3 group">
+        <div
+          className="flex items-center gap-3 group cursor-pointer"
+          onClick={handleLogout}>
           <div className="profile_link">
             <FiLogOut />
           </div>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="40" viewBox="0 0 48 40">
+    <defs>
+        <style>
+            .prefix__cls-3{fill:#8996ae}
+        </style>
+    </defs>
+    <g id="prefix__Group_7277" data-name="Group 7277" transform="translate(-688 -251)">
+        <rect id="prefix__Rectangle" width="48" height="40" rx="10" transform="translate(688 251)" style="opacity:.1;fill:#8996ae"/>
+        <g id="prefix__coin-sack" transform="translate(704.165 263)" style="opacity:.75">
+            <path id="prefix__Path" d="M7 0C3.01 0 0 1.442 0 3.355S3.01 6.71 7 6.71s7-1.442 7-3.354S10.99 0 7 0z" class="prefix__cls-3" transform="translate(.835)"/>
+            <path id="prefix__Path-2" d="M7 1.76A12.692 12.692 0 0 1 0 0v.921c0 1.913 3.01 3.356 7 3.356s7-1.442 7-3.355V0a12.692 12.692 0 0 1-7 1.76z" class="prefix__cls-3" data-name="Path" transform="translate(.835 7.079)"/>
+            <path id="prefix__Path-3" d="M7 1.762A12.692 12.692 0 0 1 0 0v.923c0 1.911 3.01 3.354 7 3.354s7-1.442 7-3.355V0a12.692 12.692 0 0 1-7 1.762z" class="prefix__cls-3" data-name="Path" transform="translate(.835 11.723)"/>
+        </g>
+    </g>
+</svg>

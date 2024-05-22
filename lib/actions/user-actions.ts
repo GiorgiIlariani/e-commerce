@@ -57,21 +57,17 @@ export const SignInUser = async ({ username, password }: { username: string, pas
   return data;
 }
 
-export const deleteUser = async (user: string) => {
+export const deleteUser = async (accessToken: string, refreshToken: string) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'accept': '*/*',
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  };
+
   try {
-    const response = await fetch(`${url}/users/me/`, {
-      method: 'DELETE',
-      headers: {
-        'accept': '*/*',
-        'Authorization': `Bearer ${user}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to delete user');
-    }
-
-    
+    const response = await fetchWithRetry(`${url}/users/me/`, options, accessToken, refreshToken);
     return response.status;
   } catch (error) {
     console.error('Error deleting user:', error);
@@ -79,20 +75,17 @@ export const deleteUser = async (user: string) => {
   }
 };
 
-export const fetchCurrentUser = async (user: string) => {
+export const fetchCurrentUser = async (accessToken: string, refreshToken: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'accept': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  };
+
   try {
-    const response = await fetch(`${url}/users/me/`, {
-      method: 'GET',
-      headers: {
-        'accept': 'application/json',
-        'Authorization': `Bearer ${user}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch current user');
-    }
-
+    const response = await fetchWithRetry(`${url}/users/me/`, options, accessToken, refreshToken);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -101,33 +94,49 @@ export const fetchCurrentUser = async (user: string) => {
   }
 };
 
+export const fetchAllUser = async (accessToken: string, refreshToken: string) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'accept': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  };
+
+  try {
+    const response = await fetchWithRetry(`${url}/users/`, options, accessToken, refreshToken);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    throw error;
+  }
+};
 
 export const updateUserProfileImage = async ({
   accessToken,
+  refreshToken,
   image,
 }: {
   accessToken: string;
+  refreshToken: string;
   image: any;
 }) => {
+  const formData = new FormData();
+  formData.append("image", image);
+
+  const options = {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: "application/json",
+    },
+    body: formData,
+  };
+
   try {
-    const formData = new FormData();
-    formData.append("image", image);
-
-    const response = await fetch(`${url}/users/profile/`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/json",
-      },
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to update user profile");
-    }
-
-    const status = await response.status;
-    return status;
+    const response = await fetchWithRetry(`${url}/users/profile/`, options, accessToken, refreshToken);
+    return response.status;
   } catch (error) {
     console.error("Error updating user profile:", error);
     throw error;

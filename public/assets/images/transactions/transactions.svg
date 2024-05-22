@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="84" height="73" viewBox="0 0 84 73">
+    <defs>
+        <style>
+            .cls-9{fill:none}.cls-8{stroke:none}
+        </style>
+    </defs>
+    <g id="Group_13793" transform="translate(-1394 -267)">
+        <g id="Group_7272" opacity="0.5" transform="translate(-318 -73)">
+            <path id="Rectangle_4048" fill="#cad7e5" d="M0 0h54a10 10 0 0 1 10 10v26a10 10 0 0 1-10 10H10A10 10 0 0 1 0 36V0z" transform="translate(1732 351)"/>
+            <g id="Rectangle_4049" fill="none" stroke="#cad7e5" stroke-linecap="round" stroke-width="6px" transform="translate(1738 346)">
+                <rect width="40" height="40" class="cls-8" rx="4"/>
+                <rect width="46" height="46" x="-3" y="-3" class="cls-9" rx="7"/>
+            </g>
+            <circle id="Ellipse_756" cx="5" cy="5" r="5" fill="#fff" transform="translate(1774 375)"/>
+        </g>
+        <g id="Group_7241" stroke="#fff" transform="translate(651 3)">
+            <g id="Rectangle_3696" fill="#74da90" stroke-width="6px" transform="translate(743 293)">
+                <rect width="44" height="44" class="cls-8" rx="22"/>
+                <rect width="38" height="38" x="3" y="3" class="cls-9" rx="19"/>
+            </g>
+            <g id="Group_7241-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3px">
+                <path id="Path_33161" d="M0 8l4-4-4-4" transform="translate(766 311)"/>
+                <path id="Stroke_46" stroke-miterlimit="10" d="M0 8V0" transform="rotate(90 226.5 541.5)"/>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -69,6 +69,7 @@ const InfoPage = () => {
       if (file.length) {
         const status = await updateUserProfileImage({
           accessToken,
+          refreshToken,
           image: file[0],
         });
         imageUploadStatus = status;

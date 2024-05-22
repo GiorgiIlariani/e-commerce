@@ -34,6 +34,8 @@ const DeactivateForm = () => {
 
   const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
+  const refreshToken =
+    typeof window !== "undefined" && localStorage.getItem("refresh-token");
 
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
@@ -70,9 +72,9 @@ const DeactivateForm = () => {
   }
 
   async function onDialogCorfirmation() {
-    if (!accessToken) return;
+    if (!accessToken || refreshToken) return;
     setIsRemoving(true);
-    const status = await deleteUser(accessToken);
+    const status = await deleteUser(accessToken, refreshToken);
     form.reset();
 
     if (status === 204) {
