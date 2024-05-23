@@ -109,3 +109,10 @@ declare type NewProductsCardTypes =  {
   title: string;
   price: number;
 }
+
+declare interface TransactionHistoryType {
+  sender: number;
+  receiver: number;
+  amount: number;
+  date: string;
+}

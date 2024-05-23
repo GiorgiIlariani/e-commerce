@@ -56,7 +56,7 @@ const LeftSidebar = () => {
           <h2 className="font-bold">
             {user?.first_name} {user?.last_name}
           </h2>
-          <p className="font-medium">ID: 125738</p>
+          <p className="font-medium">ID: {user?.id}</p>
         </div>
       </div>
       <div className="w-full flex justify-between items-center px-3 py-2 my-3 border rounded-lg">

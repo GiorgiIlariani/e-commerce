@@ -96,7 +96,7 @@ export const fillBalance = async ({
   }
 };
 
-export const getTransactionsOrders = async ({
+export const getTransactionsOrdersList = async ({
   accessToken,
   refreshToken,
 
@@ -121,10 +121,49 @@ export const getTransactionsOrders = async ({
     );
 
     if (!response.ok) {
-      throw new Error("Failed to pay");
+      throw new Error("Failed to get transaction orders");
     }
 
-    return response.json();
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error("Error while getting transactions orders:", error);
+    throw error;
+  }
+}
+
+export const getTransactionsList = async ({
+  accessToken,
+  refreshToken,
+
+}: {
+  accessToken: string;
+  refreshToken: string;
+}) => {
+  const options: RequestInit = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const response = await fetchWithRetry(
+      `${url}/transactions/`,
+      options,
+      accessToken,
+      refreshToken
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to get transaction orders");
+    }
+
+    const data = await response.json();
+
+    return data;
   } catch (error) {
     console.error("Error while getting transactions orders:", error);
     throw error;

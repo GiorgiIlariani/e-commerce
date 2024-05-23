@@ -5,7 +5,7 @@ import { TransferConfirmationModalContent } from "@/components/shared/modals/con
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { transferToSomeone } from "@/lib/actions/transactions";
-import { fetchAllUser, fetchCurrentUser } from "@/lib/actions/user-actions";
+import { fetchAllUser } from "@/lib/actions/user-actions";
 import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
 import { useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
@@ -39,7 +39,7 @@ const TransactionsPage = () => {
     }
   }, [isAuthenticated]);
 
-  const handleamountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const numberValue = Number(value);
     if (value === "" || (numberValue > 0 && !isNaN(numberValue))) {
@@ -163,7 +163,7 @@ const TransactionsPage = () => {
                     type="number"
                     placeholder="0"
                     value={amount === 0 ? "" : amount}
-                    onChange={handleamountChange}
+                    onChange={handleAmountChange}
                     name="amount"
                     className="ring-none outline-none py-5 rounded-xl"
                     min="1"
@@ -173,7 +173,7 @@ const TransactionsPage = () => {
             </div>
             <Button
               className="w-1/3 text-white text-base font-bold px-10 bg-[#fec900] rounded- py-5"
-              disabled={!amount && !userId}
+              disabled={!amount || !userId}
               onClick={() => setShowAlertDialog(true)}>
               Transaction
             </Button>

@@ -260,12 +260,12 @@ export const CircledCategoriesConstants = [
   {
     id: 1,
     img: TechnicLogo,
-    title: "Electronics",
+    title: "technik",
   },
   {
     id: 2,
     img: RemontLogo,
-    title: "Construction and Renovation",
+    title: "Repair materials",
   },
   {
     id: 3,
@@ -280,12 +280,12 @@ export const CircledCategoriesConstants = [
   {
     id: 5,
     img: ClothesLogo,
-    title: "Beauty and Fashion",
+    title: "clothes",
   },
   {
     id: 6,
     img: BasketBall,
-    title: "Sports and Recreation",
+    title: "Sports",
   },
 ];
 

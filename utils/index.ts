@@ -106,3 +106,17 @@ export function getNextThreeDays() {
 
   return dates;
 }
+
+export  const calculateTotals = ({ transactionHistory, user }: { transactionHistory: TransactionHistoryType[], user: UserDetailsTypes | undefined }) => {
+    let income = 0;
+    let expence = 0;
+    transactionHistory.forEach((transaction) => {
+      if (transaction.receiver === user?.id) {
+        income += transaction.amount;
+      }
+      if (transaction.sender === user?.id) {
+        expence += transaction.amount;
+      }
+    });
+    return { income, expence };
+  };

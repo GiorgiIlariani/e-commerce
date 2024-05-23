@@ -49,7 +49,7 @@ const ProductCard = ({
   isOnFavoritePage?: boolean;
   isNewProduct?: boolean;
   isAuthenticated?: boolean;
-  userId: number | undefined;
+  userId?: number | undefined;
 }) => {
   const router = useRouter();
 

@@ -29,7 +29,7 @@ const HomePage = () => {
               alt: "buySell logo",
             }}
           />
-          {/* <CircledCategories /> */}
+          <CircledCategories />
           <NewAddedCategories />
         </Suspense>
       </div>
