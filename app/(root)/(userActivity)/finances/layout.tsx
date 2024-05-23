@@ -40,7 +40,7 @@ export default function FinancesLayout({
   return (
     <main className="min-h-screen bg-[#f1f3f6]">
       <div className="wrapper">
-        <div className="flex flex-1 max-w-[768px] flex-col gap-5">
+        <div className="flex flex-1 flex-col gap-5">
           <UserActivityHeader route="My Finances" />
           <TabsComponent tabs={financesTabs} />
           <Separator className="w-full my-2 bg-[#e4e7ed]" />

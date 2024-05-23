@@ -81,8 +81,8 @@ const BalancePage = () => {
 
   return (
     <>
-      <div className="w-full flex flex-row">
-        <div className="border-r border-[#dee2e6] flex flex-col items-start gap-10 px-10 py-14 flex-1">
+      <div className="w-full flex flex-col sm:flex-row">
+        <div className="md:border-r md:border-[#dee2e6] flex flex-col items-start gap-10 px-6 md:px-10 py-10 xs:py-14 flex-1">
           <div className="flex items-center gap-6">
             <Image
               src="/assets/images/transactions/balance-icon.svg"
@@ -93,8 +93,8 @@ const BalancePage = () => {
 
             <strong className="font-bold text-2xl">{user?.balance}.00 ₾</strong>
           </div>
-          <div className="w-full flex items-end gap-5">
-            <div className="w-1/2 flex flex-col items-start gap-2">
+          <div className="w-full flex-col items-start flex xs:flex-row xs:items-end gap-5">
+            <div className="w-full xs:w-1/2 flex flex-col items-start gap-2">
               <label
                 htmlFor="amount"
                 className="text-[#b0b9c9] font-semibold text-sm">
@@ -111,14 +111,14 @@ const BalancePage = () => {
               />
             </div>
             <Button
-              className="w-1/2 text-white text-base font-bold px-10 bg-[#fec900] rounded- py-5"
+              className="w-full xs:w-1/2 text-white text-base font-bold px-10 bg-[#fec900] rounded- py-5"
               disabled={!amount}
               onClick={() => setShowAlertDialog(true)}>
               Fill balance
             </Button>
           </div>
         </div>
-        <div className="flex flex-col items-center gap-4 p-14">
+        <div className="flex flex-col items-center gap-4 py-10 xs:py-14 px-10 md:px-14">
           <Image
             src="/assets/images/transactions/transactions.svg"
             alt="transactions"

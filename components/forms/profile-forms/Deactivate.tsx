@@ -89,6 +89,10 @@ const DeactivateForm = () => {
     setShowAlertDialog(false);
   }
 
+  const handleCancel = () => {
+    form.reset();
+  };
+
   return (
     <>
       <Form {...form}>
@@ -136,14 +140,14 @@ const DeactivateForm = () => {
           />
           <div className="w-full flex  justify-end">
             <Button
-              type="submit"
-              className="bg-transparent rounded-lg py-[22px] text-[#8996ae] text-center font-medium hover:underline">
-              გაუქმება
+              className="bg-transparent rounded-lg py-[22px] text-[#8996ae] text-center font-medium hover:underline"
+              onClick={handleCancel}>
+              Cancel
             </Button>
             <Button
               type="submit"
               className="bg-[#fec900] rounded-lg py-[22px] text-white text-center font-medium hover:bg-[#ffdb4d]">
-              დადასტურება
+              Submit
             </Button>
           </div>
         </form>

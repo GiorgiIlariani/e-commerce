@@ -142,8 +142,8 @@ const CheckoutPage = () => {
             </Link>
           </div>
 
-          <div className="mt-16 w-full flex flex-col xl:grid xl:grid-cols-12">
-            <div className="w-full xl:col-span-7 flex flex-col gap-6 pr-20">
+          <div className="mt-16 w-full flex flex-col gap-16 lg:grid lg:grid-cols-12">
+            <div className="w-full lg:col-span-7 flex flex-col gap-6 pr-0 lg:pr-20">
               <Textarea
                 rows={5}
                 placeholder="გამოიყენე მეორე მისამართის ჩასაწერად ან სხვა დამატებითი ინფორმაციისთვის"
@@ -151,7 +151,7 @@ const CheckoutPage = () => {
               />
               <div className="flex flex-col gap-4 items-start">
                 <h4 className="text-lg font-semibold">Delivery</h4>
-                <div className="w-full flex items-center gap-6">
+                <div className="w-full flex flex-col xs:flex-row items-center gap-6">
                   {deliveryDays.map((day, index) => (
                     <Button
                       key={index}
@@ -172,7 +172,7 @@ const CheckoutPage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-span-5 pl-[110px]">
+            <div className="w-full lg:col-span-5 lg:pl-[80px] xl:pl-[110px]  pl-0">
               <div className="w-full rounded-[24px] py-8 px-6 bg-[#f1f3f680]">
                 <ul className="w-full flex flex-col gap-5 mt-2 mb-8">
                   {cartProducts.map(({ product }) => (

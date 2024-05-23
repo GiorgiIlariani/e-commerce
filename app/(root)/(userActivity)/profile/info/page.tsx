@@ -173,12 +173,12 @@ const InfoPage = () => {
             )}
           />
 
-          <div className="flex gap-6">
+          <div className="flex flex-col sm:flex-row gap-6">
             <FormField
               control={form.control}
               name="username"
               render={({ field }) => (
-                <FormItem className="w-1/2">
+                <FormItem className="w-full sm:w-1/2">
                   <FormLabel className="text-sm font-medium text-[#a3adc0]">
                     Username
                   </FormLabel>
@@ -194,7 +194,7 @@ const InfoPage = () => {
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem className="w-1/2">
+                <FormItem className="w-full sm:w-1/2">
                   <FormLabel className="text-sm font-medium text-[#a3adc0]">
                     Email
                   </FormLabel>

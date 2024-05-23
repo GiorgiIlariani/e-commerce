@@ -84,7 +84,6 @@ const ProductFormPage = () => {
         });
 
         setImages(product.images);
-        // setImagesForUpload(product.images);
       } catch (error) {
         console.log(error);
       }
@@ -132,7 +131,15 @@ const ProductFormPage = () => {
       );
 
       // Reset form values and state
-      form.reset();
+      form.reset({
+        description: "",
+        name: "",
+        price: "",
+        location: "",
+        images: [],
+        category: "",
+        quantity: "",
+      });
       setImages([]);
       setImagesForUpload([]);
     } catch (error) {
@@ -244,25 +251,6 @@ const ProductFormPage = () => {
     }
   };
 
-  // const handleAddAsFirstImage = (index: number, imageId: number) => {
-  //   // if (imageId !== -1) {
-  //   //   // const imageToMove = images[]
-  //   // } else {
-  //   const imageToMove = images[index];
-  //   const updatedImages = [
-  //     imageToMove,
-  //     ...images.filter((_, i) => i !== index),
-  //   ];
-
-  //   const updatedImagesForUpload = [
-  //     imagesForUpload[index],
-  //     ...imagesForUpload.filter((_: any, i: number) => i !== index),
-  //   ];
-  //   setImages(updatedImages);
-  //   setImagesForUpload(updatedImagesForUpload);
-  //   // }
-  // };
-
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">
       <div className="wrapper flex flex-col gap-3">
@@ -317,7 +305,6 @@ const ProductFormPage = () => {
                 />
 
                 {images.map((image, index) => {
-                  const isFirstImage = index === 0; // Check if it's the first image
                   const imageUrl =
                     typeof image === "string" ? image : image.image;
 
@@ -327,10 +314,8 @@ const ProductFormPage = () => {
                     <UploadedImages
                       key={index}
                       imageUrl={imageUrl}
-                      isFirstImage={isFirstImage}
                       index={index}
                       handleImageRemove={handleImageRemove}
-                      // handleAddAsFirstImage={handleAddAsFirstImage}
                       imageId={imageId}
                     />
                   );

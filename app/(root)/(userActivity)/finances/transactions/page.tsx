@@ -102,8 +102,8 @@ const TransactionsPage = () => {
 
   return (
     <>
-      <div className="w-full flex flex-row">
-        <div className="flex flex-col items-center gap-4 p-14 border-r border-[#dee2e6]">
+      <div className="w-full flex flex-col md:flex-row">
+        <div className="flex flex-col items-center gap-4 px-6 md:px-10 py-10 xs:py-14 md:border-r md:border-[#dee2e6]">
           <Image
             src="/assets/images/transactions/transactions.svg"
             alt="transactions"
@@ -124,7 +124,7 @@ const TransactionsPage = () => {
             </span>
           </Link>
         </div>
-        <div className="flex flex-col items-start gap-10 px-10 py-14 flex-1">
+        <div className="flex flex-col items-start gap-10 px-6 md:px-10 py-10 xs:py-14 flex-1">
           <div className="flex items-center gap-6">
             <Image
               src="/assets/images/transactions/balance-icon.svg"
@@ -136,10 +136,10 @@ const TransactionsPage = () => {
             <strong className="font-bold text-2xl">{user?.balance}.00 ₾</strong>
           </div>
 
-          <div className="w-full flex items-end gap-5">
-            <div className="w-2/3 flex flex-col items-start gap-2">
-              <div className="flex items-center gap-3">
-                <div className="flex flex-col gap-2 w-2/3">
+          <div className="w-full flex flex-col items-start sm:flex-row sm:items-end gap-5">
+            <div className="w-full sm:w-2/3 flex flex-col items-start gap-2">
+              <div className="w-full flex flex-col sm:flex-row items-center gap-3">
+                <div className="flex flex-col gap-2 w-full sm:w-2/3">
                   <label
                     htmlFor="amount"
                     className="text-[#b0b9c9] font-semibold text-sm">
@@ -153,7 +153,7 @@ const TransactionsPage = () => {
                     className="ring-none outline-none py-5 rounded-xl"
                   />
                 </div>
-                <div className="flex flex-col gap-2 w-1/3">
+                <div className="flex flex-col gap-2 w-full sm:w-1/3">
                   <label
                     htmlFor="amount"
                     className="text-[#b0b9c9] font-semibold text-sm">
@@ -172,7 +172,7 @@ const TransactionsPage = () => {
               </div>
             </div>
             <Button
-              className="w-1/3 text-white text-base font-bold px-10 bg-[#fec900] rounded- py-5"
+              className="w-full sm:w-1/3 text-white text-base font-bold px-10 bg-[#fec900] rounded- py-5"
               disabled={!amount || !userId}
               onClick={() => setShowAlertDialog(true)}>
               Transaction

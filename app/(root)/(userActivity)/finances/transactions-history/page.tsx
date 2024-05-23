@@ -88,13 +88,13 @@ const TransactionsHistoryPage = () => {
         </div>
       ) : (
         <section className="w-full">
-          <table className="w-full border-collapse border-t">
+          <table className="w-full">
             <thead>
               <tr className="border-b">
                 <th className="w-1/4 py-3">Sender</th>
 
                 <th className="w-1/4 py-3">Receiver</th>
-                <th className="w-1/4 py-3">Transaction Date</th>
+                <th className="w-1/4 py-3">Date</th>
                 <th className="w-1/4 py-3">Amount</th>
               </tr>
             </thead>

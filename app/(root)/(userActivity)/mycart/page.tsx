@@ -115,6 +115,7 @@ const MyCartPage = () => {
           (acc, curr) => acc + curr.product.price,
           0
         );
+
         setTotalPrice(totalPrice);
         // Remove selected items from backend
         for (const itemId of selectedItemsIds) {
@@ -128,8 +129,6 @@ const MyCartPage = () => {
       console.log(error);
     }
   };
-
-  console.log(cartProducts);
 
   if (isLoading) {
     return (
@@ -164,7 +163,7 @@ const MyCartPage = () => {
           </div>
         ) : (
           <div className="w-full bg-white border border-[#e4e7ed] rounded-3xl">
-            <div className="flex-col flex-between gap-10 py-7 px-6 border-b border-[#f3f4f6]">
+            <div className="flex-col flex-between gap-10 py-7 px-3 md:px-6 border-b border-[#f3f4f6]">
               <Button
                 className="self-end text-[#8996ae] bg-[#f1f3f6] hover:bg-[#FEC900] hover:text-white p-4 rounded-lg text-sm font-bold"
                 onClick={handleRemoveAllCartItem}>

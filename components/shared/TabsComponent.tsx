@@ -13,7 +13,7 @@ const TabsComponent = ({ tabs }: { tabs: TabsTypes[] }) => {
   const pathname = usePathname();
 
   return (
-    <div className="flex gap-14">
+    <div className="flex gap-3 xs:gap-14 justify-between xs:justify-normal">
       {tabs.map((tab) => {
         const isActiveTab = pathname === tab.route;
 
@@ -21,7 +21,7 @@ const TabsComponent = ({ tabs }: { tabs: TabsTypes[] }) => {
           <Link
             key={tab.route}
             href={tab.route}
-            className={`text-base font-semibold ${
+            className={`text-sm sm:text-base font-medium sm:font-semibold ${
               isActiveTab ? "text-black" : "text-[#8996ae]"
             } hover:text-black`}>
             {tab.text}

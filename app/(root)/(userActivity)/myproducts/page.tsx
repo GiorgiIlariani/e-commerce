@@ -145,14 +145,7 @@ const MyProductsPage = () => {
               <div
                 key={product.id}
                 className="flex justify-between items-center border-b pb-4">
-                <div className="w-[30%] xs:w-[20%] flex items-center gap-3">
-                  <Input
-                    type="checkbox"
-                    // id={String(cartItem?.product.id)}
-                    className="w-3 h-3 sm:w-4 sm:h-4 rounded-sm bg-white checked:bg-[#fec900]"
-                    // checked={selectedCartProductsId.includes(cartItem.product.id)}
-                    // onChange={handleCheckboxToggle}
-                  />
+                <div className="w-[30%] xs:w-[20%]">
                   <Link href={`/search/${product.id}`}>
                     <Image
                       src={product.images[0].image}

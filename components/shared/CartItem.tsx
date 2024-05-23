@@ -41,6 +41,8 @@ const CartItem = ({
   };
 
   const handleSubtraction = () => {
+    if (quantity === 1) return;
+
     const newQuantity = quantity - 1;
     setQuantity(newQuantity);
     setTotalPrice((prevTotalPrice) => prevTotalPrice - cartItem.product.price);
@@ -54,7 +56,7 @@ const CartItem = ({
 
   return (
     <div className="relative flex items-center justify-between w-full px-3 border-b pt-2 pb-5">
-      <div className="basis-1/2 gap-4 self-start flex items-center">
+      <div className="md:basis-1/2 basis-1/3 gap-2 md:gap-4 self-start flex items-center">
         <Input
           type="checkbox"
           id={String(cartItem?.product.id)}
@@ -71,7 +73,7 @@ const CartItem = ({
             className="object-cover rounded-lg w-16 h-16"
           />
         </Link>
-        <div className="flex flex-col">
+        <div className="flex-col hidden md:flex">
           <h3 className="text-nowrap">
             {sliceTitle(cartItem.product.name, 18, true)}
           </h3>
@@ -79,9 +81,9 @@ const CartItem = ({
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col md:flex-row justify-between items-center gap-12">
+      <div className="flex-1 flex flex-row md:gap-20 items-center gap-6">
         {quantity > 0 ? (
-          <div className="flex justify-between items-center gap-4">
+          <div className="flex justify-between items-center gap-2 md:gap-4">
             <Button
               className="flex justify-center items-center w-6 h-6 bg-[#f1f3f6] text-[#8996ae] hover:bg-[#FEC900] hover:text-white text-bold rounded-full"
               onClick={handleSubtraction}>
@@ -108,7 +110,7 @@ const CartItem = ({
           </>
         )}
         <Button
-          className="absolute -bottom-2 left-16 md:static text-xl bg-[#f1f3f6] text-[#8996ae] rounded-full p-[6px] hover:bg-[#FEC900] hover:text-white"
+          className="absolute right-2 text-xl bg-[#f1f3f6] text-[#8996ae] rounded-full p-[6px] hover:bg-[#FEC900] hover:text-white"
           onClick={() => handleRemoveCartItem(cartItem?.product.id)}>
           <MdDeleteOutline />
         </Button>

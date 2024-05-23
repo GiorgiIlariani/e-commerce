@@ -1,23 +1,18 @@
 import Image from "next/image";
 import trashIcon from "@/public/assets/images/trash.svg";
-import AddAsMainImg from "@/public/assets/images/addAsMain.svg";
 import { Button } from "@/components/ui/button";
 
 interface Props {
   imageUrl: string;
-  isFirstImage: boolean;
   handleImageRemove: (index: number, imageId: number) => void;
-  // handleAddAsFirstImage: (index: number, imageId: number) => void;
   index: number;
   imageId: number;
 }
 
 const UploadedImages = ({
   imageUrl,
-  isFirstImage,
   index,
   handleImageRemove,
-  // handleAddAsFirstImage,
   imageId,
 }: Props) => {
   return (
@@ -31,20 +26,6 @@ const UploadedImages = ({
       />
       <div className="absolute inset-0 bg-black flex items-center justify-center transition-opacity duration-300 rounded-2xl opacity-0 group hover:opacity-80">
         <div className="flex items-center gap-x-2">
-          {!isFirstImage ? (
-            <Button
-              type="button"
-              // onClick={() => handleAddAsFirstImage(index, imageId)}
-              className="w-[48px] h-[48px] cursor-pointer hover:opacity-100 opacity-0 transition duration-300 ease-out flex justify-center items-center rounded-xl bg-[rgba(137,150,174,.4)]">
-              <Image
-                src={AddAsMainImg}
-                alt="upload as main image"
-                width={36}
-                height={36}
-                className="object-contain z-10 group-hover:opacity-100"
-              />
-            </Button>
-          ) : null}
           <Button
             type="button"
             onClick={() => handleImageRemove(index, imageId)}
