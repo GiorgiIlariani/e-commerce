@@ -139,7 +139,7 @@ const SearchedProducts = () => {
   };
 
   return (
-    <main className="w-full min-h-screen wrapper flex flex-col bg-[#f1f3f6] relative">
+    <>
       <div className="flex items-center justify-start mt-6">
         <div className="flex items-center gap-6">
           <Link href="/" className="text-[#8996ae] text-sm">
@@ -181,7 +181,7 @@ const SearchedProducts = () => {
           </div>
         )}
       </section>
-    </main>
+    </>
   );
 };
 
