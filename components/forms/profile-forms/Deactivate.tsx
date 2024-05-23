@@ -72,7 +72,7 @@ const DeactivateForm = () => {
   }
 
   async function onDialogCorfirmation() {
-    if (!accessToken || refreshToken) return;
+    if (!accessToken || !refreshToken) return;
     setIsRemoving(true);
     const status = await deleteUser(accessToken, refreshToken);
     form.reset();
