@@ -210,10 +210,18 @@ const ProductFormPage = () => {
         if (status === 204) {
           toast.success("image removed successfully!");
         }
-        const updatedImages = images.filter(
-          (_, index) => index !== indexToRemove
-        );
-        setImages(updatedImages);
+        // Check if images are of type { id: number; image: string }[]
+        if (images.length > 0 && typeof images[0] !== "string") {
+          const updatedImages = (
+            images as { id: number; image: string }[]
+          ).filter((_, index) => index !== indexToRemove);
+          setImages(updatedImages);
+        } else {
+          const updatedImages = (images as string[]).filter(
+            (_, index) => index !== indexToRemove
+          );
+          setImages(updatedImages);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -236,26 +244,24 @@ const ProductFormPage = () => {
     }
   };
 
-  const handleAddAsFirstImage = (index: number, imageId: number) => {
-    // if (imageId !== -1) {
-    //   // const imageToMove = images[]
-    // } else {
-    const imageToMove = images[index];
-    const updatedImages = [
-      imageToMove,
-      ...images.filter((_, i) => i !== index),
-    ];
-    
-    const updatedImagesForUpload = [
-      imagesForUpload[index],
-      ...imagesForUpload.filter((_: any, i: number) => i !== index),
-    ];
-    setImages(updatedImages);
-    setImagesForUpload(updatedImagesForUpload);
-    // }
-  };
+  // const handleAddAsFirstImage = (index: number, imageId: number) => {
+  //   // if (imageId !== -1) {
+  //   //   // const imageToMove = images[]
+  //   // } else {
+  //   const imageToMove = images[index];
+  //   const updatedImages = [
+  //     imageToMove,
+  //     ...images.filter((_, i) => i !== index),
+  //   ];
 
-  console.log({ images, imagesForUpload });
+  //   const updatedImagesForUpload = [
+  //     imagesForUpload[index],
+  //     ...imagesForUpload.filter((_: any, i: number) => i !== index),
+  //   ];
+  //   setImages(updatedImages);
+  //   setImagesForUpload(updatedImagesForUpload);
+  //   // }
+  // };
 
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">
@@ -324,7 +330,7 @@ const ProductFormPage = () => {
                       isFirstImage={isFirstImage}
                       index={index}
                       handleImageRemove={handleImageRemove}
-                      handleAddAsFirstImage={handleAddAsFirstImage}
+                      // handleAddAsFirstImage={handleAddAsFirstImage}
                       imageId={imageId}
                     />
                   );

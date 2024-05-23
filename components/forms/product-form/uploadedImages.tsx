@@ -7,7 +7,7 @@ interface Props {
   imageUrl: string;
   isFirstImage: boolean;
   handleImageRemove: (index: number, imageId: number) => void;
-  handleAddAsFirstImage: (index: number, imageId: number) => void;
+  // handleAddAsFirstImage: (index: number, imageId: number) => void;
   index: number;
   imageId: number;
 }
@@ -17,7 +17,7 @@ const UploadedImages = ({
   isFirstImage,
   index,
   handleImageRemove,
-  handleAddAsFirstImage,
+  // handleAddAsFirstImage,
   imageId,
 }: Props) => {
   return (
@@ -34,7 +34,7 @@ const UploadedImages = ({
           {!isFirstImage ? (
             <Button
               type="button"
-              onClick={() => handleAddAsFirstImage(index, imageId)}
+              // onClick={() => handleAddAsFirstImage(index, imageId)}
               className="w-[48px] h-[48px] cursor-pointer hover:opacity-100 opacity-0 transition duration-300 ease-out flex justify-center items-center rounded-xl bg-[rgba(137,150,174,.4)]">
               <Image
                 src={AddAsMainImg}
