@@ -1,4 +1,4 @@
-const refreshTokenUrl = 'http://16.16.253.75/api/token/refresh/';
+const refreshTokenUrl = 'https://nika2004.pythonanywhere.com/api/token/refresh/';
 
 
 //  აბრუნებს ახალ access ტოკენს

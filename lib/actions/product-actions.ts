@@ -1,6 +1,6 @@
 import { fetchWithRetry, refreshAccessToken } from "./refresh-token";
 
-const url = 'http://16.16.253.75';
+const url = "https://nika2004.pythonanywhere.com";
 
 export const fetchProducts = async ({ min_price, max_price, location, category, searchQuery, page_size, page, user }: fetchProductsTypes) => {    
     let queryParams = '';

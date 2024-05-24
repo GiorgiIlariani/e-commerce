@@ -15,7 +15,7 @@ type CartItemProps = {
   setTotalPrice: Dispatch<SetStateAction<number>>;
 };
 
-const baseUrl = "http://16.16.253.75";
+const baseUrl = "https://nika2004.pythonanywhere.com";
 
 const CartItem = ({
   cartItem,

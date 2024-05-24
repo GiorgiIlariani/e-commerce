@@ -3,8 +3,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "16.16.253.75",
+        protocol: "https",
+        hostname: "nika2004.pythonanywhere.com",
         port: "",
       },
     ],

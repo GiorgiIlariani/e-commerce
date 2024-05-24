@@ -81,7 +81,7 @@ const FavoritesPage = () => {
                 key={favoriteProduct?.product?.id}
                 {...favoriteProduct?.product}
                 isFavorite={true}
-                baseUrl="http://16.16.253.75"
+                baseUrl="https://nika2004.pythonanywhere.com"
                 setFavoriteProducts={setFavoriteProducts}
                 isOnFavoritePage={true}
               />

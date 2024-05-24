@@ -133,7 +133,7 @@ const TransactionsPage = () => {
               height={40}
             />
 
-            <strong className="font-bold text-2xl">{user?.balance}.00 ₾</strong>
+            <strong className="font-bold text-2xl">{user?.balance} ₾</strong>
           </div>
 
           <div className="w-full flex flex-col items-start sm:flex-row sm:items-end gap-5">

@@ -9,8 +9,7 @@ import { Mutex } from 'async-mutex';
 
 const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
-	baseUrl: `http://16.16.253.75`,
-	// credentials: 'include',
+	baseUrl: `https://nika2004.pythonanywhere.com`,
 });
 const baseQueryWithReauth: BaseQueryFn<
 	string | FetchArgs,

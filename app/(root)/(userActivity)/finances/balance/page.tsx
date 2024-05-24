@@ -91,7 +91,7 @@ const BalancePage = () => {
               height={40}
             />
 
-            <strong className="font-bold text-2xl">{user?.balance}.00 ₾</strong>
+            <strong className="font-bold text-2xl">{user?.balance} ₾</strong>
           </div>
           <div className="w-full flex-col items-start flex xs:flex-row xs:items-end gap-5">
             <div className="w-full xs:w-1/2 flex flex-col items-start gap-2">
