@@ -27,7 +27,7 @@ const ProfileModal = ({
       open={showProfileModal}
       onOpenChange={() => setShowProfileModal(false)}>
       {isAuthenticated ? (
-        <DialogContent className="bg-white max-w-screen h-screen z-50">
+        <DialogContent className="bg-white max-w-screen min-h-screen overscroll-y-auto z-[100]">
           <DialogHeader className="max-h-20">
             <div className="flex items-center gap-3">
               <Image
@@ -41,7 +41,7 @@ const ProfileModal = ({
                 <h2 className="font-bold">
                   {user?.first_name} {user?.last_name}
                 </h2>
-                <p className="font-medium">ID: 125738</p>
+                <p className="font-medium">ID: {user?.id}</p>
               </div>
             </div>
           </DialogHeader>

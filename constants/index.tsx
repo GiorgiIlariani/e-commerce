@@ -315,14 +315,12 @@ export const SignedInNavbarPopupConstants = [
 export const profileLinks = [
   { href: "/product-form", Icon: IoIosAddCircle, text: "Add Announcement" },
   { href: "/myproducts", Icon: IoListOutline, text: "My Announcements" },
-  { href: "/myFinances", Icon: IoWalletOutline, text: "My Finances" },
-  { href: "/messages", Icon: FaRegMessage, text: "Messages" },
+  { href: "/finances", Icon: IoWalletOutline, text: "My Finances" },
 ];
 
 export const extraLinks = [
   { href: "/favorites", Icon: AiOutlineHeart, text: "My Favorites" },
   { href: "/mycart", Icon: MdAddShoppingCart, text: "My Cart" },
-  { href: "/location", Icon: FaLocationDot, text: "Location" },
 ];
 
 export const accountLinks = [

@@ -190,7 +190,7 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
               {location}
             </p>
 
-            <p className="flex gap-2 items-end">
+            <p className="flex gap-2 items-center">
               <span className="text-gray-500">
                 <MdAccessTime />
               </span>
