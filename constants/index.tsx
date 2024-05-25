@@ -78,16 +78,16 @@ export const NavLinks = [
     href: "/contact",
   },
   {
-    label: "Favorites",
-    href: "/favorites",
+    label: "Help Center",
+    href: "/faq",
   },
   {
     label: "Cart",
     href: "/mycart",
   },
   {
-    label: "My Products",
-    href: "/myProducts",
+    label: "Favorites",
+    href: "/favorites",
   },
 ];
 
@@ -114,7 +114,7 @@ export const bottombarLinks = [
   },
   {
     icon: <IoMdPerson />,
-    route: "/sign-in",
+    // route: "/sign-in",
     label: "LogIn",
   },
 ];

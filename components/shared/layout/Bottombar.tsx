@@ -32,7 +32,7 @@ const Bottombar = () => {
           {bottombarLinks.slice(0, isAuthenticated ? 4 : 5).map((link) => {
             const isActive = pathname === link.route;
 
-            return (
+            return link.route ? (
               <Link
                 href={link.route}
                 key={link.label}
@@ -42,6 +42,16 @@ const Bottombar = () => {
                   {link.label.split(/\s+/)[0]}
                 </p>
               </Link>
+            ) : (
+              <div
+                key={link.label}
+                className="bottombar_link cursor-pointer"
+                onClick={() => setShowProfileModal(true)}>
+                {link.icon}
+                <p className="max-xs:hidden text-sm font-medium">
+                  {link.label.split(/\s+/)[0]}
+                </p>
+              </div>
             );
           })}
           {isAuthenticated && (
@@ -64,6 +74,8 @@ const Bottombar = () => {
         <ProfileModal
           setShowProfileModal={setShowProfileModal}
           showProfileModal={showProfileModal}
+          isAuthenticated={isAuthenticated}
+          user={user}
         />
       )}
     </>

@@ -180,17 +180,17 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
         </div>
 
         <article className="flex-1 flex flex-col justify-between lg:justify-start gap-4 bg-white rounded-2xl p-6 relative">
-          <div className="w-full flex flex-wrap gap-8 text-lg font-semibold relative">
+          <div className="w-full flex flex-wrap items-center gap-3 sm:gap-8 text-lg font-semibold relative">
             <p className="flex gap-2 items-center">ID: {productDetails?.id}</p>
 
-            <p className="flex gap-2 items-center">
+            <p className="flex gap-1 items-center">
               <span className="text-gray-500">
                 <FaLocationDot />
               </span>
               {location}
             </p>
 
-            <p className="flex gap-2 items-center ml-6">
+            <p className="flex gap-2 items-end">
               <span className="text-gray-500">
                 <MdAccessTime />
               </span>

@@ -13,6 +13,7 @@ import {
 import CartItem from "@/components/shared/CartItem";
 import { toast } from "react-toastify";
 import Spinner from "@/components/shared/loader/Spinner";
+import isAuth from "@/lib/actions/isAuth";
 
 const MyCartPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -206,4 +207,4 @@ const MyCartPage = () => {
   );
 };
 
-export default MyCartPage;
+export default isAuth(MyCartPage);

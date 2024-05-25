@@ -57,7 +57,7 @@ export function Filters() {
 
   return (
     <Dialog>
-      <DialogTrigger className="min-w-[68px] h-[50px] rounded-2xl bg-white hidden md:flex items-center justify-center cursor-pointer">
+      <DialogTrigger className="min-w-[68px] h-[50px] rounded-2xl bg-white flex items-center justify-center cursor-pointer">
         <VscSettings />
       </DialogTrigger>
       <DialogContent className="bg-white md:h-auto md:min-w-[624px] h-screen min-w-full flex flex-col gap-4">

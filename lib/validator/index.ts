@@ -81,7 +81,16 @@ export const productFormSchema = z.object({
     .max(100, { message: "Please enter a name with no more than 100 character." })
     .optional(),
   price: z.string().min(1, { message: "Please enter a price." }).optional(),
-  quantity: z.string().min(1, { message: "Please enter a quantity." }).optional(),
+  quantity: z
+    .string()
+    .min(1, { message: "Please enter a quantity." })
+    .refine((val) => {
+      const parsed = Number(val);
+      return !isNaN(parsed) && parsed > 0;
+    }, {
+      message: "Quantity must be a positive number.",
+    })
+    .optional(),
   location: z
     .string()
     .min(1, { message: "Please select a location." })
