@@ -78,6 +78,7 @@ declare type PromotingProps = {
   };
   title: string;
   description: string;
+  route: string;
 }
 
 
@@ -115,4 +116,24 @@ declare interface TransactionHistoryType {
   receiver: number;
   amount: number;
   date: string;
+}
+
+declare interface PayForProductsProps {
+  accessToken: string;
+  refreshToken: string;
+  product: number;
+  quantity: number;
+}
+
+declare interface FillBalanceProps {
+  accessToken: string;
+  refreshToken: string;
+  amount: number;
+}
+
+declare interface TransferToSomeoneProps {
+  accessToken: string;
+  refreshToken: string;
+  receiver: number;
+  amount: number;
 }

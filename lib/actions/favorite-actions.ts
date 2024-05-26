@@ -1,7 +1,5 @@
 import { fetchWithRetry } from "./refresh-token";
-
-const url = "https://nika2004.pythonanywhere.com";
-
+import { url } from "../utils";
 
 export const addToFavorites = async (productId: string, accessToken: string, refreshToken: string) => {
     const options: RequestInit = {

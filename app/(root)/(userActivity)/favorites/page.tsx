@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
+import { url } from "@/lib/utils";
 
 const FavoritesPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +82,7 @@ const FavoritesPage = () => {
                 key={favoriteProduct?.product?.id}
                 {...favoriteProduct?.product}
                 isFavorite={true}
-                baseUrl="https://nika2004.pythonanywhere.com"
+                baseUrl={url}
                 setFavoriteProducts={setFavoriteProducts}
                 isOnFavoritePage={true}
               />

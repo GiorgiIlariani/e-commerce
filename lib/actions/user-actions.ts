@@ -1,6 +1,5 @@
 import { fetchWithRetry } from "./refresh-token";
-
-const url = "https://nika2004.pythonanywhere.com";
+import { url } from "../utils";
 
 
 export const authenticateUser = async ({

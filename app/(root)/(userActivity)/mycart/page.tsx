@@ -14,6 +14,9 @@ import CartItem from "@/components/shared/CartItem";
 import { toast } from "react-toastify";
 import Spinner from "@/components/shared/loader/Spinner";
 import isAuth from "@/lib/actions/isAuth";
+import { CheckoutModal } from "@/components/shared/modals/CheckoutModal";
+import { useAppSelector } from "@/redux/hooks";
+import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
 
 const MyCartPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +25,21 @@ const MyCartPage = () => {
   const [selectedCartProductsId, setSelectedCartProductsId] = useState<
     number[]
   >([]);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  const {
+    data: user,
+    isFetching,
+    refetch,
+  } = useRetrieveUserQuery(undefined, {
+    skip: !isAuthenticated,
+  });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      refetch();
+    }
+  }, [isAuthenticated]);
 
   const accessToken =
     typeof window !== "undefined" && localStorage.getItem("access-token");
@@ -40,6 +58,7 @@ const MyCartPage = () => {
         const updatedCartProducts = cartProducts.map((item: CartProducts) => ({
           ...item,
           totalPrice: item.product.price * item.product.quantity,
+          quantity: item.product.quantity, // ახლახან დავამატე
         }));
 
         setCartProducts(updatedCartProducts);
@@ -81,10 +100,7 @@ const MyCartPage = () => {
         // Calculate total price again after removing item
         const totalPrice = cartProducts
           .filter((item) => item.product.id !== productId)
-          .reduce(
-            (acc, curr) => acc + curr.product.price * curr.product.quantity,
-            0
-          );
+          .reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
         setTotalPrice(totalPrice);
 
         toast.success("Item removed Successfully!");
@@ -139,6 +155,8 @@ const MyCartPage = () => {
     );
   }
 
+  console.log(cartProducts);
+
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">
       <div className="wrapper flex flex-col gap-3">
@@ -183,21 +201,21 @@ const MyCartPage = () => {
                   selectedCartProductsId={selectedCartProductsId}
                   setSelectedCartProductsId={setSelectedCartProductsId}
                   setTotalPrice={setTotalPrice}
-                  // setCartProducts={setCartProducts}
+                  setCartProducts={setCartProducts}
                 />
               ))}
               <div className="w-full flex-between">
                 <p className="self-start text-md text-gray-400">
                   Sum:{" "}
-                  <span className="text-blue-600 text-lg">{totalPrice}₾</span>
+                  <span className="text-blue-600 text-lg">{totalPrice} ₾</span>
                 </p>
-                <Link href="/checkout">
-                  <Button
-                    type="button"
-                    className="bg-[#fec900] rounded-lg py-[22px] text-white text-center hover:bg-[#ffdb4d] px-[72px] font-semibold">
-                    Buy
-                  </Button>
-                </Link>
+                <CheckoutModal
+                  cartProducts={cartProducts}
+                  totalPrice={totalPrice}
+                  accessToken={accessToken}
+                  refreshToken={refreshToken}
+                  user={user}
+                />
               </div>
             </div>
           </div>

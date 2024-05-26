@@ -2,12 +2,14 @@ import React from "react";
 
 import Image from "next/image";
 import { Button } from "../../ui/button";
+import Link from "next/link";
 
 const Promoting = ({
   buttonText,
   image,
   title,
   description,
+  route,
 }: PromotingProps) => {
   return (
     <div className="w-full mx-auto my-20 rounded-3xl bg-white py-6">
@@ -17,9 +19,11 @@ const Promoting = ({
             {title}
           </h2>
           <p className="text-[#8996ae] text-base xs:text-sm">{description}</p>
-          <Button className="rounded-lg bg-[#fec900] px-10 py-3 text-[14px] font-bold text-white">
-            {buttonText}
-          </Button>
+          <Link href={route}>
+            <Button className="rounded-lg bg-[#fec900] px-10 py-3 text-[14px] font-bold text-white">
+              {buttonText}
+            </Button>
+          </Link>
         </div>
         <div className="h-full pl-7 px-[15px] flex-1">
           <Image

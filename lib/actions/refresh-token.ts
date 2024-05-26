@@ -1,8 +1,9 @@
-const refreshTokenUrl = 'https://nika2004.pythonanywhere.com/api/token/refresh/';
-
+import { url } from "../utils";
 
 //  აბრუნებს ახალ access ტოკენს
 export const refreshAccessToken = async (refreshToken: string) => {
+    const refreshTokenUrl = `${url}/api/token/refresh/`;
+
     try {
         const response = await fetch(refreshTokenUrl, {
             method: 'POST',

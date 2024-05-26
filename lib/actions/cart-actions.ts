@@ -1,6 +1,6 @@
+import { url } from "../utils";
 import { fetchWithRetry } from "./refresh-token";
 
-const url = "https://nika2004.pythonanywhere.com";
 
 export const addToCart = async (
   productId: string,

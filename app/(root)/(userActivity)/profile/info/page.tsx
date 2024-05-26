@@ -63,6 +63,15 @@ const InfoPage = () => {
     let userInfoStatus;
     if (!accessToken || !refreshToken) return;
 
+    if (
+      file.length === 0 &&
+      user?.email === values.email &&
+      user?.username === values.username
+    ) {
+      toast.error("Nothing to change!");
+      return;
+    }
+
     try {
       setIsLoading(true);
 
@@ -88,16 +97,10 @@ const InfoPage = () => {
         toast.success("user account details changed successfully!");
       }
 
-      if (
-        file.length === 0 &&
-        user?.email !== values.email &&
-        user?.username !== values.username
-      ) {
-        return;
-      }
-
       refetch();
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error.message);
+
       console.log(error);
     } finally {
       setIsLoading(false);

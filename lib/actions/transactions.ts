@@ -1,26 +1,6 @@
 import { fetchWithRetry } from "./refresh-token";
+import { url } from "../utils";
 
-const url = "https://nika2004.pythonanywhere.com";
-
-interface PayForProductsProps {
-  accessToken: string;
-  refreshToken: string;
-  product: number;
-  quantity: number;
-}
-
-interface FillBalanceProps {
-  accessToken: string;
-  refreshToken: string;
-  amount: number;
-}
-
-interface TransferToSomeoneProps {
-  accessToken: string;
-  refreshToken: string;
-  receiver: number;
-  amount: number;
-}
 
 export const PayForProducts = async ({
   accessToken,

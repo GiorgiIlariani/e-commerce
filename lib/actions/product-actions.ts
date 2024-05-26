@@ -1,6 +1,5 @@
 import { fetchWithRetry, refreshAccessToken } from "./refresh-token";
-
-const url = "https://nika2004.pythonanywhere.com";
+import { url } from "../utils";
 
 export const fetchProducts = async ({ min_price, max_price, location, category, searchQuery, page_size, page, user }: fetchProductsTypes) => {    
     let queryParams = '';
@@ -114,7 +113,7 @@ export const editProduct = async (productId: string, values: any, accessToken: s
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...values, quantity: 1, category: [values?.category] }), // Send the updated product data in the body
+        body: JSON.stringify({ ...values, category: [values?.category] }), // Send the updated product data in the body
     };
 
     try {

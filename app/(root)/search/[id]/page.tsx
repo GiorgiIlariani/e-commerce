@@ -24,6 +24,7 @@ import { PayForProducts } from "@/lib/actions/transactions";
 import { toast } from "react-toastify";
 import { ConfirmationModal } from "@/components/shared/modals/ConfirmationModal";
 import { ConfirmationModalContent } from "@/components/shared/modals/content/ConfirmationContent";
+import { Separator } from "@/components/ui/separator";
 
 const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
   const [isSliced, setIsSliced] = useState(true);
@@ -79,10 +80,12 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
       return;
     }
 
-    if (!accessToken || !refreshToken || !productDetails) {
-      console.log("Tokens are missing");
+    if (productDetails?.quantity === 0) {
+      toast.error("Sorry, this product is currently out of stock.");
       return;
     }
+
+    if (!accessToken || !refreshToken || !productDetails) return;
 
     try {
       setIsLoading(true);
@@ -90,12 +93,21 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
         accessToken: accessToken as string,
         refreshToken: refreshToken as string,
         product: productDetails?.id,
-        quantity: productDetails?.quantity,
+        quantity: 1,
       });
 
       if (status === 201) {
         toast.success("Payment method completed successfully!");
+        setProductDetails((prevDetails) => {
+          if (!prevDetails) return prevDetails;
+          return {
+            ...prevDetails,
+            quantity: prevDetails.quantity - 1,
+          };
+        });
       }
+
+      // refetch();
     } catch (error) {
       console.log("Error while making payment:", error);
     } finally {
@@ -121,6 +133,8 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
       </div>
     );
   }
+
+  console.log(productDetails);
 
   return (
     <>
@@ -179,7 +193,7 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
           </div>
         </div>
 
-        <article className="flex-1 flex flex-col justify-between lg:justify-start gap-4 bg-white rounded-2xl p-6 relative">
+        <article className="flex-1 flex flex-col justify-between lg:justify-start gap-4 bg-white rounded-2xl p-4 sm:p-6 relative">
           <div className="w-full flex flex-wrap items-center gap-3 sm:gap-8 text-lg font-semibold relative">
             <p className="flex gap-2 items-center">ID: {productDetails?.id}</p>
 
@@ -196,20 +210,20 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
               </span>
               {convertDate(productDetails?.created_at!)}
             </p>
-            <div>
+            <div className="absolute left-0 top-9">
               {productDetails?.quantity || 0 > 0 ? (
-                <span className="text-green-500 font-medium text-lg absolute right-0 top-0">
+                <span className="text-green-500 font-medium text-xl">
                   In Stock
                 </span>
               ) : (
-                <span className="text-red-500 font-medium text-lg absolute right-0 top-0">
+                <span className="text-red-500 font-medium text-xl">
                   Out Of Stock
                 </span>
               )}
             </div>
           </div>
 
-          <div className="text-3xl font-semibold mt-6">
+          <div className="text-3xl font-semibold mt-8">
             <h3>{productDetails?.name}</h3>
             <p className="flex items-center gap-1 mt-4">
               {productDetails?.price}
@@ -219,7 +233,7 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
             </p>
           </div>
 
-          <div className="w-full h-[1px] bg-gray-500 my-4" />
+          <Separator className="bg-gray-500 my-6" />
 
           {productDetails?.description && (
             <p className="flex flex-col gap-10 justify-start text-gray-700">
@@ -233,7 +247,7 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
               )}
               {showBuyButton && (
                 <Button
-                  className="text-white text-base font-bold py-6 bg-[#fec900] rounded-lg absolute right-5 bottom-5"
+                  className="text-white text-sm font-semibold py-5 bg-[#fec900] rounded-lg absolute right-5 bottom-5"
                   onClick={() => setShowAlertDialog(true)}>
                   Buy Product
                 </Button>

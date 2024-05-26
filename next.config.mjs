@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: "nika2004.pythonanywhere.com",
         port: "",
       },
+      {
+        protocol: "http",
+        hostname: "16.16.253.75",
+        port: "",
+      },
     ],
   },
 };

@@ -140,6 +140,7 @@ const ProductFormPage = () => {
         category: "",
         quantity: "",
       });
+
       setImages([]);
       setImagesForUpload([]);
     } catch (error) {
@@ -259,7 +260,7 @@ const ProductFormPage = () => {
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="sm:space-y-14 space-y-16">
-            <div className="w-full bg-white rounded-3xl py-10 px-10 mt-5">
+            <div className="w-full bg-white rounded-3xl px-5 sm:px-10 py-10 mt-5">
               <h2 className="text-lg font-bold">Application details</h2>
               <FormField
                 control={form.control}
@@ -281,7 +282,7 @@ const ProductFormPage = () => {
             </div>
 
             {/* upload images */}
-            <div className="w-full bg-white rounded-3xl p-10 mt-5 flex flex-col">
+            <div className="w-full bg-white rounded-3xl px-10 py-5 sm:py-10 mt-5 flex flex-col">
               <AdditionalInformation text="With properly selected photos, you will attract more people" />
 
               <div className="w-full flex flex-wrap items-center gap-3 mb-5">
@@ -323,7 +324,7 @@ const ProductFormPage = () => {
               </div>
             </div>
 
-            <div className="w-full flex flex-col bg-white rounded-3xl p-10 mt-5">
+            <div className="w-full flex flex-col bg-white rounded-3xl px-10 py-5 sm:py-10 mt-5">
               <h2 className="text-lg font-bold">Main features</h2>
               <AdditionalInformation text="Add a suitable title and description" />
               <div className="flex flex-col gap-8">

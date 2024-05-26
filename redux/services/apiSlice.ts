@@ -6,10 +6,14 @@ import type {
 } from '@reduxjs/toolkit/query';
 import { setAuth, logout } from '../features/authSlice';
 import { Mutex } from 'async-mutex';
+import { url } from "@/lib/utils";
+
+import { toast } from "react-toastify";
+
 
 const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
-	baseUrl: `https://nika2004.pythonanywhere.com`,
+	baseUrl: url,
 });
 const baseQueryWithReauth: BaseQueryFn<
 	string | FetchArgs,
@@ -56,6 +60,11 @@ const baseQueryWithReauth: BaseQueryFn<
 			result = await baseQuery(args, api, extraOptions);
 		}
 	}
+
+	if(result.error && result.error.status === 400) {
+		toast.error("A user with that username already exists.");
+	} 
+
 	return result;
 };
 

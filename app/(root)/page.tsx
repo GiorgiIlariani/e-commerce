@@ -28,6 +28,7 @@ const HomePage = () => {
               src: BuySellLogo,
               alt: "buySell logo",
             }}
+            route="/search"
           />
           {/* <CircledCategories /> */}
           <NewAddedCategories />

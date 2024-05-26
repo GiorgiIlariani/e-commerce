@@ -6,6 +6,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import Link from "next/link";
+import { url } from "@/lib/utils";
+import { toast } from "react-toastify";
 
 type CartItemProps = {
   cartItem: CartProducts;
@@ -13,9 +15,8 @@ type CartItemProps = {
   selectedCartProductsId: number[];
   setSelectedCartProductsId: Dispatch<SetStateAction<number[]>>;
   setTotalPrice: Dispatch<SetStateAction<number>>;
+  setCartProducts: Dispatch<SetStateAction<CartProducts[]>>;
 };
-
-const baseUrl = "https://nika2004.pythonanywhere.com";
 
 const CartItem = ({
   cartItem,
@@ -23,8 +24,22 @@ const CartItem = ({
   selectedCartProductsId,
   setSelectedCartProductsId,
   setTotalPrice,
+  setCartProducts,
 }: CartItemProps) => {
   const [quantity, setQuantity] = useState<number>(cartItem.product.quantity);
+
+  const updateCartProductQuantity = (
+    productId: number,
+    newQuantity: number
+  ) => {
+    setCartProducts((prevCartProducts) =>
+      prevCartProducts.map((product) =>
+        product.product.id === productId
+          ? { ...product, quantity: newQuantity }
+          : product
+      )
+    );
+  };
 
   // Function to handle checkbox toggle
   const handleCheckboxToggle = () => {
@@ -46,12 +61,19 @@ const CartItem = ({
     const newQuantity = quantity - 1;
     setQuantity(newQuantity);
     setTotalPrice((prevTotalPrice) => prevTotalPrice - cartItem.product.price);
+    updateCartProductQuantity(cartItem.product.id, newQuantity);
   };
 
   const handleAddition = () => {
+    if (cartItem.product.quantity === quantity) {
+      toast.warning("there is no much product quantity to choose");
+      return;
+    }
+
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
     setTotalPrice((prevTotalPrice) => prevTotalPrice + cartItem.product.price);
+    updateCartProductQuantity(cartItem.product.id, newQuantity);
   };
 
   return (
@@ -66,7 +88,7 @@ const CartItem = ({
         />
         <Link href={`/search/${cartItem.product.id}`}>
           <Image
-            src={baseUrl + cartItem.product.images[0].image}
+            src={url + cartItem.product.images[0].image}
             alt="item image"
             width={64}
             height={64}

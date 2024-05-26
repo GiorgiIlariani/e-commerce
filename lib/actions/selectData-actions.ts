@@ -1,4 +1,4 @@
-const url = "https://nika2004.pythonanywhere.com";
+import { url } from "../utils";
 
 export const fetchDropdownContentList = async (
   type: "location" | "category"

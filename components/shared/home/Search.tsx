@@ -52,6 +52,12 @@ const SearchComponent = () => {
     router.push(`/search/${newUrl}`, { scroll: false });
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleClick();
+    }
+  };
+
   return (
     <section>
       <h2 className="font-medium text-xl xs:text-2xl">
@@ -62,6 +68,7 @@ const SearchComponent = () => {
           placeholder="iphone 14"
           value={query}
           onChange={changeHandler}
+          onKeyPress={handleKeyPress}
           className="h-[50px] px-4 outline-none rounded-2xl border border-[#fec900] ring-none"
         />
         <div className="flex items-center gap-4">
