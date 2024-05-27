@@ -212,14 +212,14 @@ declare interface ProfileModalProps {
   user: UserDetailsTypes | undefined;
 }
 
-declare interface CartItemProps {
-  cartItem: CartProducts;
-  handleRemoveCartItem: (productId: number) => Promise<void>;
-  selectedCartProductsId: number[];
-  setSelectedCartProductsId: Dispatch<SetStateAction<number[]>>;
-  setTotalPrice: Dispatch<SetStateAction<number>>;
-  setCartProducts: Dispatch<SetStateAction<CartProducts[]>>;
-};
+// declare interface CartItemProps {
+//   cartItem: CartProducts;
+//   handleRemoveCartItem: (productId: number) => Promise<void>;
+//   selectedCartProductsId: number[];
+//   setSelectedCartProductsId: Dispatch<SetStateAction<number[]>>;
+//   setTotalPrice: Dispatch<SetStateAction<number>>;
+//   setCartProducts: Dispatch<SetStateAction<CartProducts[]>>;
+// };
 
 declare interface DropdownProps {
   value?: string;
