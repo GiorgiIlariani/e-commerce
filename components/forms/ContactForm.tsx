@@ -19,7 +19,6 @@ import { Textarea } from "../ui/textarea";
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
-import { generateCode } from "@/utils";
 
 const ContactPageForm = () => {
   const [isLoading, setIsLoading] = useState(false);
