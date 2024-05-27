@@ -16,13 +16,7 @@ export function DeactivateAccountAlertDialog({
   onDeleteAccount,
   onCancel,
   isRemoving,
-}: {
-  open: boolean;
-  onOpenChange: Dispatch<SetStateAction<boolean>>;
-  onDeleteAccount: () => Promise<void>;
-  onCancel: () => void;
-  isRemoving: boolean;
-}) {
+}: DeactivateAccountAlertDialogProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent className="bg-white border border-red-600">

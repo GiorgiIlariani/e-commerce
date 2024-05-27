@@ -2,19 +2,12 @@ import Image from "next/image";
 import trashIcon from "@/public/assets/images/trash.svg";
 import { Button } from "@/components/ui/button";
 
-interface Props {
-  imageUrl: string;
-  handleImageRemove: (index: number, imageId: number) => void;
-  index: number;
-  imageId: number;
-}
-
 const UploadedImages = ({
   imageUrl,
   index,
   handleImageRemove,
   imageId,
-}: Props) => {
+}: UploadedImagesProps) => {
   return (
     <div className="relative rounded-2xl group">
       <Image

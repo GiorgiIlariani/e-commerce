@@ -19,11 +19,7 @@ const HeaderSignInInfo = ({
   user,
   isLoading,
   isFetching,
-}: {
-  user: UserDetailsTypes | undefined;
-  isLoading: boolean;
-  isFetching: boolean;
-}) => {
+}: HeaderSignInInfoProps) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
   const router = useRouter();

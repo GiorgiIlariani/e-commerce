@@ -11,16 +11,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-interface ConfirmationModalProps {
-  onConfirm: () => void;
-  title: string;
-  message: React.ReactNode;
-  open: boolean;
-  onOpenChange: Dispatch<SetStateAction<boolean>>;
-  isLoading: boolean;
-  onCancel: () => void;
-}
-
 export function ConfirmationModal({
   onConfirm,
   title,

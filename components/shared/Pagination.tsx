@@ -2,12 +2,6 @@ import { Pagination } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 
-type PaginationComponentProps = {
-  count: number;
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
-};
-
 export function PaginationComponent({
   count,
   page,

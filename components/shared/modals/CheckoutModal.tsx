@@ -20,13 +20,7 @@ export function CheckoutModal({
   accessToken,
   refreshToken,
   user,
-}: {
-  cartProducts: CartProducts[];
-  totalPrice: number;
-  accessToken: string | false | null;
-  refreshToken: string | false | null;
-  user: UserDetailsTypes | undefined;
-}) {
+}: CheckoutModalProps) {
   const [isGoingToBuy, setIsGoingToBuy] = useState(false);
   const router = useRouter();
   const userBalance = user?.balance || 0;

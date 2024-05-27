@@ -136,31 +136,10 @@ export const postImages = async (productId: string, accessToken: string, images:
     try {
         const responses = [];
 
-        // Function to check if access token is still valid
-        const isTokenValid = async (token: string): Promise<boolean> => {
-            try {
-                const testOptions: RequestInit = {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Accept': 'application/json',
-                    },
-                };
-
-                // Assuming there's an endpoint to test token validity
-                const testResponse = await fetch(`${url}/auth/test-token/`, testOptions);
-
-                return testResponse.ok;
-            } catch (error) {
-                console.error('Error while testing token validity:', error);
-                return false;
-            }
-        };
-
         let validAccessToken = accessToken;
 
         // Check if the current access token is valid
-        const tokenValid = await isTokenValid(accessToken);
+        let tokenValid = false; //isTokenValid(accessToken);
 
         if (!tokenValid) {
             const refreshedTokenData = await refreshAccessToken(refreshToken);
@@ -190,6 +169,7 @@ export const postImages = async (productId: string, accessToken: string, images:
             const response = await fetchWithRetry(`${url}/products/image/`, options, validAccessToken, refreshToken);
 
             if (!response.ok) {
+                tokenValid = true;
                 throw new Error('Failed to post images');
             }
 
@@ -203,7 +183,6 @@ export const postImages = async (productId: string, accessToken: string, images:
         throw error;
     }
 };
-
 
 export const removeProduct = async (productId: number, accessToken: string, refreshToken: string) => {
     const options: RequestInit = {

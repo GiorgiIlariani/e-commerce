@@ -1,5 +1,7 @@
 import qs from "query-string";
 
+// create all with chat gpt
+
 export function formUrlQuery({ params, key, value }: UrlQueryParams) {
   const currentUrl = qs.parse(params);
 
@@ -75,37 +77,6 @@ export const convertDate = (dateString: string) => {
   return formattedDate;
 };
 
-export function generateCode() {
-    var characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var code = '';
-    for (var i = 0; i < 5; i++) {
-        code += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return code;
-}
-
-
-  function getMonthName(date: Date): string {
-    const options = { month: "long" } as const;
-    return date.toLocaleDateString("en-US", options);
-  }
-
-export function getNextThreeDays() {
-  const today = new Date();
-  const dates = [];
-  const prices = [12, 8, 6];
-
-  for (let i = 0; i < 3; i++) {
-    const current = new Date(today);
-    current.setDate(today.getDate() + i);
-    const options = { month: 'long' } as const;
-    const month = current.toLocaleDateString('en-US', options);
-    const date = current.getDate();
-    dates.push({ today: month, date, price: prices[i] });
-  }
-
-  return dates;
-}
 
 export  const calculateTotals = ({ transactionHistory, user }: { transactionHistory: TransactionHistoryType[], user: UserDetailsTypes | undefined }) => {
     let income = 0;

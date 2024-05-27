@@ -10,15 +10,7 @@ const FilteredProducts = ({
   cartProducts,
   isAuthenticated,
   userId,
-}: {
-  searchedProducts: Product[];
-  favoriteProducts: any;
-  refetchFavorites: () => Promise<void>;
-  refetchCartProducts: () => Promise<void>;
-  cartProducts: CartProducts[];
-  isAuthenticated: boolean;
-  userId: number | undefined;
-}) => {
+}: FilteredProductsForm) => {
   return (
     <div className="w-full grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-20">
       {searchedProducts.map((productItem) => {

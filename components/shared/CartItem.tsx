@@ -9,15 +9,6 @@ import Link from "next/link";
 import { url } from "@/lib/utils";
 import { toast } from "react-toastify";
 
-type CartItemProps = {
-  cartItem: CartProducts;
-  handleRemoveCartItem: (productId: number) => Promise<void>;
-  selectedCartProductsId: number[];
-  setSelectedCartProductsId: Dispatch<SetStateAction<number[]>>;
-  setTotalPrice: Dispatch<SetStateAction<number>>;
-  setCartProducts: Dispatch<SetStateAction<CartProducts[]>>;
-};
-
 const CartItem = ({
   cartItem,
   handleRemoveCartItem,

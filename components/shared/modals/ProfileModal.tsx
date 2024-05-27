@@ -16,12 +16,7 @@ const ProfileModal = ({
   showProfileModal,
   isAuthenticated,
   user,
-}: {
-  setShowProfileModal: React.Dispatch<React.SetStateAction<boolean>>;
-  showProfileModal: boolean;
-  isAuthenticated: boolean;
-  user: UserDetailsTypes | undefined;
-}) => {
+}: ProfileModalProps) => {
   const dispatch = useDispatch();
   const router = useRouter();
 

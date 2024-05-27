@@ -37,20 +37,7 @@ const ProductCard = ({
   isNewProduct,
   isAuthenticated,
   userId,
-}: Product & {
-  isFavorite?: boolean;
-  isInCart?: boolean;
-  refetchFavorites?: () => Promise<void>;
-  refetchCartProducts?: () => Promise<void>;
-  baseUrl?: string;
-  setFavoriteProducts?: React.Dispatch<
-    React.SetStateAction<favoriteProductList[]>
-  >;
-  isOnFavoritePage?: boolean;
-  isNewProduct?: boolean;
-  isAuthenticated?: boolean;
-  userId?: number | undefined;
-}) => {
+}: ProductCardProps) => {
   const router = useRouter();
 
   const accessToken =

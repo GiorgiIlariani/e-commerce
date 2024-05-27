@@ -146,9 +146,9 @@ const SearchedProducts = () => {
           <Link href="/" className="text-[#8996ae] text-sm">
             მთავარი
           </Link>
-          {/* <span className="text-[#6773a7] text-sm">
-            {searchedProducts?.results.length} განცხადება
-          </span> */}
+          <span className="text-[#6773a7] text-sm">
+            {searchedProducts?.count} განცხადება
+          </span>
         </div>
       </div>
       <section className="flex flex-col lg:flex-row gap-8 mb-20 mt-6 items-start">

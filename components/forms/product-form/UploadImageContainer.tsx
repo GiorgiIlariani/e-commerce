@@ -1,17 +1,11 @@
 import Image from "next/image";
-import React, { Dispatch, SetStateAction } from "react";
 import UploadImg from "@/public/assets/images/upload-img.svg";
 import YellowUploadImage from "@/public/assets/images/upload-img-yellow.svg";
-
 const UploadImageContainer = ({
   handleImagesChange,
   field,
   isAtListOneImage,
-}: {
-  handleImagesChange: any;
-  field: any;
-  isAtListOneImage: boolean;
-}) => {
+}: UploadImageContainerProps) => {
   return (
     <>
       {isAtListOneImage ? (

@@ -6,20 +6,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { fetchDropdownContentList } from "@/lib/actions/selectData-actions";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface dropdownContentType {
   id: number;
   name: string;
 }
-
-type DropdownProps = {
-  value?: string;
-  onChangeHandler?: (value: string) => void;
-  placeholder: string;
-  type: "category" | "location";
-  setSelectedCategory?: Dispatch<SetStateAction<string>>;
-};
 
 const Dropdown = ({
   value,

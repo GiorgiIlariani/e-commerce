@@ -31,7 +31,7 @@ declare interface UserDetailsTypes {
   balance: number;
 }
 
-type Product = {
+declare type Product = {
   id: number;
   name: string;
   description: string;
@@ -137,3 +137,106 @@ declare interface TransferToSomeoneProps {
   receiver: number;
   amount: number;
 }
+
+declare interface UploadedImagesProps {
+  imageUrl: string;
+  handleImageRemove: (index: number, imageId: number) => void;
+  index: number;
+  imageId: number;
+}
+
+declare interface UploadImageContainerProps {
+  handleImagesChange: (
+    e: ChangeEvent<HTMLInputElement>,
+    field: any
+  ) => Promise<void>;
+  field: any;
+  isAtListOneImage: boolean;
+}
+
+declare interface FilteredProductsForm {
+  searchedProducts: Product[];
+  favoriteProducts: any;
+  refetchFavorites: () => Promise<void>;
+  refetchCartProducts: () => Promise<void>;
+  cartProducts: CartProducts[];
+  isAuthenticated: boolean;
+  userId: number | undefined;
+}
+
+declare interface ProductCardProps extends Product  {
+  isFavorite?: boolean;
+  isInCart?: boolean;
+  refetchFavorites?: () => Promise<void>;
+  refetchCartProducts?: () => Promise<void>;
+  baseUrl?: string;
+  setFavoriteProducts?: React.Dispatch<
+    React.SetStateAction<favoriteProductList[]>
+  >;
+  isOnFavoritePage?: boolean;
+  isNewProduct?: boolean;
+  isAuthenticated?: boolean;
+  userId?: number | undefined;
+}
+
+declare interface CheckoutModalProps {
+  cartProducts: CartProducts[];
+  totalPrice: number;
+  accessToken: string | false | null;
+  refreshToken: string | false | null;
+  user: UserDetailsTypes | undefined;
+}
+
+declare interface ConfirmationModalProps {
+  onConfirm: () => void;
+  title: string;
+  message: React.ReactNode;
+  open: boolean;
+  onOpenChange: Dispatch<SetStateAction<boolean>>;
+  isLoading: boolean;
+  onCancel: () => void;
+}
+
+declare interface DeactivateAccountAlertDialogProps { 
+  open: boolean;
+  onOpenChange: Dispatch<SetStateAction<boolean>>;
+  onDeleteAccount: () => Promise<void>;
+  onCancel: () => void;
+  isRemoving: boolean;
+}
+
+declare interface ProfileModalProps {
+  setShowProfileModal: React.Dispatch<React.SetStateAction<boolean>>;
+  showProfileModal: boolean;
+  isAuthenticated: boolean;
+  user: UserDetailsTypes | undefined;
+}
+
+declare interface CartItemProps {
+  cartItem: CartProducts;
+  handleRemoveCartItem: (productId: number) => Promise<void>;
+  selectedCartProductsId: number[];
+  setSelectedCartProductsId: Dispatch<SetStateAction<number[]>>;
+  setTotalPrice: Dispatch<SetStateAction<number>>;
+  setCartProducts: Dispatch<SetStateAction<CartProducts[]>>;
+};
+
+declare interface DropdownProps {
+  value?: string;
+  onChangeHandler?: (value: string) => void;
+  placeholder: string;
+  type: "category" | "location";
+  setSelectedCategory?: Dispatch<SetStateAction<string>>;
+};
+
+declare interface HeaderSignInInfoProps {
+  user: UserDetailsTypes | undefined;
+  isLoading: boolean;
+  isFetching: boolean;
+}
+
+declare type PaginationComponentProps = {
+  count: number;
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+};
