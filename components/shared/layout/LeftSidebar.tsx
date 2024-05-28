@@ -67,7 +67,7 @@ const LeftSidebar = () => {
         </div>
         <Link className="flex items-center gap-2" href="/finances/balance">
           <h4 className="text-sm">fill</h4>
-          <div className="w-7 h-7 flex justify-center items-center bg-[#d0d8fa] rounded-[4px]">
+          <div className="w-7 h-7 flex justify-center items-center bg-[#d0d8fa] text-black rounded-[4px]">
             <AddIcon fontSize="inherit" color="primary" />
           </div>
         </Link>
@@ -92,6 +92,7 @@ const LeftSidebar = () => {
         })}
       </div>
       <Separator className="border border-gray-100 my-3" />
+
       <div className="flex flex-col gap-4 items-start">
         {extraLinks.map((link, index) => {
           const isActive = link.href === pathname;

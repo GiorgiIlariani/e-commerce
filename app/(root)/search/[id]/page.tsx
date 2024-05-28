@@ -61,7 +61,10 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
         const details = await fetchSingleProduct(params.id);
         const locationData = await fetchDropdownContentList("location");
 
-        setLocation(locationData[details?.location - 1].name);
+        const location = locationData.find(
+          (item: any) => item.id === details.location
+        );
+        setLocation(location.name);
         setProductDetails(details);
       } catch (error) {
         console.log(error);
@@ -134,7 +137,7 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
     );
   }
 
-  console.log(productDetails);
+  // console.log(productDetails);
 
   return (
     <>

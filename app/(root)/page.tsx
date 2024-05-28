@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import BuySellLogo from "@/public/assets/images/buy-sell.png";
 import NewAddedCategories from "@/components/shared/home/NewAddedProducts";
 import Spinner from "@/components/shared/loader/Spinner";
-import Categories from "@/components/shared/Categories";
+import Categories from "@/components/shared/home/Categories";
 
 const HomePage = () => {
   return (

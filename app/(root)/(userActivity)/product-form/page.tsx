@@ -122,7 +122,7 @@ const ProductFormPage = () => {
         );
 
         // Redirect user
-        router.push("/search");
+        router.push(`/search/${product?.id}`);
       }
 
       // successMessage

@@ -39,6 +39,7 @@ const SearchedProducts = () => {
   const min_price = searchParams.get("min_price") || "";
   const max_price = searchParams.get("max_price") || "";
   const location = searchParams.get("location") || "";
+  const category = searchParams.get("category") || "";
   const searchQuery = searchParams.get("query") || "";
   const page_size = Number(searchParams.get("page_size") || 12);
 
@@ -63,6 +64,7 @@ const SearchedProducts = () => {
           min_price,
           max_price,
           location,
+          category,
           searchQuery,
           page_size,
           page,

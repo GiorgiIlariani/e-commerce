@@ -14,7 +14,7 @@ const Categories = () => {
               <Link
                 className="flex items-center gap-2 group h-auto"
                 key={id}
-                href={`/search/${href}`}>
+                href={`/search?category=${href}`}>
                 <div className="w-[30px] group-hover:text-black flex justify-center items-center text-gray-400 cursor-pointer">
                   {icon}
                 </div>
@@ -34,7 +34,7 @@ const Categories = () => {
             <Link
               key={id}
               className="flex flex-col items-center py-1"
-              href={`/search/${href}`}>
+              href={`/search?category=${href}`}>
               <div className="rounded-md flex items-center justify-center">
                 <Image src={img} alt={title} width={100} height={100} />
               </div>
