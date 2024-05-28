@@ -12,7 +12,7 @@ const SignInPage = () => {
       <div className="max-w-xl mt-6 text-center">
         <p className="text-lg text-gray-400">
           Don't have an account -{" "}
-          <Link href="/sign-up" className="text-[#fec900]">
+          <Link href="/sign-up" className="text-primary">
             create
           </Link>{" "}
         </p>

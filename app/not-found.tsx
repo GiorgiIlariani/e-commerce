@@ -17,7 +17,7 @@ export default function NotFound() {
       <p className="text-base text-[#8996ae] font-medium">
         Click the yellow button to return to the main page
       </p>
-      <Button className="h-14 rounded-xl px-20 text-white font-bold text-sm bg-[#fec900]">
+      <Button className="h-14 rounded-xl px-20 text-white font-bold text-sm bg-primary">
         main page
       </Button>
     </div>

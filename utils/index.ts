@@ -78,6 +78,7 @@ export const convertDate = (dateString: string) => {
 };
 
 
+// calculates tha transaction history
 export  const calculateTotals = ({ transactionHistory, user }: { transactionHistory: TransactionHistoryType[], user: UserDetailsTypes | undefined }) => {
     let income = 0;
     let expence = 0;

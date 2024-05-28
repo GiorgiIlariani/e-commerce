@@ -69,13 +69,13 @@ const SearchComponent = () => {
           value={query}
           onChange={changeHandler}
           onKeyPress={handleKeyPress}
-          className="h-[50px] px-4 outline-none rounded-2xl border border-[#fec900] ring-none"
+          className="h-[50px] px-4 outline-none rounded-2xl border border-primary ring-none"
         />
         <div className="flex items-center gap-4">
           <Filters />
 
           <Button
-            className="h-[50px] text-white bg-[#fec900] min-w-[180px] rounded-2xl px-[14px] items-center gap-3 text-base  flex"
+            className="h-[50px] text-white bg-primary min-w-[180px] rounded-2xl px-[14px] items-center gap-3 text-base  flex"
             onClick={handleClick}>
             <IoSearch />
             Search

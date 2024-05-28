@@ -11,7 +11,7 @@ const Scroll = () => {
   };
   return (
     <div
-      className="flex h-11 w-full cursor-pointer items-center justify-center bg-[#fec900]"
+      className="flex h-11 w-full cursor-pointer items-center justify-center bg-primary"
       onClick={handleScroll}>
       <Image
         src="/assets/images/arrow-top.svg"

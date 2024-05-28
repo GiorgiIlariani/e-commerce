@@ -12,7 +12,7 @@ const UploadImageContainer = ({
         <label
           htmlFor="images"
           className="flex flex-col items-center w-[130px] min-h-[130px]">
-          <div className="w-full min-h-[130px] rounded-3xl border-dashed border-2 border-[#fec900] flex flex-col justify-center items-center py-8 cursor-pointer">
+          <div className="w-full min-h-[130px] rounded-3xl border-dashed border-2 border-primary flex flex-col justify-center items-center py-8 cursor-pointer">
             <input
               type="file"
               id="images"
@@ -32,7 +32,7 @@ const UploadImageContainer = ({
         </label>
       ) : (
         <label htmlFor="images" className="w-full flex flex-col items-center">
-          <div className="w-full rounded-3xl border-dashed border-2 border-[#fec900] flex flex-col justify-center items-center py-8 my-5 cursor-pointer">
+          <div className="w-full rounded-3xl border-dashed border-2 border-primary flex flex-col justify-center items-center py-8 my-5 cursor-pointer">
             <input
               type="file"
               id="images"

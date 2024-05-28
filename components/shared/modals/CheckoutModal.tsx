@@ -72,7 +72,7 @@ export function CheckoutModal({
       <DialogTrigger className="min-w-[68px] h-[50px] rounded-2xl bg-white flex items-center justify-center cursor-pointer">
         <Button
           type="button"
-          className="bg-[#fec900] rounded-lg py-[22px] text-white text-center hover:bg-[#ffdb4d] px-[72px] font-semibold">
+          className="bg-primary rounded-lg py-[22px] text-white text-center hover:bg-[#ffdb4d] px-[72px] font-semibold">
           Buy
         </Button>
       </DialogTrigger>
@@ -131,7 +131,7 @@ export function CheckoutModal({
               </div>
             )}
             <Button
-              className="w-full text-white text-base font-bold py-6 bg-[#fec900] rounded-lg"
+              className="w-full text-white text-base font-bold py-6 bg-primary rounded-lg"
               onClick={handlePay}>
               {remainingBalance >= 0 ? "Pay" : "Close"}
             </Button>
@@ -158,7 +158,7 @@ export function CheckoutModal({
                   </li>
                 </ul>
                 <Button
-                  className="w-full text-white text-base font-bold py-6 bg-[#fec900] rounded-lg"
+                  className="w-full text-white text-base font-bold py-6 bg-primary rounded-lg"
                   onClick={() => setIsGoingToBuy(true)}>
                   Pay
                 </Button>

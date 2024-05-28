@@ -81,10 +81,10 @@ const LeftSidebar = () => {
               key={index}
               href={link.href}
               className={`flex items-center gap-3 group ${
-                isActive ? "text-[#fec900]" : ""
+                isActive ? "text-primary" : ""
               }`}>
               <div className="profile_link">
-                <link.Icon className={isActive ? "text-[#fec900]" : ""} />
+                <link.Icon className={isActive ? "text-primary" : ""} />
               </div>
               <p className="profile_link-p">{link.text}</p>
             </Link>
@@ -101,10 +101,10 @@ const LeftSidebar = () => {
               key={index}
               href={link.href}
               className={`flex items-center gap-3 group ${
-                isActive ? "text-[#fec900]" : ""
+                isActive ? "text-primary" : ""
               }`}>
               <div className="profile_link">
-                <link.Icon className={isActive ? "text-[#fec900]" : ""} />
+                <link.Icon className={isActive ? "text-primary" : ""} />
               </div>
               <p className="profile_link-p">{link.text}</p>
             </Link>
@@ -120,11 +120,11 @@ const LeftSidebar = () => {
               key={index}
               href={link.href}
               className={`flex items-center gap-3 group ${
-                isActive ? "text-[#fec900]" : ""
+                isActive ? "text-primary" : ""
               }`}>
               <div className="profile_link">
                 {link.Icon && (
-                  <link.Icon className={isActive ? "text-[#fec900]" : ""} />
+                  <link.Icon className={isActive ? "text-primary" : ""} />
                 )}
               </div>
               <p className="profile_link-p">{link.text}</p>

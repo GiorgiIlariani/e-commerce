@@ -181,7 +181,7 @@ const LogInForm = ({ type }: LoginFormProps) => {
 
         <Button
           type="submit"
-          className="w-full bg-[#fec900] rounded-lg py-[22px] text-white text-center font-medium text-xl hover:bg-[#ffdb4d]"
+          className="w-full bg-primary rounded-lg py-[22px] text-white text-center font-medium text-xl hover:bg-[#ffdb4d]"
           disabled={isLoading}>
           {isLoading ? `${type}...` : type}
         </Button>

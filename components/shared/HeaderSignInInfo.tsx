@@ -75,8 +75,8 @@ const HeaderSignInInfo = ({
                   <Link
                     href={item?.route}
                     key={item.id}
-                    className={`text-sm font-medium hover:text-[#fec900] transition duration-200 ${
-                      isActive ? "text-[#fec900]" : "text-[#6f7383]"
+                    className={`text-sm font-medium hover:text-primary transition duration-200 ${
+                      isActive ? "text-primary" : "text-[#6f7383]"
                     }`}>
                     {item?.text}
                   </Link>
@@ -93,7 +93,7 @@ const HeaderSignInInfo = ({
         </Popover>
       ) : (
         <Link href="/sign-in">
-          <Button className="flex items-center gap-2 rounded-xl px-2 border border-[#E5E5E5]">
+          <Button className="flex items-center gap-2 rounded-xl px-2 border border-[#E5E5E5] bg-light-1">
             <Image
               src="/assets/images/person.svg"
               alt="person"

@@ -68,7 +68,7 @@ const RateUs = () => {
       {showBtn && (
         <Button
           onClick={handleClick}
-          className="bg-[#fec900] text-white p-[13px] rounded rotate-[-90deg] cursor-pointer hover:shadow-[0px_0px_30px_rgba(0,0,0,0.3)] ease-out duration-100 fixed right-[-25px] top-[calc(50%-43px)] text-[12px] w-[86px] tracking-tighter z-[9999]">
+          className="bg-primary text-white p-[13px] rounded rotate-[-90deg] cursor-pointer hover:shadow-[0px_0px_30px_rgba(0,0,0,0.3)] ease-out duration-100 fixed right-[-25px] top-[calc(50%-43px)] text-[12px] w-[86px] tracking-tighter z-[9999]">
           Rate Us
         </Button>
       )}
@@ -143,7 +143,7 @@ const RateUs = () => {
             </div>
             <Button
               type="submit"
-              className="curson-pointer rounded-[3px] bg-[#fec900] disabled:bg-[#F1F2F6] py-2 px-3 m-[5px_15px_0_0] self-end text-white text-xs disabled:text-[rgba(0,0,0,0.43)]"
+              className="curson-pointer rounded-[3px] bg-primary disabled:bg-[#F1F2F6] py-2 px-3 m-[5px_15px_0_0] self-end text-white text-xs disabled:text-[rgba(0,0,0,0.43)]"
               disabled={!textAreaValue}>
               Send
             </Button>

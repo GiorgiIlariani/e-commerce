@@ -146,7 +146,7 @@ const DeactivateForm = () => {
             </Button>
             <Button
               type="submit"
-              className="bg-[#fec900] rounded-lg py-[22px] text-white text-center font-medium hover:bg-[#ffdb4d]">
+              className="bg-primary rounded-lg py-[22px] text-white text-center font-medium hover:bg-[#ffdb4d]">
               Submit
             </Button>
           </div>

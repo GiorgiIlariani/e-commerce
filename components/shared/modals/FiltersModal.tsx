@@ -144,7 +144,7 @@ export function Filters() {
               </div>
               <Button
                 type="submit"
-                className="text-white bg-[#fec900] rounded-lg px-12 py-4 text-base">
+                className="text-white bg-primary rounded-lg px-12 py-4 text-base">
                 Search
               </Button>
             </div>

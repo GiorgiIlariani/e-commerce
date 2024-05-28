@@ -136,7 +136,7 @@ const ContactPageForm = () => {
           )}
         />
 
-        <Button className="w-full bg-[#fec900] rounded-3xl py-6 text-white text-center font-medium hover:bg-[#ffdb4d]">
+        <Button className="w-full bg-primary rounded-3xl py-6 text-white text-center font-medium hover:bg-[#ffdb4d]">
           {isLoading ? "sending..." : "send"}
         </Button>
       </form>

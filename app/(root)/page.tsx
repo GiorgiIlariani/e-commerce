@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import BuySellLogo from "@/public/assets/images/buy-sell.png";
 import NewAddedCategories from "@/components/shared/home/NewAddedProducts";
 import Spinner from "@/components/shared/loader/Spinner";
+import Categories from "@/components/shared/Categories";
 
 const HomePage = () => {
   return (
@@ -19,6 +20,7 @@ const HomePage = () => {
             </div>
           }>
           <SearchComponent />
+          <Categories />
           <SavedCategories />
           <Promoting
             title="Buy and Sell Items Easily and Quickly"

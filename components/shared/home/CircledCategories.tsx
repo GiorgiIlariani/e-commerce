@@ -10,7 +10,7 @@ const CircledCategories = () => {
       <div className="w-full flex flex-row justify-between items-center">
         {CircledCategoriesConstants.map(({ img, title, id }) => (
           <div key={id} className="flex flex-col items-center">
-            <div className="w-[183px] h-[180px] bg-white hover:bg-[#fec900] transition duration-300 ease-out rounded-full flex items-center justify-center cursor-pointer">
+            <div className="w-[183px] h-[180px] bg-white hover:bg-primary transition duration-300 ease-out rounded-full flex items-center justify-center cursor-pointer">
               <Image src={img} alt={title} width={100} height={100} />
             </div>
             <div className="text-[13px] font-bold mt-4 text-center">

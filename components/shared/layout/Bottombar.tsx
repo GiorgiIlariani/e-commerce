@@ -36,7 +36,7 @@ const Bottombar = () => {
               <Link
                 href={link.route}
                 key={link.label}
-                className={`bottombar_link ${isActive ? "bg-[#fec900]" : ""}`}>
+                className={`bottombar_link ${isActive ? "bg-primary" : ""}`}>
                 {link.icon}
                 <p className="max-xs:hidden text-sm font-medium">
                   {link.label.split(/\s+/)[0]}

@@ -12,6 +12,8 @@ const config = {
   theme: {
     extend: {
       colors: {
+        "primary": '#fec900',
+         "light-1": "#FFFFFF",
          glassmorphism: "rgba(16, 16, 18, 0.60)",
       },
       animation: {

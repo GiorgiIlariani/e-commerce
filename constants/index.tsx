@@ -49,6 +49,26 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaHistory } from "react-icons/fa";
 import { FaRegMessage } from "react-icons/fa6";
 
+// react icons
+import { RiCustomerService2Line } from "react-icons/ri";
+import { FaShapes } from "react-icons/fa";
+import { AiFillHome } from "react-icons/ai";
+import { MdPower } from "react-icons/md";
+import { SlTarget } from "react-icons/sl";
+import { IoMdMusicalNote } from "react-icons/io";
+import { FaBabyCarriage } from "react-icons/fa";
+import { FaBasketballBall } from "react-icons/fa";
+import { MdConstruction } from "react-icons/md";
+import { BiBookOpen } from "react-icons/bi";
+import { IoIosBusiness } from "react-icons/io";
+
+// mui icons
+import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
+import AgricultureOutlinedIcon from "@mui/icons-material/AgricultureOutlined";
+import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
+import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
+import CoffeeMakerOutlinedIcon from "@mui/icons-material/CoffeeMakerOutlined";
+
 //  layout constants
 export const headerIcons = [
   {
@@ -261,31 +281,37 @@ export const CircledCategoriesConstants = [
     id: 1,
     img: TechnicLogo,
     title: "technik",
+    href: "/technic",
   },
   {
     id: 2,
     img: RemontLogo,
     title: "Repair materials",
+    href: "/construction and repair",
   },
   {
     id: 3,
     img: ChairLogo,
     title: "Home and Garden",
+    href: "home and garden",
   },
   {
     id: 4,
     img: FridgeLogo,
     title: "Household Appliances",
+    href: "home and garden",
   },
   {
     id: 5,
     img: ClothesLogo,
     title: "clothes",
+    href: "beauty and fashion",
   },
   {
     id: 6,
     img: BasketBall,
     title: "Sports",
+    href: "sport and holiday",
   },
 ];
 
@@ -380,5 +406,106 @@ export const financesTabs = [
   {
     route: "/finances/transactions-history",
     text: "Transaction History",
+  },
+];
+
+export const Sidebar = [
+  {
+    id: 1,
+    icon: <RiCustomerService2Line />,
+    title: "service",
+    href: "service",
+  },
+  {
+    id: 2,
+    icon: <FaShapes />,
+    title: "rent",
+    href: "rent",
+  },
+  {
+    id: 3,
+    icon: <AiFillHome />,
+    title: "home and garden",
+    href: "home and garden",
+  },
+  {
+    id: 4,
+    icon: <CoffeeMakerOutlinedIcon />,
+    title: "family technik",
+    href: "family technik",
+  },
+  {
+    id: 5,
+    icon: <MdPower />,
+    title: "technic",
+    href: "technic",
+  },
+  {
+    id: 6,
+    icon: <SlTarget />,
+    title: "hunting and fishing",
+    href: "hunting and fishing",
+  },
+
+  {
+    id: 7,
+    icon: <IoMdMusicalNote />,
+    title: "music",
+    href: "music",
+  },
+  {
+    id: 8,
+    icon: <FaBabyCarriage />,
+    title: "for children's",
+    href: "children",
+  },
+  {
+    id: 9,
+    icon: <DiamondOutlinedIcon />,
+    title: "beauty and fashion",
+    href: "beauty and fashion",
+  },
+
+  {
+    id: 10,
+    icon: <MdConstruction />,
+    title: "construction and repair",
+    href: "construction and repair",
+  },
+  {
+    id: 11,
+    icon: <AgricultureOutlinedIcon />,
+    title: "Agriculture",
+    href: "Agriculture",
+  },
+  {
+    id: 12,
+    icon: <PetsOutlinedIcon />,
+    title: "animals",
+    href: "animals",
+  },
+  {
+    id: 13,
+    icon: <FaBasketballBall />,
+    title: "sport and holiday",
+    href: "sport and holiday",
+  },
+  {
+    id: 14,
+    icon: <IoIosBusiness />,
+    title: "business and machines",
+    href: "business and machines",
+  },
+  {
+    id: 15,
+    icon: <BiBookOpen />,
+    title: "books",
+    href: "books",
+  },
+  {
+    id: 16,
+    icon: <PaletteOutlinedIcon />,
+    title: "art and collectable",
+    href: "art and collectable",
   },
 ];

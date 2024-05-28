@@ -70,7 +70,7 @@ const ProfileModal = ({
                 className="flex items-center gap-3 group"
                 onClick={() => setShowProfileModal(false)}>
                 <div className="profile_link">
-                  <link.Icon className="group-hover:text-[#fec900]" />
+                  <link.Icon className="group-hover:text-primary" />
                 </div>
                 <p className="profile_link-p">{link.text}</p>
               </Link>
@@ -85,7 +85,7 @@ const ProfileModal = ({
                 className="flex items-center gap-3 group"
                 onClick={() => setShowProfileModal(false)}>
                 <div className="profile_link">
-                  <link.Icon className="group-hover:text-[#fec900]" />
+                  <link.Icon className="group-hover:text-primary" />
                 </div>
                 <p className="profile_link-p">{link.text}</p>
               </Link>
@@ -101,7 +101,7 @@ const ProfileModal = ({
                 onClick={() => setShowProfileModal(false)}>
                 <div className="profile_link">
                   {link.Icon && (
-                    <link.Icon className="group-hover:text-[#fec900]" />
+                    <link.Icon className="group-hover:text-primary" />
                   )}
                 </div>
                 <p className="profile_link-p">{link.text}</p>
@@ -128,7 +128,7 @@ const ProfileModal = ({
           <div className="flex flex-col gap-10">
             <div className="flex w-full items-center justify-center gap-4 pb-16 flex-col sm:flex-row">
               <Link href="/sign-in" className="w-full">
-                <Button className="w-full rounded-xl bg-[#fec900] px-7 py-3 text-[14px] font-bold text-white">
+                <Button className="w-full rounded-xl bg-primary px-7 py-3 text-[14px] font-bold text-white">
                   შესვლა
                 </Button>
               </Link>

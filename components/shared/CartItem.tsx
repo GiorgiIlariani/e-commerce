@@ -82,7 +82,7 @@ const CartItem = ({
         <Input
           type="checkbox"
           id={String(cartItem?.product.id)}
-          className="w-4 h-4 rounded-sm bg-white checked:bg-[#fec900]"
+          className="w-4 h-4 rounded-sm bg-white checked:bg-primary"
           checked={selectedCartProductsId.includes(cartItem.product.id)}
           onChange={handleCheckboxToggle}
         />
@@ -107,7 +107,7 @@ const CartItem = ({
         {quantity > 0 ? (
           <div className="flex justify-between items-center gap-2 md:gap-4">
             <Button
-              className="flex justify-center items-center w-6 h-6 bg-[#f1f3f6] text-[#8996ae] hover:bg-[#FEC900] hover:text-white text-bold rounded-full"
+              className="flex justify-center items-center w-6 h-6 bg-[#f1f3f6] text-[#8996ae] hover:bg-primary hover:text-white text-bold rounded-full"
               onClick={handleSubtraction}>
               -
             </Button>
@@ -115,7 +115,7 @@ const CartItem = ({
               {quantity}
             </span>
             <Button
-              className="flex justify-center items-center w-6 h-6 bg-[#f1f3f6] text-[#8996ae] hover:bg-[#FEC900] hover:text-white text-bold  rounded-full"
+              className="flex justify-center items-center w-6 h-6 bg-[#f1f3f6] text-[#8996ae] hover:bg-primary hover:text-white text-bold  rounded-full"
               onClick={handleAddition}>
               +
             </Button>
@@ -132,7 +132,7 @@ const CartItem = ({
           </>
         )}
         <Button
-          className="absolute right-2 text-xl bg-[#f1f3f6] text-[#8996ae] rounded-full p-[6px] hover:bg-[#FEC900] hover:text-white"
+          className="absolute right-2 text-xl bg-[#f1f3f6] text-[#8996ae] rounded-full p-[6px] hover:bg-primary hover:text-white"
           onClick={() => handleRemoveCartItem(cartItem?.product.id)}>
           <MdDeleteOutline />
         </Button>

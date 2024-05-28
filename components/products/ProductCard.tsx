@@ -148,9 +148,9 @@ const ProductCard = ({
                     <div
                       className={`${
                         isInCart
-                          ? "bg-[#fec900] text-white"
+                          ? "bg-primary text-white"
                           : "bg-gray-200 text-black"
-                      } rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 ${
+                      } rounded-[8px]  w-8 h-8 hover:text-white hover:bg-primary transition duration-300 ${
                         isOnFavoritePage ? "hidden" : "flex-center"
                       }`}
                       onClick={handleAddCart}>
@@ -159,9 +159,9 @@ const ProductCard = ({
                     <div
                       className={`${
                         isFavorite
-                          ? "bg-[#fec900] text-white"
+                          ? "bg-primary text-white"
                           : "bg-gray-200 text-black"
-                      } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-[#fec900] transition duration-300 `}
+                      } flex-center rounded-[8px]  w-8 h-8 hover:text-white hover:bg-primary transition duration-300 `}
                       onClick={handleFavoriteClick}>
                       <IoIosHeartEmpty className="text-lg" />
                     </div>

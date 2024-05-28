@@ -12,7 +12,7 @@ const SignInPage = () => {
       <div className="max-w-xl mt-6 text-center">
         <p className="text-lg text-gray-400">
           with an existing account -{" "}
-          <Link href="/sign-in" className="text-[#fec900]">
+          <Link href="/sign-in" className="text-primary">
             Login
           </Link>{" "}
         </p>

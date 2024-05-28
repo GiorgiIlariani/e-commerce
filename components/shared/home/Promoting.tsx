@@ -20,7 +20,7 @@ const Promoting = ({
           </h2>
           <p className="text-[#8996ae] text-base xs:text-sm">{description}</p>
           <Link href={route}>
-            <Button className="rounded-lg bg-[#fec900] px-10 py-3 text-[14px] font-bold text-white">
+            <Button className="rounded-lg bg-primary px-10 py-3 text-[14px] font-bold text-white">
               {buttonText}
             </Button>
           </Link>

@@ -22,19 +22,19 @@ export function ConfirmationModal({
 }: ConfirmationModalProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="bg-white border border-[#fec900]">
-        <AlertDialogHeader className="text-[#fec900]">
+      <AlertDialogContent className="bg-white border border-primary">
+        <AlertDialogHeader className="text-primary">
           <AlertDialogTitle>{title}</AlertDialogTitle>
         </AlertDialogHeader>
         <div className="text-black">{message}</div>
         <AlertDialogFooter className="mt-4">
           <AlertDialogCancel
-            className="text-[#fec900] hover:bg-[#fec90033]"
+            className="text-primary hover:bg-[#fec90033]"
             onClick={onCancel}>
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            className="text-white bg-[#fec900] hover:bg-[#d8a700]"
+            className="text-white bg-primary hover:bg-[#d8a700]"
             onClick={onConfirm}>
             {isLoading ? "Confirming..." : "Confirm"}
           </AlertDialogAction>

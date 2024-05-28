@@ -28,7 +28,7 @@ const NavItems = () => {
           <Link
             href={href}
             key={href}
-            className={`${isActive && "text-[#fec900]"} text-xl font-normal`}>
+            className={`${isActive && "text-primary"} text-xl font-normal`}>
             {label}
           </Link>
         );
