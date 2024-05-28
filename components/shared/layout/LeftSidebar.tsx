@@ -67,8 +67,8 @@ const LeftSidebar = () => {
         </div>
         <Link className="flex items-center gap-2" href="/finances/balance">
           <h4 className="text-sm">fill</h4>
-          <div className="w-7 h-7 flex justify-center items-center bg-[#d0d8fa] text-black rounded-[4px]">
-            <AddIcon fontSize="inherit" color="primary" />
+          <div className="w-7 h-7 flex justify-center items-center bg-[#d0d8fa] rounded-[4px]">
+            <AddIcon fontSize="inherit" />
           </div>
         </Link>
       </div>

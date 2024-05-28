@@ -72,7 +72,7 @@ const SavedCategories = () => {
 
   return (
     <section className="mt-10">
-      <div className="w-full flex justify-between items-center">
+      <div className="w-full flex justify-between items-start md:items-center">
         <div className="flex md:items-center gap-4 flex-col md:flex-row">
           <h2 className="text-lg font-bold">Continue Searching</h2>
           <div className="flex items-center gap-4">
