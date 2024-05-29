@@ -43,7 +43,7 @@ const LeftSidebar = () => {
   if (!user) return null;
 
   return (
-    <div className="w-[250px] xl:w-[290px] bg-white xl:px-4 px-3 py-6 border-2 border-[#e7eaf3] rounded-2xl hidden lg:block">
+    <div className="w-[250px] xl:w-[290px] bg-white xl:px-4 px-3 py-8 border-2 border-[#e7eaf3] rounded-2xl hidden lg:block">
       <div className="flex items-center gap-3">
         <Image
           src={user?.image || personImg}
@@ -73,7 +73,7 @@ const LeftSidebar = () => {
         </Link>
       </div>
 
-      <div className="flex flex-col gap-4 items-start mt-6">
+      <div className="flex flex-col gap-4 items-start mt-8">
         {profileLinks.map((link, index) => {
           const isActive = link.href === pathname;
           return (
@@ -91,7 +91,7 @@ const LeftSidebar = () => {
           );
         })}
       </div>
-      <Separator className="border border-gray-100 my-3" />
+      <Separator className="border border-gray-100 my-6" />
 
       <div className="flex flex-col gap-4 items-start">
         {extraLinks.map((link, index) => {
@@ -112,7 +112,7 @@ const LeftSidebar = () => {
           );
         })}
       </div>
-      <Separator className="border border-gray-100 my-3" />
+      <Separator className="border border-gray-100 my-6" />
       <div className="flex flex-col gap-4 items-start">
         {accountLinks.map((link, index) => {
           const isActive = link.href === pathname;

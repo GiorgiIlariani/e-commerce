@@ -108,7 +108,7 @@ const PasswordPage = () => {
                           newPassword: !prevState.newPassword,
                         }))
                       }
-                      className="outline-none absolute left-1 top-1">
+                      className="outline-none absolute left-1 top-1 bg-transparent">
                       {showPassword.newPassword ? (
                         <FaRegEye className="h-6 w-6 text-gray-400" />
                       ) : (
@@ -146,7 +146,7 @@ const PasswordPage = () => {
                           repeatNewPassword: !prevState.repeatNewPassword,
                         }))
                       }
-                      className="outline-none absolute left-1 top-1">
+                      className="outline-none absolute left-1 top-1 bg-transparent">
                       {showPassword.repeatNewPassword ? (
                         <FaRegEye className="h-6 w-6 text-gray-400" />
                       ) : (
