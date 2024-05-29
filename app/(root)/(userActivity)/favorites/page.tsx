@@ -16,7 +16,7 @@ import { url } from "@/lib/utils";
 const FavoritesPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [favoriteProducts, setFavoriteProducts] = useState<
-    favoriteProductList[]
+    FavoriteProductList[]
   >([]);
   const searchParams = useSearchParams();
   const [page, setPage] = useState(Number(searchParams.get("page") || 1));
@@ -46,19 +46,23 @@ const FavoritesPage = () => {
     fetchFavoriteProducts();
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-[70vh] w-full flex-center">
-        <Spinner lg />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="min-h-[70vh] w-full flex-center">
+  //       <Spinner lg />
+  //     </div>
+  //   );
+  // }
 
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6] relative">
       <div className="wrapper flex flex-col">
         <UserActivityHeader route="My Favourites" />
-        {favoriteProducts.length === 0 ? (
+        {isLoading ? (
+          <div className="min-h-[70vh] w-full flex-center">
+            <Spinner lg />
+          </div>
+        ) : favoriteProducts.length === 0 ? (
           <div className="w-full flex flex-col justify-center items-center pt-[140px] text-center">
             <div className="flex h-12 w-12 items-center justify-center text-xl duration-300 ease-out rounded-full bg-gray-300">
               <AiOutlineHeart fontSize={16} />
@@ -76,7 +80,6 @@ const FavoritesPage = () => {
           </div>
         ) : (
           <div className="w-full my-[120px] md:my-10 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2 mt-8">
-            {/* favorite products */}
             {favoriteProducts.map((favoriteProduct) => (
               <ProductCard
                 key={favoriteProduct?.product?.id}

@@ -62,7 +62,6 @@ const LeftSidebar = () => {
       <div className="w-full flex justify-between items-center px-3 py-2 my-3 border rounded-lg">
         <div className="flex flex-col gap-2">
           <h3 className="text-sm">Balance</h3>
-          {/* hard coded */}
           <strong className="font-bold text-2xl">{user?.balance}</strong>
         </div>
         <Link className="flex items-center gap-2" href="/finances/balance">

@@ -41,7 +41,6 @@ const Header = () => {
   return (
     <header className="w-full border-b border-[#e5e7eb]">
       <div className="wrapper flex-between">
-        {/* left side of the navbar */}
         <Link href="/" className="rounded-full">
           <Image
             src="/assets/images/mymarket.svg"
@@ -52,9 +51,7 @@ const Header = () => {
             priority
           />
         </Link>
-        {/* right side of the header */}
         <div className="hidden md:flex items-center gap-4">
-          {/* <Link href="/product-form"> */}
           <Button
             className="flex items-center gap-2 rounded-xl px-6 bg-[#FFF4CC] hover:bg-[#FFF4CC]"
             onClick={addProduct}>
@@ -66,7 +63,6 @@ const Header = () => {
             />
             <span className="text-xs font-medium">Add product</span>
           </Button>
-          {/* </Link> */}
           <ul className="flex items-center">
             {headerIcons.map(({ href, icon }) => (
               <Link href={href} className="icon-overlay" key={href}>
@@ -81,7 +77,6 @@ const Header = () => {
             isFetching={isFetching}
           />
         </div>
-        {/* mobile navigation */}
         <MobileNav />
       </div>
     </header>

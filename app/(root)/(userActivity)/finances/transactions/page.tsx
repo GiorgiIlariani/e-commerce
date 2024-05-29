@@ -112,7 +112,7 @@ const TransactionsPage = () => {
           />
           <Link
             className="flex items-center gap-5 px-7 py-[14px] bg-transparent border border-[#e4e7ed] rounded-xl"
-            href="/finances/transactions">
+            href="/finances/balance">
             <Image
               src="/assets/images/transactions/arrow.svg"
               alt="arrow icon"

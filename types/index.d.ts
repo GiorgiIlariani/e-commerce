@@ -54,7 +54,7 @@ declare type SearchedProductTypes = {
 
 declare type ProductList = Product[];
 
-declare type favoriteProductList = {
+declare type FavoriteProductList = {
   product: Product;
 }
 

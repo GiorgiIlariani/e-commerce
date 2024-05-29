@@ -32,7 +32,6 @@ const HomePage = () => {
             }}
             route="/search"
           />
-          {/* <CircledCategories /> */}
           <NewAddedCategories />
         </Suspense>
       </div>

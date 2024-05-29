@@ -6,4 +6,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // export const url = "https://nika2004.pythonanywhere.com";
-export const url = "http://16.16.253.75";
+// 
+export const url = "https://nikamdinaradze.com";

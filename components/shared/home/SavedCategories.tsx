@@ -19,6 +19,7 @@ const SavedCategories = () => {
   const [selectedButton, setSetelectedButton] = useState<
     "lastSearched" | "saved"
   >("lastSearched");
+  const router = useRouter();
 
   // get last saved categories from localstorage
   const initialSavedCategories =
@@ -38,8 +39,6 @@ const SavedCategories = () => {
   const [favoriteCategories, setFavoriteCategories] = useState(
     initialFavoriteCategories
   );
-
-  const router = useRouter();
 
   const handleFavoriteClick = (clickedCategory: string) => {
     const index = favoriteCategories.indexOf(clickedCategory);

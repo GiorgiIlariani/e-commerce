@@ -12,7 +12,6 @@ const Footer = () => {
     <footer className="w-full bg-white">
       <Scroll />
       <div className="mx-auto mt-10 flex max-w-7xl justify-between gap-8 pb-10 px-5 flex-col md:flex-row">
-        {/* top categories */}
         <div className="hidden xl:block">
           <h4 className="pb-8 text-[14px] font-bold">{topCategories.title}</h4>
           <ul className="grid grid-cols-3 gap-x-4 gap-y-[6px]">
@@ -27,7 +26,6 @@ const Footer = () => {
             ))}
           </ul>
         </div>
-        {/* menuCategories */}
         <div className="grid grid-cols-2 gap-x-4">
           {menuAndMyPageCategories.map(({ title, links, id }) => (
             <div key={id}>
@@ -46,7 +44,6 @@ const Footer = () => {
             </div>
           ))}
         </div>
-        {/* additionalCategories */}
         <div className="md:flex md:flex-col gap-4 grid grid-cols-2">
           {additionalCategories.map(({ id, title, links }) => (
             <div key={id}>

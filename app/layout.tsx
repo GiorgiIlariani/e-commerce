@@ -14,7 +14,6 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/lib/theme";
 
-
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -35,7 +34,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable} flex h-screen flex-col`}>
         <ToastContainer />
-        {/* <ThemeProvider theme={theme}> */}
         <AppRouterCacheProvider options={{ key: "css" }}>
           <ThemeProvider theme={theme}>
             <Provider>
@@ -48,7 +46,6 @@ export default function RootLayout({
             </Provider>
           </ThemeProvider>
         </AppRouterCacheProvider>
-        {/* </ThemeProvider> */}
       </body>
     </html>
   );

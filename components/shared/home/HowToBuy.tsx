@@ -11,7 +11,6 @@ const HowToBuyOnline = () => {
       <h2 className="my-4 text-center text-[18px] font-bold">
         How to buy online?
       </h2>
-      {/* cards */}
       <div className="mx-auto mt-10 grid max-w-[1000px] grid-cols-1 xs:grid-cols-2 md:grid-cols-4">
         {HowToBuy.map(({ img, title, id }) => (
           <div className="flex items-center justify-center" key={id}>

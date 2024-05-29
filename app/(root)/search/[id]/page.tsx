@@ -137,8 +137,6 @@ const ProductDetailsPage = ({ params }: { params: { id: string } }) => {
     );
   }
 
-  // console.log(productDetails);
-
   return (
     <>
       <section className="wrapper flex flex-col lg:flex-row gap-8 w-full bg-[#f1f3f6] py-10">

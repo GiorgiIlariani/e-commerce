@@ -4,12 +4,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "nika2004.pythonanywhere.com",
+        hostname: "nikamdinaradze.com",
         port: "",
       },
       {
         protocol: "http",
-        hostname: "16.16.253.75",
+        hostname: "nikamdinaradze.com",
         port: "",
       },
     ],

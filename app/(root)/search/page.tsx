@@ -154,7 +154,6 @@ const SearchedProducts = () => {
         </div>
       </div>
       <section className="flex flex-col lg:flex-row gap-8 mb-20 mt-6 items-start">
-        {/* <SearchFilterSidebar /> */}
         {isLoading ? (
           <div className="w-full grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {Array.from({ length: 12 }).map((_, index) => (

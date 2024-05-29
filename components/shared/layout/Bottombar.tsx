@@ -12,6 +12,7 @@ import ProfileModal from "../modals/ProfileModal";
 const Bottombar = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const pathname = usePathname();
 
   const { data: user, refetch } = useRetrieveUserQuery(undefined, {
     skip: !isAuthenticated,
@@ -22,8 +23,6 @@ const Bottombar = () => {
       refetch();
     }
   }, [isAuthenticated]);
-
-  const pathname = usePathname();
 
   return (
     <>

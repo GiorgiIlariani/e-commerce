@@ -281,7 +281,6 @@ const ProductFormPage = () => {
               />
             </div>
 
-            {/* upload images */}
             <div className="w-full bg-white rounded-3xl px-10 py-5 sm:py-10 mt-5 flex flex-col">
               <AdditionalInformation text="With properly selected photos, you will attract more people" />
 
@@ -383,12 +382,7 @@ const ProductFormPage = () => {
                   <FormItem>
                     <FormLabel>Specify the quantity of the item*</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        type="number"
-                        // placeholder="0"
-                        className="input-field"
-                      />
+                      <Input {...field} type="number" className="input-field" />
                     </FormControl>
                     <FormMessage className="text-red-600" />
                   </FormItem>

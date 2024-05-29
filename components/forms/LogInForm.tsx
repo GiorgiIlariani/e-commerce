@@ -88,7 +88,6 @@ const LogInForm = ({ type }: LoginFormProps) => {
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="sm:space-y-14 space-y-16">
-        {/* username */}
         <FormField
           control={form.control}
           name="username"
@@ -107,7 +106,6 @@ const LogInForm = ({ type }: LoginFormProps) => {
         />
         {type === "Sign Up" && (
           <>
-            {/* email */}
             <FormField
               control={form.control}
               name="email"
@@ -124,7 +122,6 @@ const LogInForm = ({ type }: LoginFormProps) => {
                 </FormItem>
               )}
             />
-            {/* first name */}
             <FormField
               control={form.control}
               name="first_name"
@@ -141,7 +138,6 @@ const LogInForm = ({ type }: LoginFormProps) => {
                 </FormItem>
               )}
             />
-            {/* last name */}
             <FormField
               control={form.control}
               name="last_name"
@@ -160,7 +156,6 @@ const LogInForm = ({ type }: LoginFormProps) => {
             />
           </>
         )}
-        {/* password */}
         <FormField
           control={form.control}
           name="password"

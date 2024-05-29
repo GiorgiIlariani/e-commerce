@@ -103,8 +103,6 @@ const MyProductsPage = () => {
     }
   };
 
-  console.log(myProducts);
-
   return (
     <section className="w-full min-h-screen bg-[#f1f3f6]">
       <div className="wrapper flex flex-col">
