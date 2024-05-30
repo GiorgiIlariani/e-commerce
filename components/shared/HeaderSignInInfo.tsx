@@ -14,6 +14,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/redux/features/authSlice";
 import { useDispatch } from "react-redux";
 import { FaAngleDown } from "react-icons/fa6";
+import { Skeleton } from "@mui/material";
 
 const HeaderSignInInfo = ({
   user,
@@ -30,7 +31,17 @@ const HeaderSignInInfo = ({
   };
 
   if (isLoading || isFetching) {
-    return null;
+    return (
+      <div className="flex items-center justify-center gap-2 px-2 border border-[#dee2e6] py-[6px] rounded-xl">
+        <Skeleton
+          variant="circular"
+          width={25}
+          height={25}
+          className="bg-gray-300"
+        />
+        <Skeleton variant="text" width={40} height={20} />
+      </div>
+    );
   }
 
   return (
