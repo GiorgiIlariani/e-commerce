@@ -1,5 +1,5 @@
 MyMarket Clone
-URL: MyMarket Clone
+URL: [MyMarket Clone](https://mymarket-delta.vercel.app/)
 
 Introduction
 Welcome to MyMarket Clone, an e-commerce platform designed to provide a seamless experience for both sellers and buyers from anywhere in the world. This platform includes a comprehensive set of features that facilitate the entire process of online buying and selling.
@@ -45,6 +45,7 @@ Contact Information
 For questions, mentorship opportunities, or further information, please contact:
 
 Email: codemasterig@gmail.com
-LinkedIn: Giorgi Ilariani
+LinkedIn: www.linkedin.com/in/giorgi-ilariani-69869a260
+
 Additional Information
 MyMarket Clone is constantly evolving to provide the best user experience. We value your feedback and suggestions to make our platform even better.
