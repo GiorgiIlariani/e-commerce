@@ -33,7 +33,6 @@ Target Audience
 Our platform is designed for users from anywhere who need to buy or sell products online. Whether you are an individual seller, a small business, or a buyer looking for specific items, MyMarket Clone caters to all your needs.
 
 Technologies Used
-
 Backend: Django
 Frontend: Next.js
 Hosting: Vercel
@@ -42,7 +41,6 @@ To explore the features and functionality of MyMarket Clone, simply visit the ho
 
 
 Contact Information
-
 For questions, mentorship opportunities, or further information, please contact:
 
 Email: codemasterig@gmail.com
