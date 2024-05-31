@@ -1,10 +1,9 @@
 MyMarket Clone
 URL: [MyMarket Clone](https://mymarket-delta.vercel.app/)
 
-Introduction
+
 Welcome to MyMarket Clone, an e-commerce platform designed to provide a seamless experience for both sellers and buyers from anywhere in the world. This platform includes a comprehensive set of features that facilitate the entire process of online buying and selling.
 
-Features
 MyMarket Clone offers a wide range of features to enhance user experience and functionality:
 
 * User Management
@@ -34,6 +33,7 @@ Target Audience
 Our platform is designed for users from anywhere who need to buy or sell products online. Whether you are an individual seller, a small business, or a buyer looking for specific items, MyMarket Clone caters to all your needs.
 
 Technologies Used
+
 Backend: Django
 Frontend: Next.js
 Hosting: Vercel
@@ -42,6 +42,7 @@ To explore the features and functionality of MyMarket Clone, simply visit the ho
 
 
 Contact Information
+
 For questions, mentorship opportunities, or further information, please contact:
 
 Email: codemasterig@gmail.com
