@@ -45,6 +45,9 @@ declare type Product = {
   user: number;
 };
 
+declare type ProductList = Product[];
+
+
 declare type SearchedProductTypes = {
   count: number;
   next: null | string;
@@ -52,7 +55,6 @@ declare type SearchedProductTypes = {
   results: Product[];
 }
 
-declare type ProductList = Product[];
 
 declare type FavoriteProductList = {
   product: Product;
@@ -212,21 +214,13 @@ declare interface ProfileModalProps {
   user: UserDetailsTypes | undefined;
 }
 
-// declare interface CartItemProps {
-//   cartItem: CartProducts;
-//   handleRemoveCartItem: (productId: number) => Promise<void>;
-//   selectedCartProductsId: number[];
-//   setSelectedCartProductsId: Dispatch<SetStateAction<number[]>>;
-//   setTotalPrice: Dispatch<SetStateAction<number>>;
-//   setCartProducts: Dispatch<SetStateAction<CartProducts[]>>;
-// };
-
 declare interface DropdownProps {
   value?: string;
   onChangeHandler?: (value: string) => void;
   placeholder: string;
   type: "category" | "location";
   setSelectedCategory?: Dispatch<SetStateAction<string>>;
+  myProductsCategories?: number[];
 };
 
 declare interface HeaderSignInInfoProps {

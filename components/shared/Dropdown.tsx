@@ -19,6 +19,7 @@ const Dropdown = ({
   placeholder,
   type,
   setSelectedCategory,
+  myProductsCategories = [],
 }: DropdownProps) => {
   const [dropdownContent, setDropdownContent] = useState<dropdownContentType[]>(
     []
@@ -41,6 +42,11 @@ const Dropdown = ({
     }
   };
 
+  const content =
+    myProductsCategories.length > 0
+      ? dropdownContent.filter(({ id }) => myProductsCategories.includes(id))
+      : dropdownContent;
+
   return (
     <Select onValueChange={handleValueChange} value={value}>
       <SelectTrigger className="input-field">
@@ -48,7 +54,7 @@ const Dropdown = ({
       </SelectTrigger>
       <SelectContent className="bg-white">
         {dropdownContent.length > 0 &&
-          dropdownContent.map(({ id, name }) => (
+          content.map(({ id, name }) => (
             <SelectItem
               key={id}
               value={id.toString()}

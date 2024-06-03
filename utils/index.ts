@@ -92,3 +92,15 @@ export  const calculateTotals = ({ transactionHistory, user }: { transactionHist
     });
     return { income, expence };
   };
+
+export  const getPriceText = ({ minPrice, maxPrice }: { minPrice: number; maxPrice: number }) => {
+  if (minPrice && maxPrice) {
+    return `${minPrice}-${maxPrice}`;
+  } else if (minPrice) {
+    return `${minPrice}`;
+  } else if (maxPrice) {
+    return `-${maxPrice}`;
+  } else {
+    return "Price";
+  }
+};

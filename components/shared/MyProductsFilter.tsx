@@ -10,15 +10,23 @@ import {
 import { Input } from "../ui/input";
 import Dropdown from "./Dropdown";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { getPriceText } from "@/utils";
 
-const MyProductsFilter = () => {
+const MyProductsFilter = ({ myProducts }: { myProducts: ProductList }) => {
   const [query, setQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const router = useRouter();
   const pathname = usePathname();
+
+  // Extract unique categories from myProducts
+  const categories = Array.from(
+    new Set(myProducts.flatMap((product) => product.category))
+  );
+
+  console.log(categories);
 
   useEffect(() => {
     const updateUrl = () => {
@@ -83,6 +91,8 @@ const MyProductsFilter = () => {
           placeholder="category"
           type="category"
           setSelectedCategory={setSelectedCategory}
+          // dropdownContent={categories}
+          myProductsCategories={categories}
         />
       </div>
 
@@ -91,7 +101,13 @@ const MyProductsFilter = () => {
         <Popover>
           <PopoverTrigger asChild className="w-full py-[22px] flex-between">
             <Button variant="outline" className="flex-between w-full">
-              <p>Price</p> <MdKeyboardArrowDown />
+              <p>
+                {getPriceText({
+                  minPrice: Number(minPrice),
+                  maxPrice: Number(maxPrice),
+                })}
+              </p>{" "}
+              <MdKeyboardArrowDown />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="bg-white">

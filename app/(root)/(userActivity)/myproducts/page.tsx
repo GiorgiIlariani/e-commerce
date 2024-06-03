@@ -28,6 +28,7 @@ import MyProductsLoader from "@/components/shared/loader/MyProductsLoader";
 
 const MyProductsPage = () => {
   const [myProducts, setMyProducts] = useState<ProductList>([]);
+  const [allMyProducts, setAllMyProducts] = useState<ProductList>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   const searchParams = useSearchParams();
@@ -69,6 +70,12 @@ const MyProductsPage = () => {
           min_price,
           max_price,
         });
+
+        const allMyProducts = await fetchProducts({
+          user: user?.id,
+        });
+
+        setAllMyProducts(allMyProducts.results);
         setMyProducts(myProducts.results);
       } catch (error) {
         console.log(error);
@@ -108,7 +115,7 @@ const MyProductsPage = () => {
       <div className="wrapper flex flex-col">
         <UserActivityHeader route="My Products" />
 
-        <MyProductsFilter />
+        <MyProductsFilter myProducts={allMyProducts} />
 
         {myProducts.length === 0 && !isLoading && searchParams.size === 0 ? (
           <div className="w-full flex flex-col justify-center items-center pt-[100px] pb-[200px] rounded-[16px] text-center bg-white mt-10">
@@ -141,10 +148,14 @@ const MyProductsPage = () => {
           </div>
         ) : (
           <div className="w-full flex flex-col justify-center gap-6 py-6 px-3 sm:px-6 rounded-[16px] text-center bg-white mt-10">
-            {myProducts.map((product) => (
+            {myProducts.map((product, index) => (
               <div
                 key={product.id}
-                className="flex justify-between items-center border-b pb-4">
+                className={`flex justify-between items-center pb-4 ${
+                  myProducts.length !== 1 && index !== myProducts.length - 1
+                    ? "border-b"
+                    : ""
+                }`}>
                 <div className="w-[30%] xs:w-[20%]">
                   <Link href={`/search/${product.id}`}>
                     <Image
